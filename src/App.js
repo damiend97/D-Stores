@@ -9,6 +9,7 @@ import Cart from './components/Cart';
 import Profile from './components/Profile';
 import Error from './components/Error';
 import Nav from './components/Nav';
+import ScrollToTop from './components/ScrollToTop';
 
 class App extends Component {
     constructor(props) {
@@ -57,6 +58,13 @@ class App extends Component {
                     productType: 'ACCESSORIES',
                     productName: 'Flex Fit Hat',
                     productPrice: 88
+                },
+                {
+                    productId: 7,
+                    productImage: 'shoes1',
+                    productType: 'SHOES',
+                    productName: 'Vanity Shoes',
+                    productPrice: 100
                 }
             ],
             cartData : {
@@ -179,6 +187,7 @@ class App extends Component {
     render() {
         return (
             <div className="App">
+                <ScrollToTop />
                 <Nav></Nav>
                 <Switch>
                     <Route path="/" component={Home} exact />

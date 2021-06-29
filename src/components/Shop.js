@@ -4,7 +4,10 @@ import Product from './Product';
 // Add page functionality
 // link filters
 // Add front page products to list
-
+/*
+    let location = useLocation();
+    console.log(location.state);
+*/
 class Shop extends Component {
     constructor(props) {
         super(props);

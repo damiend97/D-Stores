@@ -36,7 +36,8 @@ class Home extends Component {
                     <div className="content-box">
                         <h1>Womens Footwear</h1>
                         <h3>Vanity Selection</h3>
-                        <Link to="/buy" className="buy-button">Buy Now</Link>
+                        {/* hooks not compatible with class based components - use router based rendering, HOC, or ??? */}
+                        <Link to={{pathname: "/shop", state: { filter: "SHOES" }}} className="buy-button">Buy Now</Link>
                     </div>
                     <div className="image-box" id="ib1"></div>
                 </div>
@@ -46,7 +47,7 @@ class Home extends Component {
                     <div className="content-box cl-white">
                         <h1>Assorted Outfits</h1>
                         <h3>A look just for you</h3>
-                        <Link to="/buy" className="buy-button">Buy Now</Link>
+                        <Link to="/shop" className="buy-button">Buy Now</Link>
                     </div>
                 </div>
 
@@ -54,7 +55,7 @@ class Home extends Component {
                     <div className="content-box">
                         <h1>Pump up your kicks</h1>
                         <h3>Elite Pros 3</h3>
-                        <Link to="/buy" className="buy-button">Buy Now</Link>
+                        <Link to="/shop" className="buy-button">Buy Now</Link>
                     </div>
                     <div className="image-box" id="ib3"></div>
                 </div>
@@ -83,15 +84,15 @@ class Home extends Component {
                     <div className="news-descs">
                         <div className="news-desc">
                             <div className="news-header">New Store, San Diego CA</div>
-                            <div className="news-body">Our new shop just opened on 3/2/2020! Swing by and check it out.<br/><br/><a href="#">Get more details here</a></div>
+                            <div className="news-body">Our new shop just opened on 3/2/2020! Swing by and check it out.<br/><br/> <Link to="/news" className="">Get more details here</Link></div>
                         </div>
                         <div className="news-desc">
                             <div className="news-header">Closed for Corona</div>
-                            <div className="news-body">Sorry for the inconvience everybody but we will be forced to shut down all locations until this maddness comes to an end!<br></br><br/><a href="#">Read More</a></div>
+                            <div className="news-body">Sorry for the inconvience everybody but we will be forced to shut down all locations until this maddness comes to an end!<br></br><br/><Link to="/news" className="">Read More</Link></div>
                         </div>
                         <div className="news-desc">
                             <div className="news-header">Helping Hands 2020</div>
-                            <div className="news-body">Help us donate to those in need! We work with several other organizations to give to the less fortunate!<br></br><br/><a href="#">Get Started Here</a></div>
+                            <div className="news-body">Help us donate to those in need! We work with several other organizations to give to the less fortunate!<br></br><br/><Link to="/news" className="">Get Started Here</Link></div>
                         </div>
                     </div>
                 </div>
