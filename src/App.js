@@ -108,8 +108,18 @@ class App extends Component {
                     postTitle : 'Post Six',
                     postBody : 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus incidunt saepe repudiandae asperiores corporis!'
                 }
-            ]
+            ],
+            pathFilter: []
         }
+    }
+
+    handlePath = (pathFilter, pathFilter2) => {
+        let pf = [pathFilter, pathFilter2]
+        this.setState({ pathFilter: pf });
+    }
+    
+    handlePathExit = () => {
+        this.setState({ pathFilter: "" });
     }
 
     doesProductExist = (productId, size) => this.state.cartData.items.find(product => product.productData.productId === productId && product.productSize === size)
@@ -190,8 +200,8 @@ class App extends Component {
                 <ScrollToTop />
                 <Nav></Nav>
                 <Switch>
-                    <Route path="/" component={Home} exact />
-                    <Route path="/shop" render={() => <Shop addToCart={this.addToCart} products={this.state.products} /> } />
+                    <Route path="/" render={(props) => <Home handlePath={this.handlePath} {...props} />} exact />
+                    <Route path="/shop" render={() => <Shop addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/cart" render={() => <Cart cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart}/>} />

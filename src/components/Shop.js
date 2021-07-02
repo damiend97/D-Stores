@@ -8,6 +8,9 @@ import Product from './Product';
     let location = useLocation();
     console.log(location.state);
 */
+
+const initalTypes = [];
+
 class Shop extends Component {
     constructor(props) {
         super(props);
@@ -16,6 +19,41 @@ class Shop extends Component {
             typeFilters: [],
             priceFilter: [0,0]
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            typeFilters: this.props.pathFilter
+        })
+        
+        let buttons = document.getElementsByClassName("filter-button");
+
+        // buttons.forEach(button => {
+        //     if (button.innerHTML === this.props.pathFilter) {
+        //         button.classList.add('type-filter-selected');
+        //     }
+        // });
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
+            
+            if(buttons[i].innerHTML === this.props.pathFilter[0]) {
+                buttons[i].classList.add('type-filter-selected');
+                document.getElementById("all-types-button").classList.remove('type-filter-selected');
+            }
+            if(buttons[i].innerHTML === this.props.pathFilter[1]) {
+                buttons[i].classList.add('type-filter-selected');
+                document.getElementById("all-types-button").classList.remove('type-filter-selected');
+            }
+
+        }
+        console.log(buttons);
+    }
+    componentWillUnmount() {
+        this.setState({
+            typeFilters: initalTypes
+        })
+        this.props.pathExit();
+        console.log(this.state)
     }
 
     filterType = (e) => {

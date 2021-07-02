@@ -180,8 +180,24 @@ body {
     width: 500px;
     text-align: center;
     padding: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     line-height: 3em;
     box-shadow: 4px 4px 10px rgb(100, 100, 100);
+}
+.content-box h3 {
+    background: linear-gradient(to right, rgb(255, 255, 255), rgb(235, 235, 235), rgb(255,255,255));
+    padding: 0 !important;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    color: #2c2c2c;
+}
+.cl-white h3 {
+    background: linear-gradient(to right, #2c2c2c, #333, #2c2c2c);
+    color: #fff;
 }
 .cl-white {
     color: white;
@@ -190,13 +206,20 @@ body {
 .cl-white .buy-button {
     border: 1px solid white;
     color: white;
+    background: rgba(0,0,0,0);
 }
 .buy-button {
     border: 1px solid rgb(20, 20, 20);
-    padding: 8px;
+    padding: 13px;  
     border-radius: 5px;
     color: rgb(20, 20, 20);
     text-decoration: none;
+    background: white;
+    font-size: 15px;
+    margin-top: 20px;
+}
+.buy-button:hover {
+    cursor: pointer;
 }
 
 /* Image Box */
@@ -205,19 +228,19 @@ body {
     width: 50%;
 }
 #ib1 {
-    background: url('./images/shoes2.jpg');
+    background: url('./images/shoes1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 #ib2 {
-    background: url('./images/outfit2.jpg');
+    background: url('./images/shirts3final.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 #ib3 {
-    background: url('./images/shoes1.jpg');
+    background: url('./images/hoodies1.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -283,11 +306,17 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 100px;
 }
 .news-item {
     width: 30%;
-    height: 250px;
+    height: 600px;
+    text-align: center;
+}
+.news-image {
+    height: 300px;
+    width: 100%;
+    margin-bottom: 35px;
 }
 #ni1 {
     background: url('images/store.jpg');
@@ -312,23 +341,30 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 100px;
 }
 .news-desc {
     width: 30%;
-    height: 250px;
+    height: 200px;
     text-align: center;
+    /* border-right: 1px solid #444;
+    border-left: 1px solid #444;
+    border-bottom: 1px solid #444; */
+    background: linear-gradient(to bottom, #fff, rgb(240, 240, 240))
 }
 .news-header {
     font-size: 1.5em;
-    margin-top: 15px;
-    margin-bottom: 15px;
     font-weight: bold;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .news-body {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    font-size: 1.25em;
 }
 .news-body a {
     color: black;

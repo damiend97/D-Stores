@@ -14,6 +14,13 @@ class Home extends Component {
         let fvHeight = viewHeight - navHeight;
         $('.full-view-container').css('height', fvHeight);
     }
+
+    goShop = (pathValue, pathValue2) => {
+        this.props.history.push("/shop");
+        this.props.handlePath(pathValue, pathValue2);
+
+    }
+
     render() {
         
         return (
@@ -34,10 +41,21 @@ class Home extends Component {
 
                 <div className="full-view-container">
                     <div className="content-box">
-                        <h1>Womens Footwear</h1>
-                        <h3>Vanity Selection</h3>
+                        <h1>Elite Footwear</h1>
+                        <h3>Pump up your kicks</h3>
                         {/* hooks not compatible with class based components - use router based rendering, HOC, or ??? */}
-                        <Link to={{pathname: "/shop", state: { filter: "SHOES" }}} className="buy-button">Buy Now</Link>
+                        {/* Make this a button that uses this.history.push to change to /shop and then change filter */}
+                        {/* <Link to={{pathname: "/shop", state: { filter: "SHOES" }}} className="buy-button">Buy Now</Link> */ }
+                        {/* OKAY LINK IS SET, NOW FIX FILTERS also fix button styling*/}
+                        {/* adjust product selection */}
+
+                        {/*filters fixed, button style fixed*/}
+                        {/* finish adjusting product selection/home page featured products*/
+                        /* Work on news section and contact section
+                        work on profile section
+                        and then finished! mobile?.... */
+                        }
+                        <button onClick={() => this.goShop("SHOES","")} className="buy-button">Buy Now</button>
                     </div>
                     <div className="image-box" id="ib1"></div>
                 </div>
@@ -45,17 +63,17 @@ class Home extends Component {
                 <div className="full-view-container bg-gray">
                     <div className="image-box" id="ib2"></div>
                     <div className="content-box cl-white">
-                        <h1>Assorted Outfits</h1>
+                        <h1>Assorted Tops</h1>
                         <h3>A look just for you</h3>
-                        <Link to="/shop" className="buy-button">Buy Now</Link>
+                        <button onClick={() => this.goShop("SHIRTS","")} className="buy-button">Buy Now</button>
                     </div>
                 </div>
 
                 <div className="full-view-container">
                     <div className="content-box">
-                        <h1>Pump up your kicks</h1>
-                        <h3>Elite Pros 3</h3>
-                        <Link to="/shop" className="buy-button">Buy Now</Link>
+                        <h1>Hoodies/Pullovers</h1>
+                        <h3>Style with chill</h3>
+                        <button onClick={() => this.goShop("HOODIES","")} className="buy-button">Buy Now</button>
                     </div>
                     <div className="image-box" id="ib3"></div>
                 </div>
@@ -77,6 +95,25 @@ class Home extends Component {
                         <div className="custom-line"></div>
                     </div>
                     <div className="news-items">
+                        <div className="news-item">
+                            <div className="news-header">New Location</div>
+                            <div className="news-image" id="ni1"></div>
+                            <div className="news-body">Our new shop just opened on 3/2/2020! Swing by and check it out.<br/><br/> <Link to="/news" className="">Get more details here</Link></div>
+                        </div>
+                        <div className="news-item">
+                            <div className="news-header">Closed for Corona</div>
+                            <div className="news-image" id="ni2"></div>
+                            <div className="news-body">Sorry for the inconvience everybody but we will be forced to shut down all locations until this maddness comes to an end!<br></br><br/><Link to="/news" className="">Read More</Link></div>
+                        </div>
+                        <div className="news-item">
+                            <div className="news-header">Helping Hands 2020</div>
+                            <div className="news-image" id="ni3"></div>
+                            <div className="news-body">Help us donate to those in need! We work with several other organizations to give to the less fortunate!<br></br><br/><Link to="/news" className="">Get Started Here</Link></div>
+                        </div>
+                    </div>
+                </div>
+                {/*
+                    <div className="news-items">
                         <div className="news-item" id="ni1"></div>
                         <div className="news-item" id="ni2"></div>
                         <div className="news-item" id="ni3"></div>
@@ -94,8 +131,8 @@ class Home extends Component {
                             <div className="news-header">Helping Hands 2020</div>
                             <div className="news-body">Help us donate to those in need! We work with several other organizations to give to the less fortunate!<br></br><br/><Link to="/news" className="">Get Started Here</Link></div>
                         </div>
-                    </div>
-                </div>
+                    </div>                
+                */}
 
                 <div className="map-container">
                     <div className="info">
