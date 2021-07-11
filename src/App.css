@@ -240,8 +240,8 @@ body {
     background-position: center;
 }
 #ib3 {
-    background: url('./images/hoodies1.png');
-    background-size: cover;
+    background: url('./images/products/hoodie2.jpg');
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
@@ -282,44 +282,98 @@ body {
     text-transform: uppercase;
     color: #2c2c2c;
     width: 100%;
-    margin-top: 100px;
-    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 300;
 }
 .news-text h1 {
-    width: 33%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.75em;
     font-style: italic;
+    background: rgba(255,255,255,.9);
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bolder;
 }
 .custom-line {
-    background: #686868;
+    background: #fff;
     width: 33%;
-    height: 1px;
-    margin-top: 15px;
+    height: 10px;
+    margin-top: 5px;
     margin-left: 50px;
     margin-right: 50px;
 }
 .news-items {
     width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 100px;
 }
 .news-item {
-    width: 30%;
-    height: 600px;
+    width: 100%;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+}
+.news-first {
+    height: 100vh !important;
+}
+.news-body {
+    width: 50%;
+    height: 80%;
+    font-size: 1.15em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 75px;
+    z-index: 150;
+    color: black;
+    background: rgba(255,255,255,.9);
+}
+.news-body a {
+    color: black;
+    font-style: italic;
+    font-size: 1.15em;
+}
+.body-shrink {
+    height: 60% !important;
+    margin-top: -75px;
+}
+.news-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.news-desc {
+    height: 50%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.news-link {
 }
 .news-image {
-    height: 300px;
+    height: inherit;
     width: 100%;
-    margin-bottom: 35px;
+    position: absolute;
+    z-index: 100;
 }
 #ni1 {
-    background: url('images/store.jpg');
+    background: url('images/sandiego2.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -336,41 +390,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
-.news-descs {
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-bottom: 100px;
-}
-.news-desc {
-    width: 30%;
-    height: 200px;
-    text-align: center;
-    /* border-right: 1px solid #444;
-    border-left: 1px solid #444;
-    border-bottom: 1px solid #444; */
-    background: linear-gradient(to bottom, #fff, rgb(240, 240, 240))
-}
-.news-header {
-    font-size: 1.5em;
-    font-weight: bold;
-    height: 75px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.news-body {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1.25em;
-}
-.news-body a {
-    color: black;
-    font-style: italic;
-    font-size: 1.25em;
-}
 
 /* Map Content */
 .map-container {
@@ -378,12 +397,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2c2c2c;
+    background: url('../src/images/compass2.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 .info {
     height: 55%;
     width: 35%;
-    background: #2c2c2c;
+    background: rgba(0,0,0,.7);
     z-index: 2;
     padding: 25px;
     font-family: 'Source Serif Pro', serif;
@@ -403,7 +426,7 @@ body {
 }
 .map {
     background: url('images/map.png');
-    mask-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .1));
+    mask-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .7));
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -413,6 +436,28 @@ body {
     border-radius: 50px;
 }
 
+.message-pointer {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    color: white;
+    font-size: 2em;
+    display: flex;
+    font-style: italic;
+}
+.down-arrow {
+    height: 40px;
+    width: 40px;
+    background: url('../src/images/down-arrow.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    margin-left: 25px;
+}
+.down-arrow:hover {
+    cursor: pointer;
+}
 /* Contact Content */
 .contact-text {
     display: flex;
@@ -637,6 +682,34 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
+.shoes2 {
+    border: 1px solid #a0a0a0;
+    background: url('./images/products/shoes2.png') #f5f5f5;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.hoodie1 {
+    border: 1px solid #a0a0a0;
+    background: url('./images/products/hoodie1.png') #f5f5f5;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.hoodie2 {
+    border: 1px solid #a0a0a0;
+    background: url('./images/products/hoodie2.png') #f5f5f5;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.pants1 {
+    border: 1px solid #a0a0a0;
+    background: url('./images/products/pants1.png') #f5f5f5;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .add-to-cart-container {
     margin: 25px;
     background: #2c2c2c;
@@ -774,26 +847,180 @@ button::-moz-focus-inner {
 
 /* News Content */
 .news-container {
-    height: 100vh;
-    padding: 100px;
+    
 }
-.news-flex {
+.news-cover {
+    background: url('./images/papers.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     display: flex;
-    background: #d8d8d8;
-    margin: 15px;
-    max-height: 250px;
-    overflow: scroll;
+    justify-content: center;
+    align-items: center;
 }
-.news-description {
+.cover-image {
+    height: 50vh;
+    width: 75%;
+    background: url('./images/newsfeed.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.full-height-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.news-heading {
+    height: 100px;
+    width: 60%;
+    margin-top: 50px;
+}
+#nh1 {
+    background: url('./images/newlocation.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#nh2 {
+    background: url('./images/closedcorona.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#nh3 {
+    background: url('./images/helpinghands.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.news-detail {
+    width: 80%;
+    font-size: 1.25em;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    /* background: rgba(255,255,255,.9); */
+}
+#nitem1 {
+    background: url('images/sandiego2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+#nitem2 {
+    background: url('images/closed.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+#nitem3 {
+    background: url('images/donate.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.image-container {
+    height: 400px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.store-pic {
+    height: 100%;
+    width: 80%;
+    background: url('./images/champ.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 15px 12px rgb(255,255,255);
+    border-radius: 2px;
+}
+.right-box {
+    width: 80%;
+    height: 400px;
+    /* background: linear-gradient(to bottom, rgba(255,255,255,.8), rgba(255,255,255,1)); */
+    /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgb(255,255,255)); */
+    background: rgba(0,0,0,.8);
+    margin-top: -200px;
+    z-index: 100;
+    position: relative;
+    float: right;
     padding: 25px;
     text-align: center;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    color: #2c2c2c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 2px;
+    border: 15px solid white;
+    color: white;
 }
-.full {
+.right-box h4, .right-box h1, .right-box h2, .right-box div {
+    width: 100%;
+}
+.right-box div {
+    font-style: italic;
 }
 
+.image-cards {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    margin-top: 350px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.image-card {
+    height: 100%;
+    width: 30%;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 1.5em;
+    font-style: italic;
+    border-radius: 50%;
+}
+.image-card p {
+    width: 100%;
+    background: black;
+    text-align: center;
+}
+.image-card:nth-child(1) {
+    transform: rotateZ(-25deg) translateX(50px);
+    z-index: 100;
+    background: url('./images/palm.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.image-card:nth-child(2) {
+    transform: translateY(-75px);
+    z-index: 50;
+    background: url('./images/newprod.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.image-card:nth-child(3) {
+    transform: rotateZ(25deg) translateX(-50px);
+    z-index: 0;
+    background: url('./images/piggy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 /* Cart Content */
 .cart-container {
     display: flex;

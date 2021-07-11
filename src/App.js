@@ -61,10 +61,38 @@ class App extends Component {
                 },
                 {
                     productId: 7,
+                    productImage: 'shoes2',
+                    productType: 'SHOES',
+                    productName: 'ElitePros',
+                    productPrice: 100
+                },
+                {
+                    productId: 8,
                     productImage: 'shoes1',
                     productType: 'SHOES',
-                    productName: 'Vanity Shoes',
+                    productName: 'Vanity Heels',
                     productPrice: 100
+                },
+                {
+                    productId: 9,
+                    productImage: 'hoodie1',
+                    productType: 'HOODIES',
+                    productName: 'Gray Hoodie',
+                    productPrice: 50
+                },
+                {
+                    productId: 10,
+                    productImage: 'hoodie2',
+                    productType: 'HOODIES',
+                    productName: 'Black Hoodie',
+                    productPrice: 50
+                },
+                {
+                    productId: 11,
+                    productImage: 'pants1',
+                    productType: 'PANTS',
+                    productName: 'Mens Jeans',
+                    productPrice: 75
                 }
             ],
             cartData : {

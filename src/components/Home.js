@@ -43,17 +43,14 @@ class Home extends Component {
                     <div className="content-box">
                         <h1>Elite Footwear</h1>
                         <h3>Pump up your kicks</h3>
-                        {/* hooks not compatible with class based components - use router based rendering, HOC, or ??? */}
-                        {/* Make this a button that uses this.history.push to change to /shop and then change filter */}
-                        {/* <Link to={{pathname: "/shop", state: { filter: "SHOES" }}} className="buy-button">Buy Now</Link> */ }
-                        {/* OKAY LINK IS SET, NOW FIX FILTERS also fix button styling*/}
-                        {/* adjust product selection */}
 
-                        {/*filters fixed, button style fixed*/}
-                        {/* finish adjusting product selection/home page featured products*/
+                        {/* fix multiple addToCart bug "0 items added to cart" error */
                         /* Work on news section and contact section
                         work on profile section
+                        compress images/delete unnessecary images
+                        fix checkout styling
                         and then finished! mobile?.... */
+
                         }
                         <button onClick={() => this.goShop("SHOES","")} className="buy-button">Buy Now</button>
                     </div>
@@ -89,12 +86,7 @@ class Home extends Component {
                 </div>
 
                 <div className="news-preview">
-                    <div className="news-text">
-                        <div className="custom-line"></div>
-                        <h1>news from our feed</h1>
-                        <div className="custom-line"></div>
-                    </div>
-                    <div className="news-items">
+                    {/* <div className="news-items">
                         <div className="news-item">
                             <div className="news-header">New Location</div>
                             <div className="news-image" id="ni1"></div>
@@ -109,6 +101,49 @@ class Home extends Component {
                             <div className="news-header">Helping Hands 2020</div>
                             <div className="news-image" id="ni3"></div>
                             <div className="news-body">Help us donate to those in need! We work with several other organizations to give to the less fortunate!<br></br><br/><Link to="/news" className="">Get Started Here</Link></div>
+                        </div>
+                    </div> */}
+                    <div className="news-items">
+                        <div className="news-item full-view-container news-first">
+                            <div className="news-text">
+                                {/* <div className="custom-line"></div> */}
+                                <h1>news from our feed</h1>
+                                {/* <div className="custom-line"></div> */}
+                            </div>
+                            <div className="news-body body-shrink">
+                                <div className="news-header">
+                                    New Location - San Diego, CA
+                                </div>
+                                <div className="news-desc">
+                                    We are excited to announce that we are officially open for business in San Diego. This is the largest of all of our locations and we are very proud of the way it turned out. Please swing by and enjoy a discount shopping price for your first time shopping there!
+                                </div>
+                                <Link to="/news" className="news-link">Read more...</Link>
+                            </div>
+                            <div className="news-image" id="ni1"></div>
+                        </div>
+                        <div className="news-item full-view-container">
+                        <div className="news-image" id="ni2"></div>
+                        <div className="news-body">
+                                <div className="news-header">
+                                    Closed for Corona
+                                </div>
+                                <div className="news-desc">
+                                Unfortunately due to the Coronavirus we have been forced to shut down all physical store locations until this maddness comes to an end! However, fear not...for 80% of our business consists of online consumers. We hope that you will continue your business with us via our online shopping portal.
+                                </div>
+                                <Link to="/news" className="news-link">Read more...</Link>
+                            </div>
+                        </div>
+                        <div className="news-item full-view-container">
+                            <div className="news-body">
+                                <div className="news-header">
+                                    Helping Hands 2021
+                                </div>
+                                <div className="news-desc">
+                                Help us donate to those in need! We work with several other organizations to give to the less fortunate! We believe that giving back to the community is what keeps us going. That's why our team has commited to match every dollar spent with us towards fighting for the homeless, disabled, and less fortunate.
+                                </div>
+                                <Link to="/news" className="news-link">Read more...</Link>
+                            </div>
+                            <div className="news-image" id="ni3"></div>
                         </div>
                     </div>
                 </div>
@@ -134,7 +169,7 @@ class Home extends Component {
                     </div>                
                 */}
 
-                <div className="map-container">
+                <div className="map-container full-view-container">
                     <div className="info">
                         <h2>Elite Clothing Headquarters</h2>
                         <hr></hr>
@@ -153,6 +188,9 @@ class Home extends Component {
                         </div>
                     </div>
                     <div className="map"></div>
+                    <div className="message-pointer">
+                        <p>Message Us</p><div className="down-arrow"></div>
+                    </div>
                 </div>
 
                 <div className="contact-text">
