@@ -15,7 +15,7 @@ class Nav extends Component {
                 </div>
                 
                 <div className="nav-links">
-                    <Link to="/cart" className="nav-link s-shift"><i className="fas fa-shopping-cart"></i></Link>
+                    <Link to="/cart" id="cart-logo-container" className="nav-link s-shift"><i className="fas fa-shopping-cart"></i></Link>
                     <Link to="/profile" className="nav-link s-shift"><i className="fas fa-user-circle"></i></Link>
                 </div>
             </div>

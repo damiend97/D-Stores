@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import Product from './Product';
 
-// Add page functionality
-// link filters
-// Add front page products to list
-/*
-    let location = useLocation();
-    console.log(location.state);
-*/
-
 const initalTypes = [];
 
 class Shop extends Component {
@@ -28,11 +20,6 @@ class Shop extends Component {
         
         let buttons = document.getElementsByClassName("filter-button");
 
-        // buttons.forEach(button => {
-        //     if (button.innerHTML === this.props.pathFilter) {
-        //         button.classList.add('type-filter-selected');
-        //     }
-        // });
         for (let i = 0; i < buttons.length; i++) {
             const button = buttons[i];
             
@@ -46,14 +33,12 @@ class Shop extends Component {
             }
 
         }
-        console.log(buttons);
     }
     componentWillUnmount() {
         this.setState({
             typeFilters: initalTypes
         })
         this.props.pathExit();
-        console.log(this.state)
     }
 
     filterType = (e) => {
@@ -168,26 +153,12 @@ class Shop extends Component {
                 </div>
                 
                 <div className="product-grid">
-                    {/* {this.props.products.map(product => {
-                        if(this.state.typeFilters.length === 0 && this.state.priceFilter === 0) {
-                            return (
-                                <Product addToCart={this.props.addToCart} key={product.productId} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
-                            )
-                        }
-                        else {
-                            if(this.state.typeFilters.includes(product.productType) && product.productPrice <= this.state.priceFilter) {
-                                return (
-                                    <Product addToCart={this.props.addToCart} key={product.productId} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
-                                )
-                            }
-                        }
-                    })} */}
                     {
                         this.props.products.map(product => {
                             if(this.state.typeFilters.includes(product.productType) || this.state.typeFilters.length === 0) {
                                 if((this.state.priceFilter[0] <= product.productPrice && this.state.priceFilter[1] >= product.productPrice)|| this.state.priceFilter[0] === 0) {
                                     return (
-                                        <Product addToCart={this.props.addToCart} key={product.productId} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
+                                        <Product changeMessage={this.props.changeMessage} addToCart={this.props.addToCart} key={product.productId} pKey={product.productKey} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
                                     )
                                 }
                             }

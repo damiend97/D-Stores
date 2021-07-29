@@ -14,26 +14,30 @@ class addToCart extends Component {
         let qValue = document.getElementById('qf').value;
 
         if(parseInt(qValue) <= 0 || qValue === "") {
-            alert("Please enter a quantity greater than 0");
+            this.props.changeMessage("Invalid quantity");
+            document.getElementById("mc").style.opacity = 1;
+
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 2000);
             document.getElementById('qf').value = 0;
             
         } else {
-            this.props.addToCart(this.props.id, this.state.size, this.state.quantity)
+            this.props.addToCart(this.props.id, this.state.size, this.state.quantity, this.props.pKey);
             this.props.exitAddComp();
-            alert("Added item to cart.");
         }
 
         this.setState({
             size: 'L',
             quantity: 0
         })
+
     }
 
     handleSizeChange = (e) => {
         this.setState({
             size: e.target.innerHTML
         })
-        console.log(this.state.size);
 
         let actives = document.querySelectorAll(".active-size");
 
@@ -57,28 +61,30 @@ class addToCart extends Component {
     }
 
     increaseQuantity = () => {
-        // let qValue = document.getElementById('qf').value;
-
         this.setState({
             quantity: +this.state.quantity + 1
         })
-
-        // document.getElementById('qf').value = +qValue + 1;
     }
 
     decreaseQuantity = () => {
-        // let qValue = document.getElementById('qf').value;
+        if (this.state.quantity === 0) {
+            this.props.changeMessage("Invalid quantity");
+            document.getElementById("mc").style.opacity = 1;
 
-        this.setState({
-            quantity: this.state.quantity - 1
-        })
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 2000);
 
-        // document.getElementById('qf').value = +qValue - 1;
+        } else {
+            this.setState({
+                quantity: this.state.quantity - 1
+            })
+        }
     }
 
     render() {
         return (
-            <div className="add-to-cart-container">
+            <div className="add-to-cart-container" onMouseLeave={this.props.exitAddComp}>
                 <div className="split-left">
                     <img src={require(`../images/products/${this.props.image}.png`)} className="small-product" alt="product" />
                     <i className="fas fa-times exit-product-button" onClick={this.props.exitAddComp}></i>

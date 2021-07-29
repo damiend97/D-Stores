@@ -33,7 +33,7 @@ class News extends Component {
                 </div>
                 <div className="news-items">
                     <div className="full-height-container" id="nitem1">
-                        <div className="news-heading" id="nh1"></div>
+                        <div className="news-heading" id="nh1"><h1><i>NEW LOCATION</i></h1></div>
                         <div className="text-box">
                             <div className="mask"></div>
                             {/* <div className="tboxtext"></div> */}
@@ -79,7 +79,7 @@ class News extends Component {
                                 We as a company believe that the darkest times bring out in the best of us. That's why we have taken this opportunity to add to our product selection. Please browse our new face mask selection in the <i className="text-adjust">accessories</i> tab of our shop.
                             </div><br /><br /><br /><hr /><br /><br />
                             <div className="sec3">
-                                <h1>Elite Face Masks - <u><i>Shop Now</i></u></h1>
+                                <h1>Face Mask Designs - <u><i>Shop Now</i></u></h1>
                             </div><br />
                             <div className="faces-container">
                                 <div className="face1"></div>
@@ -90,9 +90,25 @@ class News extends Component {
                     </div>
                     <div className="full-height-container" id="nitem3">
                         <div className="news-heading" id="nh3">
+                            <h1><i>HELPING HANDS 2021</i></h1>
                         </div>
-                        <div className="news-detail">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores recusandae odit eligendi cupiditate ex suscipit eveniet in molestiae voluptatibus excepturi temporibus magni deserunt nemo, id, tempore veritatis iusto praesentium! Numquam necessitatibus obcaecati dolorem, optio cum aliquid dicta placeat illum quasi nam ut repellendus at, assumenda suscipit quas vero adipisci eaque amet excepturi similique asperiores consectetur hic totam. Sed, asperiores mollitia possimus consequatur deserunt, eveniet eos similique consectetur quidem animi sapiente repudiandae sint, tempora voluptates nisi id ducimus? Mollitia sint quo facilis nobis, doloribus repellendus quas quos blanditiis neque dolorum molestiae nemo alias iste nihil cupiditate maxime rem perferendis inventore voluptates! Sit laudantium quasi quam similique iste repellat sunt deleniti amet officiis. Doloremque, impedit rem eius quis voluptatibus vitae? Non quaerat fugiat numquam. Ipsa possimus repudiandae recusandae ipsum omnis! Quibusdam velit fugiat quaerat expedita dolorem illum reprehenderit quis ratione earum laboriosam nisi autem distinctio aliquam, fugit in ex. Delectus cumque assumenda natus nulla blanditiis id. Ducimus eum, neque sapiente velit, iure doloremque doloribus sed asperiores aliquid rerum, officiis nemo officia! Nam quo eveniet itaque quaerat iste facilis voluptatem, atque sint expedita ut ipsa incidunt, omnis dolorem vitae modi minima officia natus similique dicta? Adipisci delectus tempora nobis, necessitatibus aliquam quam qui nulla explicabo? Aliquid animi pariatur, assumenda asperiores ad iure magnam beatae recusandae nesciunt illo iste dolore molestiae quam aspernatur quia fugiat nihil itaque tenetur nostrum. Obcaecati culpa facilis numquam voluptas aperiam inventore minus! At, minima a possimus quia voluptate quae quis dicta labore nisi fugiat commodi iste, cumque et perspiciatis quam ad veritatis rem! Modi, obcaecati nesciunt! Neque, labore obcaecati commodi, quo eius aliquam dolorem sit inventore qui nostrum voluptatibus odit, laboriosam fuga nesciunt et ipsam doloribus molestiae laborum nulla dolorum. Nostrum, eum velit magni nulla expedita ratione voluptas neque iusto assumenda? Dolore similique obcaecati voluptatem tempora, neque provident consequatur accusantium suscipit ad ratione nisi voluptatibus totam sunt reiciendis quaerat, possimus nobis magnam maiores nostrum iusto velit at sequi pariatur aspernatur! Maxime, quod minima quibusdam perferendis non suscipit laudantium similique tempore autem omnis quia aut, natus tenetur asperiores ducimus! Illo ipsum mollitia voluptatum provident quasi hic, dolores eveniet repudiandae ullam dicta, vel incidunt esse quaerat eius qui, exercitationem blanditiis! Nam adipisci a ipsa tempore, veritatis vero molestias omnis. Delectus quae dolor, consectetur quidem veritatis aliquam fuga possimus esse iusto, laudantium assumenda. Quidem autem tempore quia, ducimus maxime omnis provident illo vel ipsum, cum eius id ratione, totam laborum incidunt excepturi harum temporibus atque saepe nisi. Consequatur debitis dicta quos eaque minima, maxime tempora. Odit dolorem, tenetur dolorum ipsum eveniet consectetur doloribus hic at voluptates blanditiis adipisci quia unde repellat harum rerum quas fuga ducimus explicabo ratione saepe autem, numquam officiis assumenda obcaecati. Quo, placeat nostrum eaque voluptatum cupiditate a blanditiis. In, corporis minima laboriosam consequatur nulla dolores quas tenetur odio at accusamus aliquid deserunt possimus, nemo delectus. Velit pariatur, natus consequatur debitis, reiciendis impedit voluptatum molestias esse doloribus accusantium voluptatem molestiae et dolore aliquam architecto adipisci sunt repudiandae autem. Quia provident eos nisi? Officiis eius laborum reprehenderit cupiditate, ullam repellendus!
+                        <div className="news-detail" id="nd3">
+                            Help us donate to those in need! We work with several other organizations to give to the less fortunate! We believe that giving back to the community is what keeps us going. That's why our team has commited to match every dollar spent with us towards fighting for the homeless, disabled, and less fortunate.
+                            <br /><br /><br />
+                            <h2>OUR PARTNERS</h2>
+                            <div className="boxes">
+                                <div className="box1"></div>
+                                <div className="box2"></div>
+                                <div className="box3"></div>
+                            </div>
+                            <br />
+                            <h2>HOW TO DONATE</h2>
+                            <br />
+                            <form action="" className="donation-form">
+                                <input type="text" placeholder="NAME" className="donate-name"/><br />
+                                <input type="text" placeholder="EMAIL" className="donate-email"/><br />
+                                <textarea name="" id="" cols="30" rows="10" className="donate-area" placeholder="MESSAGE US YOUR INFO AND WE WILL SCHEDULE YOU A DONATION CONSULTATION! :)"></textarea>
+                            </form>
                         </div>
                     </div>
                 </div>

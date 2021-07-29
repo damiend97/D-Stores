@@ -1,9 +1,9 @@
-/* Fonts --------------------------------------- */
+/* Fonts  */
 @import url('https://fonts.googleapis.com/css?family=Petit+Formal+Script&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro|Tangerine&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
-/* Presets --------------------------------------- */
+/* Presets  */
 * {
     margin: 0px;
     padding: 0px;
@@ -18,7 +18,26 @@ body {
     color: rgb(20, 20, 20);
 }
 
-/* Navigation --------------------------------------- */ 
+/* Message Pop Up */
+.message-container {
+    height: 50px;
+    width: 300px;
+    background: rgba(0, 0, 0, .9);
+    position: fixed;
+    bottom: 25px;
+    pointer-events: none;
+    z-index: 10000;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-style: italic;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+/* Navigation  */ 
 .nav-container {
     width: 100%;
     height: 100px;
@@ -62,9 +81,11 @@ body {
 .s-shift:hover {
     color: rgb(150, 150, 150);
 }
+#cart-logo-container {
+    transition: all 600ms ease;
+}
 
-/* Home Page --------------------------------------- */ 
-/* Dark Bar */
+/* Home Page  */ 
 .dark-bar {
     background: rgb(20, 20, 20);
     color: white;
@@ -72,8 +93,6 @@ body {
     text-align: center;
     padding: 10px 0px;
 }
-
-/* Image Slider */
 .image-slider {
     position: relative;
     width: 100%;
@@ -277,8 +296,6 @@ body {
 }
 
 /* News Preview */
-.news-preview {
-}
 .news-text {
     display: flex;
     text-transform: uppercase;
@@ -366,8 +383,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-.news-link {
-}
 .news-image {
     height: inherit;
     width: 100%;
@@ -391,6 +406,60 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.boxes {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 50px;
+}
+.box1 {
+    height: 150px;
+    width: 400px;
+    background: url('./images/feedingamerica.png');
+    background-size: 300px 150px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.box2 {
+    height: 200px;
+    width: 400px;
+    background: url('./images/goodwill.png');
+    background-size: 150px 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.box3 {
+    height: 125px;
+    width: 400px;
+    background: url('./images/habitat.png');
+    background-size: 350px 125px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.donation-form {
+    background: rgba(0, 0, 0, 0.3);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.donate-name, .donate-email, .donate-area {
+    height: 50px;
+    width: 500px;
+    text-align: center;
+    margin: 10px;
+    background:rgb(255, 255, 255);
+    color: black;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 3px 3px 3px black;
+}
+.donate-area {
+    height: 150px;
 }
 
 /* Map Content */
@@ -461,6 +530,7 @@ body {
 .down-arrow:hover {
     cursor: pointer;
 }
+
 /* Contact Content */
 .contact-text {
     display: flex;
@@ -733,7 +803,9 @@ body {
     width: 200px;
 }
 .split-right {
-    background: #686868;
+    /* background: #686868; */
+    background: rgb(245, 245, 245);
+    border: 1px solid #2c2c2c;
     text-align: center;
 }
 .product-name-container {
@@ -743,7 +815,6 @@ body {
     font-size: 1.75em;
     padding-top: 5px;
     margin-top: 25px;
-    color: white;
 }
 .size-buttons {
     display: flex;
@@ -785,6 +856,7 @@ body {
     text-align: center;
     margin: 15px;
     border-radius: 2px;
+    border: 1px solid #2c2c2c;
 }
 .quantity-up {
     border: none;
@@ -798,7 +870,8 @@ body {
 .total-container {
     font-size: 1.5em;
     margin-top: 15px;
-    color: #fff;
+    /* color: #fff; */
+    color: #2c2c2c;
 }
 .func-buttons {
     margin-top: 15px;
@@ -824,7 +897,6 @@ body {
     cursor: pointer;
     color: #a0a0a0;
 }
-
 .size-button:hover,
 .quantity-down:hover,
 .quantity-up:hover,
@@ -832,18 +904,17 @@ body {
     cursor: pointer;
     background: #fff;
     color: #2c2c2c;
+    border: 1px solid #2c2c2c;
 }
-
 .active-size {
     background: white;
     color: #2c2c2c;
-    border: none;
+    /* border: none; */
+    border: 1px solid #2c2c2c;
 }
-
 .active-size:hover {
     background: white !important;
 }
-
 button::-moz-focus-inner {
     border: 0;
 }
@@ -882,13 +953,21 @@ button::-moz-focus-inner {
     box-shadow: 15px 15px 15px rgb(22, 22, 22);
 }
 #nh1 {
-    background: url('./images/newlocation2.png');
-    background-size: 100% 200px;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin-bottom: -75px;
+    background: white;
     z-index: 100;
-    width: 75%;
+    margin: 0px;
+    width: 100%;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.25em;
+    color: #2c2c2c;
+    font-weight: bolder;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 50px;
+    margin-bottom: -150px;
 }
 #nh2 {
     background: url('./images/closedcorona.png');
@@ -912,19 +991,27 @@ button::-moz-focus-inner {
     font-weight: bolder;
     background-attachment: fixed;
     width: 100%;
+    margin: 0;
 }
 #nh3 {
-    background: url('./images/helpinghands.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 75%;
+    width: 100%;
+    box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.25em;
+    color: #fff;
+    font-weight: bolder;
+    flex-wrap: wrap;
+    height: auto;
+    text-shadow: 4px 4px 7px #000;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 .news-detail {
     width: 100%;
     font-size: 1.25em;
     margin-bottom: 50px;
-    /* background: rgba(255,255,255,.9); */
 }
 #nitem1 {
     background: url('images/sandiego2.jpg');
@@ -939,7 +1026,6 @@ button::-moz-focus-inner {
     background-position: top;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* background: #1f1f1f; */
 }
 #nitem3 {
     background: url('images/donate.jpg');
@@ -972,7 +1058,7 @@ button::-moz-focus-inner {
     border: 10px solid white;
     background: rgba(0,0,0,.5);
     z-index: 100;
-    /* box-shadow: 15px 5px 5px black; */
+    text-shadow: 5px 5px 5px #2c2c2c;
 }
 .image-card p {
     width: 100%;
@@ -985,7 +1071,7 @@ button::-moz-focus-inner {
     text-align: center;
 }
 .image-card:nth-child(1) {
-    transform: translateX(50px) rotateZ(-15deg) translateY(25px);
+    transform: translateX(50px) rotateZ(-15deg);
     background: url('./images/palm.jpg');
     background-size: cover;
     background-position: center;
@@ -993,7 +1079,7 @@ button::-moz-focus-inner {
     z-index: 150;
 }
 .image-card:nth-child(2) {
-    transform: translateY(-25px);
+    transform: rotateZ(-15deg);
     background: rgba(0,0,0,.9);
     background: url('./images/outfit5.jpg');
     background-size: cover;
@@ -1002,7 +1088,7 @@ button::-moz-focus-inner {
     z-index: 125;
 }
 .image-card:nth-child(3) {
-    transform: translateX(-50px) rotateZ(15deg) translateY(25px);
+    transform: translateX(-50px) rotateZ(-15deg);
     background: url('./images/coins.jpg');
     background-size: cover;
     background-position: center;
@@ -1023,8 +1109,6 @@ button::-moz-focus-inner {
     padding-top: 75px;
     padding-bottom: 75px;
     margin-top: 50px;
-    /* background: rgba(255,255,255,1); */
-    /* background: linear-gradient(to bottom, rgba(0,0,0,.3), rgba(255,255,255,0), rgba(255,255,255,0)); */
     margin-left: auto;
     margin-right: auto;
     font-size: 3em;
@@ -1033,20 +1117,7 @@ button::-moz-focus-inner {
     line-height: 75px;
     font-style: italic;
     color: white;
-    /* box-shadow:   20px 20px 20px 3px #2c2c2c, -20px -20px 20px 3px #2c2c2c, -20px 20px 20px 3px #2c2c2c, 20px -20px 20px 3px #2c2c2c; */
 }
-/* .mask {
-    height: 550px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0,0,0, 0.1);
-    z-index: 10;
-} */
-
 .rl-container {
     width: 100%;
     padding: 50px;
@@ -1054,7 +1125,6 @@ button::-moz-focus-inner {
     margin-top: 50px;
 }
 .left-container {
-    /* box-shadow:   20px 20px 25px 10px #fff, -20px -20px 25px 10px #fff, -20px 20px 25px 10px #fff, 20px -20px 25px 10px #fff; */
     width: 35%;
     height: 400px;
     background: rgba(0,0,0,.8);
@@ -1077,10 +1147,8 @@ button::-moz-focus-inner {
     font-style: italic;
 }
 .right-container {
-    /* /* /* /* box-shadow:   20px 20px 25px 10px #fff, -20px -20px 25px 10px #fff, -20px 20px 25px 10px #fff, 20px -20px 25px 10px #fff; */
     background: -webkit-radial-gradient(rgba(255,255,255,.6),rgba(255,255,255,1));
     background: radial-gradient(rgba(255,255,255,.6),rgba(255,255,255,1));
-    /* background: white; */
     color: black;
     width: 65%;
     height: 400px;
@@ -1092,7 +1160,6 @@ button::-moz-focus-inner {
     text-align: center;
     font-weight: bold;
     line-height: 60px;
-    /* border-top-right-radius: 50px; */
 }
 .ndpadding {
     padding: 100px;
@@ -1100,14 +1167,8 @@ button::-moz-focus-inner {
     font-size: 2em;
     color: white;
     width: 100%;
-    background: linear-gradient(to bottom, rgba(43, 43, 43, 1), rgba(43, 43, 43,.8), rgba(0,0,0,0));
+    background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(44, 44, 44,.8), rgba(0,0,0,0));
 }
-/* .text-adjust { 
-    background: #1a1a1a;
-    padding: 3px;
-    cursor: pointer;
-    border-radius: 5px;
-} */
 .faces-container {
     display: flex;
     margin-left: auto;
@@ -1146,14 +1207,24 @@ button::-moz-focus-inner {
     border-radius: 50%;
 }
 .sec3 u {
-    /* background: #2c2c2c; */
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    /* box-shadow: 5px 5px 5px white; */
-    border: 2px solid #686868;
     text-decoration: none;
+    background: white;
+    color: #2c2c2c;
 }
+#nd3 {
+    color: white;
+    text-align: center;
+    font-size: 2.5em;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: bold;
+    text-shadow: 20px 20px 20px black, -20px -20px 20px black;
+}
+
 /* Cart Content */
 .cart-container {
     display: flex;
@@ -1178,7 +1249,6 @@ button::-moz-focus-inner {
     width: 250px;
 }
 .cart-item-data {
-    /* background: linear-gradient(to right, #2c2c2c, #a0a0a0); */
     color: #414141;
     width: 400px;
     height: 115px;
@@ -1257,7 +1327,6 @@ button::-moz-focus-inner {
 .remove-but:hover {
     cursor: pointer;
 }
-
 .cart-data {
     background: #2c2c2c;
     color: white;
@@ -1285,20 +1354,37 @@ button::-moz-focus-inner {
 }
 .checkout-but {
     height: 50px;
-    width: 125px;
+    width: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
     color: #2c2c2c;
     padding: 25px;
-    margin-top: 75px;
     font-size: 1.25em;
     font-weight: bold;
-    margin-left: auto;
-    box-shadow: 4px 4px 4px #000;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
 }
 .checkout-but:hover {
+    cursor: pointer;
+}
+.clear-but {
+    height: 50px;
+    width: 200px;
+    padding: 25px;
+    font-weight: bold;
+    font-size: 1.25em;
+    background: rgb(26, 26, 26);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 25px;
+}
+.clear-but:hover {
     cursor: pointer;
 }
 .cart-data-empty {
@@ -1328,4 +1414,14 @@ button::-moz-focus-inner {
     left: 25%;
     height: 300px;
     width: 700px;
+}
+
+/* Error Component */
+.error-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
 }
