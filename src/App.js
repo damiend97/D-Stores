@@ -8,11 +8,14 @@
 // add face masks to store
 
 // STYLING
+// news diamonds
+// keep the sharp edges flowing
 // make site mobile
 // redo shop options
 // box-shadow cart buttons
 // news could use some work
 //      could revert to news-preview styling but with 50 50 split 50 image 50 semi transparent text box at full height
+// remove gradient transparency from newsfeed.png
 
 // PROFILES
 // Link commerce.js profiles
