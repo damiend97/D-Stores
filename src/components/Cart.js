@@ -53,7 +53,8 @@ class Cart extends Component {
                     <button onClick={this.fetchProducts}>fetch products</button>
                     <button onClick={this.getCart}>get cart contents</button>
                     <button onClick={this.getTotal}>get total</button>
-                    <button onClick={this.getVariants}>get variants</button> */}
+                    <button onClick={this.getVariants}>get variants</button> */
+                    }
                         {this.props.cartData.items.map((item, num) => {
                             return (
                                 <div className="cart-item" key={item.productData.productId*num}>

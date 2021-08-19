@@ -72,7 +72,7 @@ class Home extends Component {
                         <div className="flex-div">
                             <h1>Our Story</h1>
                             <br></br>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis veniam quam enim beatae? Obcaecati voluptate fugiat sint commodi, veniam assumenda aperiam enim beatae ipsa fugit sapiente voluptas deserunt laudantium minima?
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis pariatur saepe, voluptatem incidunt quibusdam, beatae, dignissimos temporibus sit error non ex unde aliquam quisquam laborum eos delectus culpa exercitationem veniam. Saepe nemo excepturi assumenda consequatur dolor vero eum doloremque commodi rem eos atque hic debitis fuga qui officia, minus maiores et. Officia, atque tempore. Praesentium porro eum unde quae illo inventore consequatur voluptate consequuntur magni, aliquam voluptatem. Dignissimos eaque iste impedit quasi dolorem ducimus ratione, quidem non deleniti dolores asperiores sunt voluptatibus debitis nemo modi magni quae at unde perspiciatis temporibus adipisci aspernatur nam! Id a dolorum ratione reprehenderit. Expedita.
                         </div>
                     </div>
                 </div>

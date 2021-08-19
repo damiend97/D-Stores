@@ -280,8 +280,7 @@ body {
     align-items: center;
 }
 .about-container {
-    height: 400px;
-    width: 400px;
+    width: 800px;
     padding: 25px;
     background: rgba(255, 255, 255, .5);
     display: flex;
@@ -406,60 +405,6 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-.boxes {
-    height: 300px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    margin-bottom: 50px;
-}
-.box1 {
-    height: 150px;
-    width: 400px;
-    background: url('./images/feedingamerica.png');
-    background-size: 300px 150px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.box2 {
-    height: 200px;
-    width: 400px;
-    background: url('./images/goodwill.png');
-    background-size: 150px 200px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.box3 {
-    height: 125px;
-    width: 400px;
-    background: url('./images/habitat.png');
-    background-size: 350px 125px;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.donation-form {
-    background: rgba(0, 0, 0, 0.3);
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.donate-name, .donate-email, .donate-area {
-    height: 50px;
-    width: 500px;
-    text-align: center;
-    margin: 10px;
-    background:rgb(255, 255, 255);
-    color: black;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 3px 3px 3px black;
-}
-.donate-area {
-    height: 150px;
 }
 
 /* Map Content */
@@ -923,9 +868,9 @@ button::-moz-focus-inner {
 .news-container {
 }
 .news-cover {
-    /* background: url('./images/abstract3.jpg'); */
+    background: url('./images/letters.jpg');
     /* background: linear-gradient(to bottom, #fff, #2c2c2c); */
-    background: #2c2c2c;
+    /* background: #2c2c2c; */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -934,7 +879,8 @@ button::-moz-focus-inner {
     align-items: center;
     font-size: 5em;
     font-weight: bolder;
-    color: #fff;
+    color: rgb(255, 255, 255);
+    text-shadow: 3px 3px 5px black;
     font-style: italic;
 }
 .cover-image {
@@ -951,6 +897,452 @@ button::-moz-focus-inner {
     align-items: center;
     flex-wrap: wrap;
 }
+#nitem1 {
+    /* background: url('./images/sandiego2.jpg'); */
+    background: #2c2c2c;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    padding: 50px;
+    border-bottom: 5px solid white;
+}
+#nitem2 {
+    /* background: url('./images/covid.jpg'); */
+    background: #2c2c2c;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border-bottom: 5px solid white;
+    padding: 50px;
+}
+#nitem3 {
+    /* background: url('./images/donate.jpg'); */
+    background: #2c2c2c;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* padding: 50px; */
+}
+.n-header {
+    color: rgb(255, 255, 255);
+    height: 140px;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: bold;
+    font-style: italic;
+    margin-bottom: 30px;
+    text-shadow: 3px 3px 5px rgb(0, 0, 0);
+    background: #2c2c2c;
+}
+.n-body {
+    background: #2c2c2c;
+    color: #fff;
+    min-height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.nb-top {
+    background: #2c2c2c;
+    color: #fff;
+    min-height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: top;
+    flex-wrap: wrap;
+}
+.no-flex {
+    background: #2c2c2c;
+    color: #fff;
+    min-height: 500px;
+    width: 100%;
+    position: relative;
+}
+.split {
+    width: 50%;
+    min-height: 100px;
+}
+#ls1-container {
+    transform: rotateZ(45deg);
+    /* shape-outside: ellipse(50% 45% at 50% 50%); */
+    shape-outside: circle();
+    margin: 50px;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+#ls1-image {
+    background: url('./images/sandiego2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top left;
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    transform: rotateZ(-45deg);
+}
+#ls1 {
+    color: #ffffff;
+    font-size: 2.75em;
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-style: italic;
+    transform: rotateZ(-45deg);
+    position: relative;
+}
+.info-mask {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    transform: rotateZ(45deg);
+    background: rgba(0,0,0,.2);
+}
+.top-layer {
+    z-index: 10;
+    text-shadow: 1px 1px 2px black;
+}
+#ls1 div {
+    /* margin: 20px; */
+    width: 100%;
+}
+#ls1 div:last-child {
+    font-size: .75em;
+    margin-top: 15px;
+}
+#rs1 {
+    line-height: 40px;
+    font-size: 1.5em;
+}
+.image-cards {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: top;
+    padding-top: 150px;
+    padding-bottom: 50px;
+    font-size: 2em;
+}
+#bg-white {
+    background: white;
+}
+.image-card {
+    height: 450px;
+    width: 400px;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: .9em;
+    font-style: italic;
+    border: 5px solid white;
+    background: rgba(0,0,0,.5);
+    z-index: 100;
+    text-shadow: 5px 5px 5px #2c2c2c;
+    transition: height 1s ease, width 1s ease;
+}
+.image-card p {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    text-align: center;
+}
+.image-card:nth-child(1) {
+    transform: rotateZ(-15deg) translateX(120px);
+    background: url('./images/outfit5.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.image-card:nth-child(2) {
+    /* transform: rotateZ(45deg); */
+    background: rgba(0,0,0,.9);
+    background: url('./images/palm.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 150;
+    margin-top: -75px;
+}
+.image-card:nth-child(3) {
+    transform: rotateZ(15deg) translateX(-120px);
+    background: url('./images/coins.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.image-card p {
+    /* transform: rotateZ(-45deg); */
+}
+.image-card:hover {
+    z-index: 151;
+    height: 475px;
+    width: 425px;
+}
+.bottom-text {
+    text-align: center;
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    margin-top: 25px;
+    font-size: 1.5em;
+}
+#ls2 {
+    padding-right: 20px;
+    /* text-align: center; */
+    /* background: linear-gradient(to right, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c, red, #2c2c2c, #2c2c2c); */
+    /* background: radial-gradient(red, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c); */
+    /* font-style: italic; */
+    /* text-shadow: 3px 3px 20px black; */
+    font-size: 1.5em;
+}
+#rs2 {
+    background: url('./images/covidtparent.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-position: fixed;
+}
+.gborder {
+    margin-top: 100px;
+}
+.mask-container {
+    font-size: 2.5em;
+    margin-bottom: 50px;
+    text-align: center;
+    /* background: linear-gradient(to bottom, rgb(28, 28, 28), #2c2c2c); */
+    padding: 20px;
+    width: 100%;
+    height: 100px;
+}
+.faces-container {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 100px;
+}
+.face1 {
+    height: 350px;
+    width: 350px;
+    background: url('./images/galaxy.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 20px;
+    border-radius: 50%;
+}
+.face2 {
+    height: 350px;
+    width: 350px;
+    background: url('./images/smoke.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 20px;
+    border-radius: 50%;
+}
+.face3 {
+    height: 350px;
+    width: 350px;
+    background: url('./images/tydye.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 20px;
+    border-radius: 50%;
+}
+.mask-contain {
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, .5);
+    position: absolute;
+    border-radius: 20px;
+}
+#hh-card1 {
+    background: url('./images/donate.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 1000px;
+    background-attachment: fixed;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 40px;
+    padding: 50px;
+    font-weight: bolder;
+    position: relative;
+    border-radius: 20px;
+}
+#hh-text1 p {
+    z-index: 100;
+    position: relative;
+}
+
+#hh-card2 {
+    background: url('./images/donate.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 1000px;
+    background-attachment: fixed;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 40px;
+    padding: 50px;
+    font-weight: bolder;
+    position: relative;
+    border-radius: 20px;
+}
+#hh-text2 p {
+    z-index: 100;
+    position: relative;
+}
+
+#hh-card3 {
+    background: url('./images/donate.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 1000px;
+    background-attachment: fixed;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    line-height: 40px;
+    padding: 50px;
+    font-weight: bolder;
+    position: relative;
+    border-radius: 20px;
+}
+#hh-text3 p {
+    z-index: 100;
+    position: relative;
+}
+
+.boxes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 100;
+    position: relative;
+    margin-top: 50px;
+}
+.box1 {
+    height: 150px;
+    width: 300px;
+    background: url('./images/feedingamerica.png');
+    background-size: 300px 150px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.box2 {
+    height: 200px;
+    width: 300px;
+    background: url('./images/goodwill.png');
+    background-size: 150px 200px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: -50px;
+}
+.box3 {
+    height: 125px;
+    width: 300px;
+    background: url('./images/habitat.png');
+    background-size: 300px 125px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.donation-form {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 100;
+    position: relative;
+}
+.donate-name, .donate-email, .donate-area {
+    height: 50px;
+    width: 500px;
+    text-align: center;
+    margin: 10px;
+    background: #2c2c2c;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 3px 3px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
+    font-weight: bolder;
+    font-size: .75em;
+}
+.donate-area {
+    height: 150px;
+    padding: 20px;
+    resize: none;
+}
+.donation-form button {
+    background: #2c2c2c;
+    padding: 20px;
+    width: 300px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    font-weight: bolder;
+    font-size: 1em;
+    transition: all .5s ease;
+    box-shadow: inset 3px 3px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
+}
+.donation-form button:hover {
+    box-shadow: inset 1px 1px 3px gray, inset -3px -3px 3px rgb(0, 0, 0);
+    cursor: pointer;
+    font-size: 1.15em;
+}
+/*
 .news-heading {
     height: 200px;
     width: 100vw;
@@ -1043,77 +1435,6 @@ button::-moz-focus-inner {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-.image-cards {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: top;
-    background: white;
-    /* background: linear-gradient(to bottom, #fff, #fff, rgba(255,255,255,0)); */
-    padding-top: 250px;
-    padding-bottom: 100px;
-}
-#bg-white {
-    background: white;
-}
-.image-card {
-    height: 350px;
-    width: 350px;
-    color: white;
-    text-transform: uppercase;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bolder;
-    font-size: 1.5em;
-    font-style: italic;
-    /* border-radius: 50%; */
-    border: 10px solid white;
-    background: rgba(0,0,0,.5);
-    z-index: 100;
-    text-shadow: 5px 5px 5px #2c2c2c;
-}
-.image-card p {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-    text-align: center;
-}
-.image-card:nth-child(1) {
-    transform: rotateZ(45deg);
-    background: url('./images/outfit5.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 150;
-}
-.image-card:nth-child(2) {
-    transform: rotateZ(45deg);
-    background: rgba(0,0,0,.9);
-    background: url('./images/palm.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 125;
-    margin-top: -100px;
-}
-.image-card:nth-child(3) {
-    transform: rotateZ(45deg);
-    background: url('./images/coins.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.image-card p {
-    transform: rotateZ(-45deg);
-    z-index: 10000;
-}
 .text-box {
     height: 300px;
     background: url('./images/sandiegobg.png');
@@ -1147,7 +1468,6 @@ button::-moz-focus-inner {
     align-items: center;
     flex-wrap: wrap;
     text-align: center;
-    /* border: 10px solid #fff; */
     color: white;
     transform: rotateZ(45deg);
     margin-left: auto;
@@ -1175,8 +1495,6 @@ button::-moz-focus-inner {
     text-align: center;
     font-weight: bold;
     line-height: 80px;
-    /* background: -webkit-radial-gradient(rgba(255,255,255,.6),rgba(255,255,255,1));
-    background: radial-gradient(rgba(255,255,255,.6),rgba(255,255,255,1)); */
     background: white;
 }
 
@@ -1230,43 +1548,6 @@ button::-moz-focus-inner {
     width: 100%;
     background: linear-gradient(to bottom, rgba(44, 44, 44, 1), rgba(44, 44, 44,.8), rgba(0,0,0,0));
 }
-.faces-container {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.face1 {
-    height: 350px;
-    width: 350px;
-    background: url('./images/galaxy.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 20px;
-    border-radius: 50%;
-}
-.face2 {
-    height: 350px;
-    width: 350px;
-    background: url('./images/smoke.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 20px;
-    border-radius: 50%;
-}
-.face3 {
-    height: 350px;
-    width: 350px;
-    background: url('./images/tydye.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    margin: 20px;
-    border-radius: 50%;
-}
 .sec3 u {
     padding: 10px;
     border-radius: 10px;
@@ -1285,6 +1566,7 @@ button::-moz-focus-inner {
     font-weight: bold;
     text-shadow: 20px 20px 20px black, -20px -20px 20px black;
 }
+*/
 
 /* Cart Content */
 .cart-container {
