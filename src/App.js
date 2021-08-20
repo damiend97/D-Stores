@@ -1,21 +1,9 @@
-// add item removed from cart message
-// add emptied cart message
-// add emptied cart > are you sure message
 // work on profile section
 // compress images/delete unnessecary images
-// message us link --> scroll to contact form
-// face masks shop now button --> link to shop
 // add face masks to store
 
 // STYLING
-// news diamonds
-// keep the sharp edges flowing
 // make site mobile
-// redo shop options
-// box-shadow cart buttons
-// news could use some work
-//      could revert to news-preview styling but with 50 50 split 50 image 50 semi transparent text box at full height
-// remove gradient transparency from newsfeed.png
 
 // PROFILES
 // Link commerce.js profiles
@@ -333,16 +321,25 @@ class App extends Component {
     doesProductExist = (productId, size) => this.state.cartData.items.find(product => product.productData.productId === productId && product.productSize === size)
     
     clearCart = () => {
-        this.setState({
-            cartData: {
-                items: [],
-                total: 0
-            }
-        })
+        if(confirm("Are you sure you want to clear your cart?")) {
+            this.changeMessage("Successfully emptied cart.")
+            document.getElementById("mc").style.opacity = 1;
+
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
+
+            this.setState({
+                cartData: {
+                    items: [],
+                    total: 0
+                }
+            })
+        }
     }
 
     addToCart = (productId, size, quantity, pKey) => {
-        this.changeMessage("Added item to cart.")
+        this.changeMessage("Added item(s) to cart.")
         document.getElementById("mc").style.opacity = 1;
 
         setTimeout(() => {
@@ -487,7 +484,12 @@ class App extends Component {
     removeFromCart = (productId, itemId, size) => {
         if(confirm("Are you sure you want to remove this item?")) {
             commerce.cart.remove(itemId).then((response) => {
-                // console.log(response);
+                this.changeMessage("Removed item(s) from cart.")
+                document.getElementById("mc").style.opacity = 1;
+
+                setTimeout(() => {
+                    document.getElementById("mc").style.opacity = 0;
+                }, 1000);
                 this.setState(prevState => ({
                     cartData: {
                         ...prevState.cartData,

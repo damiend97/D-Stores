@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 
 class News extends Component {
@@ -82,9 +83,9 @@ class News extends Component {
                                 
                             </div>
                             <div className="split" id="rs2"></div>
-                            <div class="gborder">
+                            <div className="gborder">
                             <div className="mask-container">
-                                <h2>Elite Mask Designs - <u><i>Shop Now</i></u></h2>
+                                <h2>Elite Mask Designs - <i><Link style={{color: 'white'}}to="/shop">Shop Now</Link></i></h2>
                             </div>
                             <div className="faces-container">
                                     <div className="face1"></div>
@@ -101,13 +102,13 @@ class News extends Component {
                             <div id="hh-card1">
                                 <div className="mask-contain"></div>
                                 <div id="hh-text1">
-                                    <p><h1>Our Mission</h1><br />Help us donate to those in need! We work with several other organizations to give to the less fortunate! We believe that giving back to the community is what keeps us going. That's why our team has commited to match every dollar spent with us towards fighting for the homeless, disabled, and less fortunate.</p>
+                                    <p><div className="box-heading">Our Mission</div><br />Help us donate to those in need! We work with several other organizations to give to the less fortunate! We believe that giving back to the community is what keeps us going. That's why our team has commited to match every dollar spent with us towards fighting for the homeless, disabled, and less fortunate.</p>
                                 </div>
                             </div>
                             <div id="hh-card2">
                                 <div className="mask-contain"></div>
                                 <div id="hh-text2">
-                                    <p><h1>Our Partners</h1><br /></p>
+                                    <p><div className="box-heading">Our Partners</div><br /></p>
                                     <div className="boxes">
                                         <div className="box1"></div>
                                         <div className="box2"></div>
@@ -118,11 +119,11 @@ class News extends Component {
                             <div id="hh-card3">
                                 <div className="mask-contain"></div>
                                 <div id="hh-text3">
-                                    <p><h1>How to Donate</h1><br /></p>
+                                    <p><div className="box-heading">How to Donate</div><br /></p>
                                     <form action="" className="donation-form">
-                                        <input type="text" placeholder="NAME" className="donate-name"/><br />
-                                        <input type="text" placeholder="EMAIL" className="donate-email"/><br />
-                                        <textarea name="" id="" cols="30" rows="10" className="donate-area" placeholder="MESSAGE US YOUR INFO AND WE WILL SCHEDULE YOU A DONATION CONSULTATION! :)"></textarea><br />
+                                        <input type="text" placeholder="Name" className="donate-name"/><br />
+                                        <input type="text" placeholder="Email" className="donate-email"/><br />
+                                        <textarea name="" id="" cols="30" rows="10" className="donate-area" placeholder="Say hello and we will schedule you a donation consultation!"></textarea><br />
                                         <button type="submit">Submit</button>
                                     </form>
                                 </div>

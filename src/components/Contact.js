@@ -7,6 +7,16 @@ class Contact extends Component {
         let navHeight = document.getElementById('navigation').clientHeight;
 
         $('.full-view-split').css('height', viewHeight - navHeight);
+
+        $('a[href^="#"]').on('click', function(event) {
+            var target = $(this.getAttribute('href'));
+            if( target.length ) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: (target.offset().top - (navHeight + 50))
+                }, 1000);
+            }
+        });
     }
 
     render() {
@@ -32,11 +42,11 @@ class Contact extends Component {
             </div>
             <div className="map"></div>
             <div className="message-pointer">
-                <p>Message Us</p><div className="down-arrow"></div>
+                <p>Message Us</p><a href="#contact-t" className="down-arrow"></a>
             </div>
         </div>
 
-        <div className="contact-text">
+        <div className="contact-text" id="contact-t">
             <div className="custom-line"></div>
             <h1>contact us</h1>
             <div className="custom-line"></div>

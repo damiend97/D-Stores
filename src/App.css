@@ -563,7 +563,7 @@ body {
     color: #2c2c2c;
 }
 .filter-buttons-container {
-    width: 100%;
+    width: 100vw;
     margin-top: 20px;
     margin-bottom: 20px;
     text-align: left;
@@ -594,7 +594,7 @@ body {
     border: 1px solid #a0a0a0;
     background: white;
     color: #2c2c2c;
-    width: 125px;
+    width: 150px;
     height: 50px;
     padding: 15px;
     display: flex;
@@ -1140,6 +1140,10 @@ button::-moz-focus-inner {
     width: 100%;
     height: 100px;
 }
+.no-style Link{
+    text-decoration: none;
+    color: white !important;
+}
 .faces-container {
     display: flex;
     margin-left: auto;
@@ -1184,6 +1188,9 @@ button::-moz-focus-inner {
     background: rgba(0, 0, 0, .5);
     position: absolute;
     border-radius: 20px;
+}
+.box-heading {
+    font-size: 2.5em;
 }
 #hh-card1 {
     background: url('./images/donate.jpg');
@@ -1309,15 +1316,14 @@ button::-moz-focus-inner {
 }
 .donate-name, .donate-email, .donate-area {
     height: 50px;
-    width: 500px;
+    width: 350px;
     text-align: center;
     margin: 10px;
     background: #2c2c2c;
     color: rgb(255, 255, 255);
     border: none;
-    border-radius: 3px;
-    box-shadow: inset 3px 3px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
-    font-weight: bolder;
+    /* border-radius: 3px; */
+    box-shadow: inset 1px 1px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
     font-size: .75em;
 }
 .donate-area {
@@ -1328,19 +1334,18 @@ button::-moz-focus-inner {
 .donation-form button {
     background: #2c2c2c;
     padding: 20px;
-    width: 300px;
+    width: 200px;
     border-radius: 3px;
     border: none;
     color: white;
     font-weight: bolder;
-    font-size: 1em;
+    font-size: .6em;
     transition: all .5s ease;
-    box-shadow: inset 3px 3px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
+    box-shadow: inset 1px 1px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
 }
 .donation-form button:hover {
-    box-shadow: inset 1px 1px 3px gray, inset -3px -3px 3px rgb(0, 0, 0);
+    box-shadow: inset 1px 1px 3px gray, inset -1px -1px 3px rgb(0, 0, 0);
     cursor: pointer;
-    font-size: 1.15em;
 }
 /*
 .news-heading {
