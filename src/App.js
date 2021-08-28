@@ -1,7 +1,6 @@
 // work on profile section
 // compress images/delete unnessecary images
 // add face masks to store
-// checkout
 
 // STYLING
 // make site mobile
@@ -54,7 +53,8 @@ import { commerce } from './lib/commerce';
 import Message from './components/Message';
 import Receipt from './components/Receipt';
 import { withRouter } from 'react-router'
-import Stripe from 'stripe';
+import $ from 'jquery';
+
 
 class App extends Component {
     constructor(props) {
@@ -297,7 +297,8 @@ class App extends Component {
             ],
             pathFilter: [],
             currentMessage: "",
-            cToken: ""
+            cToken: "",
+            loading: false
         }
     }
 
@@ -340,7 +341,20 @@ class App extends Component {
                     total: 0
                 }
             })
+
+            commerce.cart.refresh().then(() => {
+                console.log("emptied cart");
+            }).catch((error) => {
+                console.log('There was an error emptying the cart...', error);
+            });
+    
         }
+    }
+
+    setLoading = (val) => {
+        this.setState({
+            loading: val
+        })
     }
 
     addToCart = (productId, size, quantity, pKey) => {
@@ -511,30 +525,89 @@ class App extends Component {
             });
         }
     }
-    
-    generateToken = () => {
-        commerce.checkout.generateTokenFrom('cart', commerce.cart.id())
-        .then(response => {
-            console.log(response.id);
-            this.setState({cToken: response.id});
+
+    checkoutFinal = async (paymentMethodResponse) => {
+
+        // ********************
+        // payment: {
+        //     gateway: 'stripe',
+        //     stripe: {
+        //         payment_method_id: paymentMethodResponse.paymentMethod.id
+        //     }
+        // }
+        let cartItems;
+
+        // retrieve cart items
+        commerce.cart.retrieve().then((cart) => {
+            cartItems = cart.line_items;
+        }).catch((error) => {
+            console.log("There was an error retrieving the cart...", error);
+            this.setLoading(false);
+        });
+
+        let token;
+        
+        await commerce.checkout.generateTokenFrom('cart', commerce.cart.id()).then((response) => {
+            token = response.id;
+        }).catch((error) => {
+            console.log("There was an error generating the token...", error);
+            this.setLoading(false);
+        })
+
+        this.setState({
+            cToken: token
+        })
+        
+        this.captureOrder(cartItems);
+
+    }
+
+    captureOrder = (cartItems) => {
+        commerce.checkout.capture(this.state.cToken,
+        {
+            line_items: cartItems,
+            customer: {
+                firstname: 'John',
+                lastname: 'Doe',
+                email: 'john.doe@example.com'
+            },
+            shipping: {
+                name: 'John Doe',
+                street: '123 Fake St',
+                town_city: 'San Francisco',
+                county_state: 'US-CA',
+                postal_zip_code: '94103',
+                country: 'US'
+            },
+            billing: {
+                name: 'John Doe',
+                street: '234 Fake St',
+                town_city: 'San Francisco',
+                county_state: 'US-CA',
+                postal_zip_code: '94103',
+                country: 'US'
+            },
+            payment: {
+                gateway: 'test_gateway',
+                card: {
+                    number: '4242 4242 4242 4242',
+                    expiry_month: '01',
+                    expiry_year: '2023',
+                    cvc: '123',
+                    postal_zip_code: '94103',
+                }
+            }
+        }).then((response) => {
+            console.log(response);
+            this.handleSubmit();
+        }).catch((error) => {
+            console.log("There was an error capturing the order...", error);
+            this.setLoading(false);
         });
     }
-    
-    getExistingToken = () => {
-        console.log(this.state.cToken);
-    }
 
-    getShippingMethods = () => {
-        commerce.checkout.getShippingOptions(this.state.cToken, {
-            country: 'Domestic (United States)',
-            region: 'CO - Colorado',
-          }).then(options => console.log(options));
-    }
-
-    captureOrder = () => {
-
-        
-
+    checkLoading = () => {
+        console.log(this.state.loading);
     }
 
     handleSubmit = () => {
@@ -542,10 +615,12 @@ class App extends Component {
         push('/receipt');
 
         commerce.cart.refresh().then(() => {
-            console.log("emptied cart");
+            console.log("payment successful!");
         }).catch((error) => {
             console.log('There was an error emptying the cart...', error);
         });
+
+        this.setLoading(false);
 
         this.setState({
             cartData: {
@@ -566,9 +641,9 @@ class App extends Component {
                     <Route path="/shop" render={() => <Shop changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
-                    <Route path="/cart" render={() => <Cart cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
+                    <Route path="/cart" render={() => <Cart loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/profile" component={Profile} />
-                    <Route path="/receipt" component={Receipt} />
+                    <Route path="/receipt" render={() => <Receipt checkLoading={this.checkLoading}/>} />
                     <Route component={Error} />
                 </Switch>
             </div>

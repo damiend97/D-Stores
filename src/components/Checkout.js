@@ -3,6 +3,7 @@ import { commerce } from '../lib/commerce';
 import $ from 'jquery';
 import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import Loading from './Loading';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -36,14 +37,15 @@ class Checkout extends Component {
     }
 
     verifySubmit = async (e, elements, stripe) => {
-        /*
         e.preventDefault();
+        this.props.setLoading(true);
 
         // check form
         if($(".checkout-form")[0].checkValidity()) {
             // check stripe
             if (!stripe || !elements) {
                 alert("There seems to be a problem, please try again.")
+                this.props.setLoading(false);
             }
             else {
                 const cardElement = elements.getElement(CardElement);
@@ -53,80 +55,36 @@ class Checkout extends Component {
                     type: 'card',
                     card: cardElement,
                 });
-              
+            
                 if (paymentMethodResponse.error) {
                     console.log('[error]', paymentMethodResponse.error);
+                    this.props.setLoading(false);
                     return;
                 }
-
-
-                let fName = $("input[name='firstName']");
-                let cartItems;
-
-                // retrieve cart items
-                commerce.cart.retrieve().then((cart) => {
-                cartItems = cart.line_items;
-                console.log(cartItems);
-
-                // capture order
-                commerce.checkout.capture(this.state.cToken,
-                    {
-                        line_items: cartItems,
-                        customer: {
-                            firstname: fName,
-                            lastname: 'Doe',
-                            email: 'john.doe@example.com'
-                        },
-                        shipping: {
-                            name: 'John Doe',
-                            street: '123 Fake St',
-                            town_city: 'San Francisco',
-                            county_state: 'US-CA',
-                            postal_zip_code: '94103',
-                            country: 'US'
-                        },
-                        billing: {
-                            name: 'John Doe',
-                            street: '234 Fake St',
-                            town_city: 'San Francisco',
-                            county_state: 'US-CA',
-                            postal_zip_code: '94103',
-                            country: 'US'
-                        },
-                        payment: {
-                            gateway: 'test_gateway',
-                            card: {
-                                number: '4242 4242 4242 4242',
-                                expiry_month: '01',
-                                expiry_year: '2023',
-                                cvc: '123',
-                                postal_zip_code: '94103',
-                            }
-                        }
-                        // payment: {
-                        //     gateway: 'stripe',
-                        //     stripe: {
-                        //         payment_method_id: paymentMethodResponse.paymentMethod.id
-                        //     }
-                        // }
-                    }).then((response) => {
-                        console.log(response);
-                        console.log('[PaymentMethod]', paymentMethodResponse);
-                        this.handleSubmit();
-                    }).catch((error) => {
-                        console.log("There was an error capturing the order...", error);
-                    });
-
-                }).catch((error) => {
-                    console.log('There was an error retrieving the cart...', error);
-                });
-
+                this.props.checkoutFinal(paymentMethodResponse);
             }
+        } else {
+            this.props.setLoading(false);
         }
-        */
     }
 
     render() {
+        let {loadingValue} = this.props;
+         
+        const renderLoading = () => {
+            if (loadingValue === true) {
+                return ( 
+                    <Loading />
+                )
+            }
+            // else {
+            //     return (
+            //         <div className="grid-item" id="g5">
+            //             <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
+            //         </div>
+            //     )
+            // }
+        }
         return (
             <div>
                 <Elements stripe={stripePromise}>
@@ -189,15 +147,16 @@ class Checkout extends Component {
                                 </div>
 
                                 <CardElement className="card-element" />
-
+                                
                                 <div className="grid-item" id="g5">
                                     <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
                                 </div>
+                                
+                                {renderLoading()}
                             </form>
                         )}
                     </ElementsConsumer>
                 </Elements>
-
                         {/* <input className="required-field" required type="text" placeholder="Card Number" name="cardNumber" />
                     </div>
                     

@@ -1867,3 +1867,28 @@ textarea:focus {
     grid-column-end: 3;
     border-radius: 5px;
 }
+
+/* Loader */
+.loader {
+    border: 16px solid #2c2c2c;
+    border-radius: 50%;
+    border-top: 16px solid #ffffff;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    left: 50%;  
+    margin-left: -25px;
+    margin-top: -25px;
+    -webkit-animation: spin .75s ease-in-out infinite; /* Safari */
+    animation: spin .75s ease-in-out infinite;
+}
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
