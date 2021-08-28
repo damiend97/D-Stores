@@ -51,7 +51,7 @@ class Contact extends Component {
             <h1>contact us</h1>
             <div className="custom-line"></div>
         </div>
-        <div className="contact-container">
+        <div className="contact-container"> 
             <form action="#" className="contact-form">
                 <div className="grid-item" id="g1">
                     <label htmlFor="username">Name</label>

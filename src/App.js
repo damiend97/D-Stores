@@ -1,6 +1,7 @@
 // work on profile section
 // compress images/delete unnessecary images
 // add face masks to store
+// checkout
 
 // STYLING
 // make site mobile
@@ -51,6 +52,9 @@ import Nav from './components/Nav';
 import ScrollToTop from './components/ScrollToTop';
 import { commerce } from './lib/commerce';
 import Message from './components/Message';
+import Receipt from './components/Receipt';
+import { withRouter } from 'react-router'
+import Stripe from 'stripe';
 
 class App extends Component {
     constructor(props) {
@@ -292,7 +296,8 @@ class App extends Component {
                 }
             ],
             pathFilter: [],
-            currentMessage: ""
+            currentMessage: "",
+            cToken: ""
         }
     }
 
@@ -507,6 +512,48 @@ class App extends Component {
         }
     }
     
+    generateToken = () => {
+        commerce.checkout.generateTokenFrom('cart', commerce.cart.id())
+        .then(response => {
+            console.log(response.id);
+            this.setState({cToken: response.id});
+        });
+    }
+    
+    getExistingToken = () => {
+        console.log(this.state.cToken);
+    }
+
+    getShippingMethods = () => {
+        commerce.checkout.getShippingOptions(this.state.cToken, {
+            country: 'Domestic (United States)',
+            region: 'CO - Colorado',
+          }).then(options => console.log(options));
+    }
+
+    captureOrder = () => {
+
+        
+
+    }
+
+    handleSubmit = () => {
+        const { history: { push } } = this.props;
+        push('/receipt');
+
+        commerce.cart.refresh().then(() => {
+            console.log("emptied cart");
+        }).catch((error) => {
+            console.log('There was an error emptying the cart...', error);
+        });
+
+        this.setState({
+            cartData: {
+                items: [],
+                total: 0
+            }
+        })
+    }
 
     render() {
         return (
@@ -519,8 +566,9 @@ class App extends Component {
                     <Route path="/shop" render={() => <Shop changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
-                    <Route path="/cart" render={() => <Cart cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart}/>}/>
+                    <Route path="/cart" render={() => <Cart cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/profile" component={Profile} />
+                    <Route path="/receipt" component={Receipt} />
                     <Route component={Error} />
                 </Switch>
             </div>
@@ -528,4 +576,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default withRouter(App);

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { commerce } from '../lib/commerce';
+// import { Link } from 'react-router-dom';
+import Checkout from './Checkout';
+import $ from 'jquery';
 
 class Cart extends Component {
     showCart = () => {
@@ -41,6 +44,16 @@ class Cart extends Component {
         }).catch((error) => {
             console.log('There was an error getting the cart subtotal...', error);
         });
+    }
+
+    showForm = () => {
+        $(".checkout-but").fadeToggle(1000);
+        $(".clear-but").fadeToggle(1000);
+        $(".checkout-form").fadeToggle(1000);
+        $(".checkout-form").css("display","grid");
+        $(".cart-data").css("width", "100%");
+        $(".cart-total").css("text-align","center");
+        $(".cart-container").css("overflow-y","hidden");
     }
     
     render() {
@@ -91,8 +104,10 @@ class Cart extends Component {
                             }, 0)) +  (this.props.cartData.items.length * .50)).toFixed(2)}
                             </div>
                         </div>
-                        <div className="checkout-but">Checkout</div>
+                        {/* <Link to="/checkout"><div className="checkout-but" onClick={this.showForm}>Checkout</div></Link> */}
+                        <div className="checkout-but" onClick={this.showForm}>Checkout</div>
                         <div className="clear-but" onClick={this.refreshCart}>Clear Cart</div>
+                        <Checkout cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />
                     </div>
                 </div>
             )
