@@ -298,7 +298,8 @@ class App extends Component {
             pathFilter: [],
             currentMessage: "",
             cToken: "",
-            loading: false
+            loading: false,
+            order: []
         }
     }
 
@@ -599,6 +600,9 @@ class App extends Component {
             }
         }).then((response) => {
             console.log(response);
+            this.setState({
+                order: response
+            })
             this.handleSubmit();
         }).catch((error) => {
             console.log("There was an error capturing the order...", error);
@@ -641,9 +645,9 @@ class App extends Component {
                     <Route path="/shop" render={() => <Shop changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
-                    <Route path="/cart" render={() => <Cart loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
+                    <Route path="/cart" render={() => <Cart checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/profile" component={Profile} />
-                    <Route path="/receipt" render={() => <Receipt checkLoading={this.checkLoading}/>} />
+                    <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route component={Error} />
                 </Switch>
             </div>

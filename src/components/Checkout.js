@@ -5,6 +5,7 @@ import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js
 import { loadStripe } from '@stripe/stripe-js';
 import Loading from './Loading';
 
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 class Checkout extends Component {
@@ -87,6 +88,7 @@ class Checkout extends Component {
         }
         return (
             <div>
+                <button onClick={this.props.checkoutFinal}>Checkout</button>
                 <Elements stripe={stripePromise}>
                     <ElementsConsumer>
                         {({ elements, stripe }) => (
