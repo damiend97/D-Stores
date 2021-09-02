@@ -35,6 +35,12 @@ class Checkout extends Component {
         }).catch((error) => {
             console.log("There was an error getting the cart total...", error);
         });
+
+        const form = document.getElementById("cform");
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            return false;
+        });
     }
 
     verifySubmit = async (e, elements, stripe) => {
@@ -98,17 +104,9 @@ class Checkout extends Component {
                     <Loading />
                 )
             }
-            // else {
-            //     return (
-            //         <div className="grid-item" id="g5">
-            //             <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
-            //         </div>
-            //     )
-            // }
         }
         return (
             <div>
-                <button onClick={this.props.checkoutFinal}>Checkout</button>
                 <Elements stripe={stripePromise}>
                     <ElementsConsumer>
                         {({ elements, stripe }) => (

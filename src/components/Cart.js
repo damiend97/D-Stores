@@ -104,7 +104,6 @@ class Cart extends Component {
                             }, 0)) +  (this.props.cartData.items.length * .50)).toFixed(2)}
                             </div>
                         </div>
-                        {/* <Link to="/checkout"><div className="checkout-but" onClick={this.showForm}>Checkout</div></Link> */}
                         <div className="checkout-but" onClick={this.showForm}>Checkout</div>
                         <div className="clear-but" onClick={this.refreshCart}>Clear Cart</div>
                         <Checkout setCustomerData={this.props.setCustomerData} loadingValue={this.props.loadingValue} setLoading={this.props.setLoading} checkoutFinal={this.props.checkoutFinal} cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />

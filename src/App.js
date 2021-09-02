@@ -1,8 +1,10 @@
-// form disable enter button
-
+// turn receipt variants into variant names
+// revamp commerce error handling to display user messages
+// handle out of stock before it gets to captureOrder
+//      display inventory number
 // work on profile section
 // compress images/delete unnessecary images
-// add face masks to store
+
 
 // STYLING
 // make site mobile
@@ -38,6 +40,7 @@
 // link posts to state - create blog functionality
 // spice up error page
 // product detail page
+// add face masks to store
 
 import React, { Component } from 'react';
 import './App.css';
@@ -375,7 +378,6 @@ class App extends Component {
             })
 
             commerce.cart.refresh().then(() => {
-                console.log("emptied cart");
             }).catch((error) => {
                 console.log('There was an error emptying the cart...', error);
             });
@@ -453,9 +455,6 @@ class App extends Component {
 
             commerce.cart.add(pKey, quantity, variantOption)
             .then((response) => {
-                // commerce.cart.retrieve().then((citems) => {
-                //     console.log(citems);
-                // })
                 this.setState(prevState => ({
                     cartData: {
                         ...prevState.cartData,
@@ -488,7 +487,6 @@ class App extends Component {
                     if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
                         let newQ = item.productQuantity;
                         commerce.cart.update(itemId, { quantity: newQ }).then(response => {
-                            // console.log(response);
                         }).catch((error) => {
                             console.log("There was an issue editing the product quantity...", error);
                         });
@@ -522,7 +520,6 @@ class App extends Component {
                     if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
                         let newQ = item.productQuantity;
                         commerce.cart.update(itemId, { quantity: newQ }).then(response => {
-                            // console.log(response);
                         }).catch((error) => {
                             console.log("There was an issue editing the product quantity...", error);
                         });
@@ -604,6 +601,7 @@ class App extends Component {
             }
 
             cartItems.push(items);
+
         }).catch((error) => {
             console.log("There was an error retrieving the cart...", error);
             this.setLoading(false);
@@ -626,74 +624,7 @@ class App extends Component {
 
     }
 
-    /*
-
-    {
-            line_items: cartItems,
-            customer: {
-                firstname: 'John',
-                lastname: 'Doe',
-                email: 'john.doe@example.com'
-            },
-            shipping: {
-                name: 'John Doe',
-                street: '123 Fake St',
-                town_city: 'San Francisco',
-                county_state: 'US-CA',
-                postal_zip_code: '94103',
-                country: 'US'
-            },
-            billing: {
-                name: 'John Doe',
-                street: '234 Fake St',
-                town_city: 'San Francisco',
-                county_state: 'US-CA',
-                postal_zip_code: '94103',
-                country: 'US'
-            },
-            payment: {
-                gateway: 'test_gateway',
-                card: {
-                    number: '4242 4242 4242 4242',
-                    expiry_month: '01',
-                    expiry_year: '2023',
-                    cvc: '123',
-                    postal_zip_code: '94103',
-                }
-            }
-    */
-   /* 
-   {
-            line_items: cartItems,
-            customer: {
-                firstname: this.state.customerData.firstName,
-                lastname: this.state.customerData.lastName,
-                email: this.state.customerData.email
-            },
-            shipping: {
-                name: this.state.customerData.shipping.name,
-                street: this.state.customerData.shipping.street,
-                town_city: this.state.customerData.shipping.city,
-                county_state: this.state.customerData.shipping.state,
-                postal_zip_code: this.state.customerData.shipping.zip,
-                country: 'US'
-            },
-            billing: {
-                name: this.state.customerData.billing.name,
-                street: this.state.customerData.billing.street,
-                town_city: this.state.customerData.billing.city,
-                county_state: this.state.customerData.billing.state,
-                postal_zip_code: this.state.customerData.billing.zip,
-                country: 'US'
-            },
-            payment: {
-                gateway: 'stripe',
-                stripe: {
-                    payment_method_id: pmr.paymentMethod.id
-                }
-            }
-   */
-
+    
     captureOrder = (cartItems, pmr) => {
         commerce.checkout.capture(this.state.cToken,
             {
@@ -726,11 +657,9 @@ class App extends Component {
                     }
                 }
         }).then((response) => {
-            console.log(response);
             this.setState({
                 order: response
             })
-            console.log(cartItems);
             this.handleSubmit();
         }).catch((error) => {
             console.log("There was an error capturing the order...", error);
@@ -747,7 +676,6 @@ class App extends Component {
         push('/receipt');
 
         commerce.cart.refresh().then(() => {
-            console.log("payment successful!");
         }).catch((error) => {
             console.log('There was an error emptying the cart...', error);
         });

@@ -86,7 +86,6 @@ class Receipt extends Component {
                         <div className="support-msg">If you have any questions or concerns about your order please email our support team at durandamien1997@gmail.com</div>
                     </div>
                 </div>
-                <button onClick={this.logOrder}>log</button>
             </div>
         );
     }
