@@ -107,7 +107,7 @@ class Cart extends Component {
                         {/* <Link to="/checkout"><div className="checkout-but" onClick={this.showForm}>Checkout</div></Link> */}
                         <div className="checkout-but" onClick={this.showForm}>Checkout</div>
                         <div className="clear-but" onClick={this.refreshCart}>Clear Cart</div>
-                        <Checkout loadingValue={this.props.loadingValue} setLoading={this.props.setLoading} checkoutFinal={this.props.checkoutFinal} cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />
+                        <Checkout setCustomerData={this.props.setCustomerData} loadingValue={this.props.loadingValue} setLoading={this.props.setLoading} checkoutFinal={this.props.checkoutFinal} cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />
                     </div>
                 </div>
             )

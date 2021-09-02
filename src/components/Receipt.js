@@ -23,8 +23,13 @@ class Receipt extends Component {
         console.log(this.props.order);
     }
 
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     render() {
         let orderItems = [];
+        let customerDetails = [];
 
         // for each cart item
         for (let i=0; i<this.props.order.order.line_items.length; i++) {
@@ -41,7 +46,7 @@ class Receipt extends Component {
             orderItems.push(
                 <div key={(i+1)*10000} className="order-item">
                     <div key={(i+1)*1} className={imgClass}></div>
-                    <div className="order-item-data">
+                    <div key="key-order-item-data" className="order-item-data">
                         <div key={(i+1)*2} className="order-item-name">{this.props.order.order.line_items[i].product_name}</div>
                         <div key={(i+1)*3} className="order-item-quantity">Quantity: {this.props.order.order.line_items[i].quantity}</div>
                         <div key={(i+1)*4} className="order-item-variant">Variant: {this.props.order.order.line_items[i].variant.id}</div>
@@ -50,8 +55,19 @@ class Receipt extends Component {
                 </div>
             
             );
-
         }
+
+        let cardType = this.capitalizeFirstLetter(this.props.order.transactions[0].payment_source.brand);
+
+        customerDetails.push(
+            <div key="key-order-details" className="order-details">
+                <div key="key-customer-name" className="customer-name">Customer Name: {this.props.order.customer.firstname} {this.props.order.customer.lastname}</div>
+                <div key="key-customer-email" className="customer-email">Customer Email: {this.props.order.customer.email}</div>
+                <div key="key-customer-shipping-address" className="customer-shipping-address">Shipping Address: {this.props.order.shipping.street} {this.props.order.shipping.town_city} {this.props.order.shipping.county_state}, {this.props.order.shipping.postal_zip_code}</div>
+                <div key="key-customer-card-ref" className="customer-card-ref">Payment: {cardType} ending in {this.props.order.transactions[0].gateway_reference}</div>
+                <div key="key-customer-total" className="customer-total">Total: {this.props.order.order_value.formatted_with_symbol}</div>
+            </div>
+        )
 
         return (
             <div>
@@ -64,14 +80,7 @@ class Receipt extends Component {
                         <div className="items-text">Your order</div>
                         {orderItems}
                     </div>
-                    <div className="order-details">
-                        <div className="details-text">Order details</div>
-                        <div className="customer-name">Customer Name: Damien Duran</div>
-                        <div className="customer-email">Email: durandamien1997@gmail.com</div>
-                        <div className="customer-shipping-address">Shipping Address: 936 Sitka Ct. Loveland CO, 80538, USA</div>
-                        <div className="customer-card-ref">Payment: Visa ending in 1239</div>
-                        <div className="customer-total">Total: $37.39</div>
-                    </div>
+                    {customerDetails}
                     <div className="merchant-details">
                         <div className="merchant-text">Customer Support</div>
                         <div className="support-msg">If you have any questions or concerns about your order please email our support team at durandamien1997@gmail.com</div>

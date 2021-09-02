@@ -62,6 +62,26 @@ class Checkout extends Component {
                     this.props.setLoading(false);
                     return;
                 }
+                let fName = document.getElementById("cform").elements["firstName"].value;
+                let lName = document.getElementById("cform").elements["lastName"].value;
+                let email = document.getElementById("cform").elements["email"].value;
+                let shipping = {
+                    name: document.getElementById("cform").elements["shippingName"].value,
+                    street: document.getElementById("cform").elements["shippingStreet"].value,
+                    city: document.getElementById("cform").elements["shippingCity"].value,
+                    state: "US-" + document.getElementById("cform").elements["shippingState"].value,
+                    zip: document.getElementById("cform").elements["shippingZip"].value
+                }
+                let billing = {
+                    name: document.getElementById("cform").elements["shippingName"].value,
+                    street: document.getElementById("cform").elements["billingStreet"].value,
+                    city: document.getElementById("cform").elements["billingCity"].value,
+                    state: "US-" + document.getElementById("cform").elements["billingState"].value,
+                    zip: document.getElementById("cform").elements["billingZip"].value
+                }
+                let card = "1234";
+
+                this.props.setCustomerData(fName, lName, email, shipping, billing, card);
                 this.props.checkoutFinal(paymentMethodResponse);
             }
         } else {
@@ -92,7 +112,7 @@ class Checkout extends Component {
                 <Elements stripe={stripePromise}>
                     <ElementsConsumer>
                         {({ elements, stripe }) => (
-                            <form className="checkout-form">
+                            <form className="checkout-form" id="cform">
                                 <div className="grid-item grid-full shrink-height">
                                     <label htmlFor="firstName">Name</label>
                                 </div>
@@ -117,27 +137,46 @@ class Checkout extends Component {
 
                                 <div className="grid-item grid-full">
                                     <label htmlFor="shipping-address">Shipping Address</label>
-                                    <input className="required-field" required type="text" placeholder="Name" name="shippingName" />
+                                    <input className="required-field" required type="text" placeholder="Full Name" name="shippingName" />
                                 </div>
-
+ 
                                 <div className="grid-item grid-full">
-                                    <input className="required-field" required type="text" placeholder="Street Address" name="shippingStreetAddress" />
+                                    <input className="required-field" required type="text" placeholder="Street Address" name="shippingStreet" />
                                 </div>
 
                                 <div className="grid-item">
-                                    <input className="required-field" required type="text" placeholder="Country" name="shippingCountry"/>
+                                    <input className="required-field" required type="text" placeholder="City" name="shippingCity"/>
                                 </div>
 
                                 <div className="grid-item">
-                                    <input className="required-field" required type="text" placeholder="City" name="shippingCity" />
-                                </div>
-
-                                <div className="grid-item">
-                                <input className="required-field" required type="text" placeholder="County" name="shippingCounty" />
+                                    <input className="required-field" required type="text" placeholder="State" name="shippingState" />
                                 </div>
 
                                 <div className="grid-item">
                                     <input className="required-field" required type="text" pattern="[0-9]*" placeholder="Zip Code e.g. xxxxx" name="shippingZip" />
+                                </div>
+
+                                 {/* Billing ------------- */}
+
+                                 <div className="grid-item grid-full">
+                                    <label htmlFor="billing-address">Billing Address</label>
+                                    <input className="required-field" required type="text" placeholder="Full Name" name="billingName" />
+                                </div>
+ 
+                                <div className="grid-item grid-full">
+                                    <input className="required-field" required type="text" placeholder="Street Address" name="billingStreet" />
+                                </div>
+
+                                <div className="grid-item">
+                                    <input className="required-field" required type="text" placeholder="City" name="billingCity"/>
+                                </div>
+
+                                <div className="grid-item">
+                                    <input className="required-field" required type="text" placeholder="State" name="billingState" />
+                                </div>
+
+                                <div className="grid-item">
+                                    <input className="required-field" required type="text" pattern="[0-9]*" placeholder="Zip Code e.g. xxxxx" name="billingZip" />
                                 </div>
 
                                 { /* Card --------- */}

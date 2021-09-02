@@ -1,3 +1,5 @@
+// form disable enter button
+
 // work on profile section
 // compress images/delete unnessecary images
 // add face masks to store
@@ -299,8 +301,37 @@ class App extends Component {
             currentMessage: "",
             cToken: "",
             loading: false,
-            order: []
+            order: [],
+            customerData: {
+                name: "",
+                firstName: "",
+                lastName: "",
+                email: "",
+                shipping: {
+
+                },
+                billing: {
+
+                },
+                card: {
+
+                }
+            }
         }
+    }
+
+    setCustomerData = (fName, lName, email, shipping, billing, card) => {
+        this.setState({
+            customerData: {
+                name: fName + "" + lName,
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                shipping: shipping,
+                billing: billing,
+                card: card
+            }
+        })
     }
 
     componentDidMount = () => {
@@ -422,8 +453,8 @@ class App extends Component {
 
             commerce.cart.add(pKey, quantity, variantOption)
             .then((response) => {
-                // commerce.cart.contents().then((items) => {
-                //     console.log(items[0].variant.id);
+                // commerce.cart.retrieve().then((citems) => {
+                //     console.log(citems);
                 // })
                 this.setState(prevState => ({
                     cartData: {
@@ -536,11 +567,43 @@ class App extends Component {
         //         payment_method_id: paymentMethodResponse.paymentMethod.id
         //     }
         // }
-        let cartItems;
+
+        // payment: {
+            //     gateway: 'test_gateway',
+            //     card: {
+            //         number: '4242 4242 4242 4242',
+            //         expiry_month: '01',
+            //         expiry_year: '2023',
+            //         cvc: '123',
+            //         postal_zip_code: '94103',
+            //     }
+            // }
+
+
+        let cartItems = [];
 
         // retrieve cart items
         commerce.cart.retrieve().then((cart) => {
-            cartItems = cart.line_items;
+            // cartItems = cart.line_items;
+            let items = [];
+
+            for (let i=0; i< cart.line_items.length; i++) {
+                let obj = {};
+                let vrnt = {};
+
+                vrnt[cart.line_items[i].variant.id] = cart.line_items[i].selected_options[0].option_id
+
+                obj[cart.line_items[i].id] = {
+                    quantity: cart.line_items[i].quantity,
+                    variants: {
+                        vrnt
+                    }
+                }
+
+                items.push(obj);
+            }
+
+            cartItems.push(items);
         }).catch((error) => {
             console.log("There was an error retrieving the cart...", error);
             this.setLoading(false);
@@ -559,13 +622,13 @@ class App extends Component {
             cToken: token
         })
         
-        this.captureOrder(cartItems);
+        this.captureOrder(cartItems, paymentMethodResponse);
 
     }
 
-    captureOrder = (cartItems) => {
-        commerce.checkout.capture(this.state.cToken,
-        {
+    /*
+
+    {
             line_items: cartItems,
             customer: {
                 firstname: 'John',
@@ -598,11 +661,76 @@ class App extends Component {
                     postal_zip_code: '94103',
                 }
             }
+    */
+   /* 
+   {
+            line_items: cartItems,
+            customer: {
+                firstname: this.state.customerData.firstName,
+                lastname: this.state.customerData.lastName,
+                email: this.state.customerData.email
+            },
+            shipping: {
+                name: this.state.customerData.shipping.name,
+                street: this.state.customerData.shipping.street,
+                town_city: this.state.customerData.shipping.city,
+                county_state: this.state.customerData.shipping.state,
+                postal_zip_code: this.state.customerData.shipping.zip,
+                country: 'US'
+            },
+            billing: {
+                name: this.state.customerData.billing.name,
+                street: this.state.customerData.billing.street,
+                town_city: this.state.customerData.billing.city,
+                county_state: this.state.customerData.billing.state,
+                postal_zip_code: this.state.customerData.billing.zip,
+                country: 'US'
+            },
+            payment: {
+                gateway: 'stripe',
+                stripe: {
+                    payment_method_id: pmr.paymentMethod.id
+                }
+            }
+   */
+
+    captureOrder = (cartItems, pmr) => {
+        commerce.checkout.capture(this.state.cToken,
+            {
+                line_items: cartItems,
+                customer: {
+                    firstname: this.state.customerData.firstName,
+                    lastname: this.state.customerData.lastName,
+                    email: this.state.customerData.email
+                },
+                shipping: {
+                    name: this.state.customerData.shipping.name,
+                    street: this.state.customerData.shipping.street,
+                    town_city: this.state.customerData.shipping.city,
+                    county_state: this.state.customerData.shipping.state,
+                    postal_zip_code: this.state.customerData.shipping.zip,
+                    country: 'US'
+                },
+                billing: {
+                    name: this.state.customerData.billing.name,
+                    street: this.state.customerData.billing.street,
+                    town_city: this.state.customerData.billing.city,
+                    county_state: this.state.customerData.billing.state,
+                    postal_zip_code: this.state.customerData.billing.zip,
+                    country: 'US'
+                },
+                payment: {
+                    gateway: 'stripe',
+                    stripe: {
+                        payment_method_id: pmr.paymentMethod.id
+                    }
+                }
         }).then((response) => {
             console.log(response);
             this.setState({
                 order: response
             })
+            console.log(cartItems);
             this.handleSubmit();
         }).catch((error) => {
             console.log("There was an error capturing the order...", error);
@@ -645,7 +773,7 @@ class App extends Component {
                     <Route path="/shop" render={() => <Shop changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
-                    <Route path="/cart" render={() => <Cart checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
+                    <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/profile" component={Profile} />
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route component={Error} />
