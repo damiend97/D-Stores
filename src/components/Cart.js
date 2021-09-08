@@ -75,7 +75,7 @@ class Cart extends Component {
     
                                     <div className="cart-item-data">
                                         <div className="cart-item-name">{item.productData.productName}</div>
-                                        <div className="cart-item-s-q">( {item.productSize} ) x {item.productQuantity} <div className="min-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 0, item.itemId, item.productSize)}>-</div> <div className="plus-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 1, item.itemId, item.productSize)}>+</div> </div>
+                                        <div className="cart-item-s-q">( {item.productSize} ) x {item.productQuantity} <div className="min-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 0, item.itemId, item.productSize, item.productData.productKey)}>-</div> <div className="plus-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 1, item.itemId, item.productSize, item.productData.productKey)}>+</div> </div>
                                         <div className="cart-item-total">Total : ${(parseInt(item.productData.productPrice) * parseInt(item.productQuantity)).toFixed(2)}</div>
                                     </div>
                                     <div className="remove-but" onClick={() => this.props.removeFromCart(item.productData.productId, item.itemId, item.productSize)}>x</div>

@@ -26,7 +26,7 @@ class Product extends Component {
         if (this.state.showAddComp) {
             return (
                 <div>
-                    <AddToCart changeMessage={this.props.changeMessage} addToCart={this.props.addToCart} id={this.props.id} name={this.props.name} image={this.props.image} pKey={this.props.pKey} exitAddComp={this.exitAddComp} price={this.props.price} exitComp={this.exitAddComp}></AddToCart>
+                    <AddToCart handleComError={this.props.handleComError} products={this.props.products} cartData={this.props.cartData} changeMessage={this.props.changeMessage} addToCart={this.props.addToCart} id={this.props.id} name={this.props.name} image={this.props.image} pKey={this.props.pKey} exitAddComp={this.exitAddComp} price={this.props.price} exitComp={this.exitAddComp}></AddToCart>
                     <div className="product-details">
                         <div>
                             <div className="product-name">{this.props.name}</div>

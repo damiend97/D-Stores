@@ -1,5 +1,7 @@
-// turn receipt variants into variant names
+// edit variant inventory in commerce dashboard
+// change variant to size receipt.js
 // revamp commerce error handling to display user messages
+
 // handle out of stock before it gets to captureOrder
 //      display inventory number
 // work on profile section
@@ -57,6 +59,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { commerce } from './lib/commerce';
 import Message from './components/Message';
 import Receipt from './components/Receipt';
+import CartError from './components/CartError';
 import { withRouter } from 'react-router'
 import $ from 'jquery';
 
@@ -257,6 +260,7 @@ class App extends Component {
                         'vrnt_8XxzoBKmAV5PQA'
                     ]
                 }
+                //prod_bWZ3l89mnGwkpE - sticker
             ],
             cartData : {
                 items: [],
@@ -341,6 +345,7 @@ class App extends Component {
         commerce.cart.refresh().then(() => {
         }).catch((error) => {
             console.log('There was an error emptying the cart...', error);
+            this.handleComError();
         });
     }
 
@@ -380,6 +385,7 @@ class App extends Component {
             commerce.cart.refresh().then(() => {
             }).catch((error) => {
                 console.log('There was an error emptying the cart...', error);
+                this.handleComError();
             });
     
         }
@@ -392,110 +398,250 @@ class App extends Component {
     }
 
     addToCart = (productId, size, quantity, pKey) => {
-        this.changeMessage("Added item(s) to cart.")
-        document.getElementById("mc").style.opacity = 1;
-
-        setTimeout(() => {
-            document.getElementById("mc").style.opacity = 0;
-        }, 1000);
-
-        if (this.doesProductExist(productId, size)) {
-            let variantOption;
-            let variantIndex;
-
-            if (size === "S") {
-                variantIndex = 0;
-            } else if (size === "M") {
-                variantIndex = 1;
-            } else if (size === "L") {
-                variantIndex = 2;
-            } else if (size === "XL") {
-                variantIndex = 3;
+        this.setLoading(true);
+        
+        // Quantity Check V2 
+        // Also this is just for good measure - AddToCart should take care of quantity requests
+        let variantOption;
+        let variantIndex;
+        let ID;
+    
+        if (size === "S") {
+            variantIndex = 0;
+        } else if (size === "M") {
+            variantIndex = 1;
+        } else if (size === "L") {
+            variantIndex = 2;
+        } else if (size === "XL") {
+            variantIndex = 3;
+        }
+    
+        this.state.products.map(product => {
+            if(product.productId === productId) {
+                variantOption = product.vOpts[variantIndex];
             }
+        })
 
-            this.state.products.map(product => {
-                if(product.productId === productId) {
-                    variantOption = product.vOpts[variantIndex];
+        commerce.products.getVariants(pKey).then((variants) => {
+            variants.data.map(variant => {
+                if (variant.id === variantOption) {
+                    if (variant.inventory >= quantity) {
+                        commerce.cart.add(pKey, quantity, variantOption).then((response) => {
+                            if (this.doesProductExist(productId, size)) {
+                                this.setState(prevState => ({
+                                    ...prevState,
+                                    items: this.state.cartData.items.map(item => {
+                                        if (item.productData.productId === productId && item.productSize === size) {
+                                            item.productQuantity += quantity
+                                        }
+                                        return item
+                                    })
+                                }))
+                            } else {
+                                // itemId here is set to response.line_item_id (which is undefined)
+                                // should be more something like response.live.line_items[x].id
+                                // also...now getting variant bug again...huh.
+                                this.setState(prevState => ({
+                                    cartData: {
+                                        ...prevState.cartData,
+                                        items: [...prevState.cartData.items, { productKey: pKey, productData: this.state.products[productId - 1], productSize: size, productQuantity: quantity, itemId: response.line_item_id}]
+                                    }
+                                }))
+    
+                            }
+
+                            commerce.checkout.generateTokenFrom("cart", commerce.cart.id()).then((response) => {
+                                this.setState({
+                                    cToken: response.id
+                                })
+                            }).catch((error) => {
+                                console.log("There was an error generating a checkout token...",error);
+                                this.handleComError();
+                            })
+                        }).catch((error) => {
+                            console.log("There was an error adding an item to the cart...", error);
+                            this.handleComError();
+                        });
+                        
+                        this.setLoading(false);
+                        this.changeMessage("Added item(s) to cart.")
+                        document.getElementById("mc").style.opacity = 1;
+                
+                        setTimeout(() => {
+                            document.getElementById("mc").style.opacity = 0;
+                        }, 1000);
+                    } else {
+                        this.setLoading(false);
+                        this.changeMessage("Quantity Unavailable.")
+                        document.getElementById("mc").style.opacity = 1;
+                
+                        setTimeout(() => {
+                            document.getElementById("mc").style.opacity = 0;
+                        }, 1000);
+                    }
                 }
             })
-            commerce.cart.add(pKey, quantity, variantOption).then((response) => {
-            }).catch((error) => {
-                console.log("There was an error adding an item to the cart...", error)
-            })
-            this.setState(prevState => ({
-                ...prevState,
-                items: this.state.cartData.items.map(item => {
-                    if (item.productData.productId === productId && item.productSize === size) {
-                        item.productQuantity += quantity
-                    }
-                    return item
-                })
-            }))
-        }
+        });
 
-        else {
-            let variantOption;
-            let variantIndex;
 
-            if (size === "S") {
-                variantIndex = 0;
-            } else if (size === "M") {
-                variantIndex = 1;
-            } else if (size === "L") {
-                variantIndex = 2;
-            } else if (size === "XL") {
-                variantIndex = 3;
-            }
+        /* Quantity Check V1 */
+        // commerce.cart.add(pKey, quantity, variantOption).then(() => {
+        //     commerce.checkout.generateTokenFrom("cart", commerce.cart.id()).then((response) => {
+        //         console.log("Generated token");
+        //         this.setState({
+        //             cToken: response.id
+        //         }, () => {
+        //             commerce.checkout.getLive(this.state.cToken).then((response) => {
+        //                 response.line_items.map(product => {
+        //                     if(product.variant.id === variantOption) {
+        //                         // ********************* product.id
+        //                         commerce.checkout.checkQuantity(this.state.cToken, product.id, {
+        //                             amount: quantity,
+        //                             variant_id: variantOption
+        //                         }).then((response) => {
+        //                             if(response.available) {
+        //                                 console.log(response);
+        //                                 if (this.doesProductExist(productId, size)) {
+        //                                     this.setState(prevState => ({
+        //                                         ...prevState,
+        //                                         items: this.state.cartData.items.map(item => {
+        //                                             if (item.productData.productId === productId && item.productSize === size) {
+        //                                                 item.productQuantity += quantity
+        //                                             }
+        //                                             return item
+        //                                         })
+        //                                     }))
+        //                                 } else {
+        //                                     // itemId here is set to response.line_item_id (which is undefined)
+        //                                     // should be more something like response.live.line_items[x].id
+        //                                     // also...now getting variant bug again...huh.
+        //                                     this.setState(prevState => ({
+        //                                         cartData: {
+        //                                             ...prevState.cartData,
+        //                                             items: [...prevState.cartData.items, { productData: this.state.products[productId - 1], productSize: size, productQuantity: quantity, itemId: response.live.line_items[0].id}]
+        //                                         }
+        //                                     }))
+        //                                 }
+        //                                 this.setLoading(false);
+        //                                 this.changeMessage("Added item(s) to cart.")
+        //                                 document.getElementById("mc").style.opacity = 1;
+                                
+        //                                 setTimeout(() => {
+        //                                     document.getElementById("mc").style.opacity = 0;
+        //                                 }, 1000);
+        //                             } else {
+        //                                 commerce.cart.remove(response.live.line_items[0].id).then((response) => {
+        //                                     this.setLoading(false);
+        //                                     this.changeMessage("Quantity unavailable.")
+        //                                     document.getElementById("mc").style.opacity = 1;
+                        
+        //                                     setTimeout(() => {
+        //                                         document.getElementById("mc").style.opacity = 0;
+        //                                     }, 1000);
+                                            
+        //                                 }).catch((error) => {
+        //                                     this.setLoading(false);
+        //                                     console.log("There was an error removing an item from the cart...", error);
+        //                                     this.handleComError();
+        //                                 });
+        //                             }
+        //                         }).catch((error) => {
+        //                             console.log("There was an error checking the quantity...", error);
+        //                             this.handleComError();
+        //                         });
+        //                     }
+        //                 })
+        //             }).catch((error) => {
+        //                 console.log("There was an error getting the live checkout...", error);
+        //                 this.handleComError();
+        //             });
+        //         })
+        //     }).catch((error) => {
+        //         console.log("There was an error generating the token...", error);
+        //         this.handleComError();
+        //     })
+        // }).catch((error) => {
+        //     console.log("There was an error adding the item to the cart...", error);
+        //     this.handleComError();
+        // });
 
-            this.state.products.map(product => {
-                if(product.productId === productId) {
-                    variantOption = product.vOpts[variantIndex];
-                }
-            })
 
-            commerce.cart.add(pKey, quantity, variantOption)
-            .then((response) => {
-                this.setState(prevState => ({
-                    cartData: {
-                        ...prevState.cartData,
-                        items: [...prevState.cartData.items, { productData: this.state.products[productId - 1], productSize: size, productQuantity: quantity, itemId: response.line_item_id}]
-                    }
-                }))
-            })
-            .catch((error) => {
-                console.log('There was error adding an item to the cart...', error);
-            });
-        }
     }
 
     
-    changeItemQuantity = (id, newQuantity, itemId, productSize) => {
+    changeItemQuantity = (id, newQuantity, itemId, productSize, pKey) => {
+        this.setLoading(true);
+        let variantOption;
+        let variantIndex;
+    
+        if (productSize === "S") {
+            variantIndex = 0;
+        } else if (productSize === "M") {
+            variantIndex = 1;
+        } else if (productSize === "L") {
+            variantIndex = 2;
+        } else if (productSize === "XL") {
+            variantIndex = 3;
+        }
+    
+        this.state.products.map(product => {
+            if(product.productKey === pKey) {
+                variantOption = product.vOpts[variantIndex];
+            }
+        })
+
+        // if +1 to q
         if(newQuantity === 1) {
-            // original
-            this.setState(prevState => ({
-                cartData: {
-                    ...prevState.cartData,
-                    items: this.state.cartData.items.map(item => {
-                        if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
-                            item.productQuantity += 1
-                        }
-                        return item
-                    })
-                }
-            }), () => {
-                this.state.cartData.items.map(item => {
-                    if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
-                        let newQ = item.productQuantity;
-                        commerce.cart.update(itemId, { quantity: newQ }).then(response => {
-                        }).catch((error) => {
-                            console.log("There was an issue editing the product quantity...", error);
-                        });
+                let oldQuantity = this.state.cartData.items.map(item => {
+                    if (String(item.productData.productKey) === String(pKey) && item.productSize === productSize) {
+                        return item.productQuantity
                     }
                 })
-            })
 
-        } else {
-            // original
+                let combinedQuantity = parseInt(oldQuantity) + 1;
+                console.log(this.state.cToken, itemId, combinedQuantity);
+                commerce.checkout.checkQuantity(this.state.cToken, itemId, {
+                    amount: combinedQuantity,
+                    variant_id: variantOption
+                }).then((response) => {
+                    if(response.available) {
+                        console.log("available");
+                        this.setState(prevState => ({
+                            cartData: {
+                                ...prevState.cartData,
+                                items: this.state.cartData.items.map(item => {
+                                    if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
+                                        item.productQuantity += 1
+                                    }
+                                    return item
+                                })
+                            }
+                        }), () => {
+                            this.state.cartData.items.map(item => {
+                                if (String(item.productData.productId) === String(id) && item.productSize === productSize) {
+                                    let newQ = item.productQuantity;
+                                    commerce.cart.update(itemId, { quantity: newQ }).then(response => {
+                                    }).catch((error) => {
+                                        console.log("There was an issue editing the product quantity...", error);
+                                        this.handleComError();
+                                    });
+                                }
+                            })
+                        })
+                    } else {
+                        this.changeMessage("Quantity unavailable.")
+                        document.getElementById("mc").style.opacity = 1;
+    
+                        setTimeout(() => {
+                            document.getElementById("mc").style.opacity = 0;
+                        }, 1000);
+                    }
+                    this.setLoading(false);
+            })
+    
+        }
+        // if -1 to quantity
+        else {
             this.setState(prevState => ({
                 cartData: {
                     ...prevState.cartData,
@@ -504,7 +650,7 @@ class App extends Component {
                             if(item.productQuantity === 1) {
                                 this.changeMessage("Invalid quantity");
                                 document.getElementById("mc").style.opacity = 1;
-
+    
                                 setTimeout(() => {
                                     document.getElementById("mc").style.opacity = 0;
                                 }, 2000);
@@ -522,12 +668,14 @@ class App extends Component {
                         commerce.cart.update(itemId, { quantity: newQ }).then(response => {
                         }).catch((error) => {
                             console.log("There was an issue editing the product quantity...", error);
+                            this.handleComError();
                         });
                     }
                 })
             })
         }
     }
+    
 
     removeFromCart = (productId, itemId, size) => {
         if(confirm("Are you sure you want to remove this item?")) {
@@ -551,6 +699,7 @@ class App extends Component {
                 }))
             }).catch((error) => {
                 console.log('There was an error removing an item from the cart...', error);
+                this.handleComError();
             });
         }
     }
@@ -604,6 +753,7 @@ class App extends Component {
 
         }).catch((error) => {
             console.log("There was an error retrieving the cart...", error);
+            this.handleComError();
             this.setLoading(false);
         });
 
@@ -613,6 +763,7 @@ class App extends Component {
             token = response.id;
         }).catch((error) => {
             console.log("There was an error generating the token...", error);
+            this.handleComError();
             this.setLoading(false);
         })
 
@@ -660,15 +811,22 @@ class App extends Component {
             this.setState({
                 order: response
             })
+            console.log(response);
             this.handleSubmit();
         }).catch((error) => {
             console.log("There was an error capturing the order...", error);
+            this.handleComError();
             this.setLoading(false);
         });
     }
 
     checkLoading = () => {
         console.log(this.state.loading);
+    }
+
+    handleComError = () => {
+        const { history: { push } } = this.props;
+        push('/cart-error');
     }
 
     handleSubmit = () => {
@@ -678,6 +836,7 @@ class App extends Component {
         commerce.cart.refresh().then(() => {
         }).catch((error) => {
             console.log('There was an error emptying the cart...', error);
+            this.handleComError();
         });
 
         this.setLoading(false);
@@ -698,12 +857,13 @@ class App extends Component {
                 <Message message={this.state.currentMessage}></Message>
                 <Switch>
                     <Route path="/" render={(props) => <Home handlePath={this.handlePath} {...props} />} exact />
-                    <Route path="/shop" render={() => <Shop changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
+                    <Route path="/shop" render={() => <Shop handleComError={this.handleComError} cartData={this.state.cartData} loadingValue={this.state.loading} changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/profile" component={Profile} />
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
+                    <Route path="/cart-error" component={CartError} />
                     <Route component={Error} />
                 </Switch>
             </div>

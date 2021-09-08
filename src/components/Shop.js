@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Product from './Product';
+import Loading from './Loading';
 
 const initalTypes = [];
 
@@ -123,6 +124,15 @@ class Shop extends Component {
     }
 
     render() {
+        let {loadingValue} = this.props;
+
+        const renderLoading = () => {
+            if (loadingValue === true) {
+                return ( 
+                    <Loading />
+                )
+            }
+        }
         return (
             <div>
                 <div className="filter-container">
@@ -158,13 +168,14 @@ class Shop extends Component {
                             if(this.state.typeFilters.includes(product.productType) || this.state.typeFilters.length === 0) {
                                 if((this.state.priceFilter[0] <= product.productPrice && this.state.priceFilter[1] >= product.productPrice)|| this.state.priceFilter[0] === 0) {
                                     return (
-                                        <Product changeMessage={this.props.changeMessage} addToCart={this.props.addToCart} key={product.productId} pKey={product.productKey} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
+                                        <Product handleComError={this.props.handleComError} cartData={this.props.cartData} products={this.props.products} changeMessage={this.props.changeMessage} addToCart={this.props.addToCart} key={product.productId} pKey={product.productKey} id={product.productId} image={product.productImage} name={product.productName} price={product.productPrice}></Product>
                                     )
                                 }
                             }
                         })
                     }
                 </div>
+                {renderLoading()}
             </div>
         )
     }

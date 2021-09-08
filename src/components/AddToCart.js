@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { commerce } from '../lib/commerce';
 
 class addToCart extends Component {
     constructor(props) {
@@ -10,6 +11,9 @@ class addToCart extends Component {
         }
     }
 
+    componentDidMount = () => {
+        // set state to variant inventory data here to display to the user
+    }
     addToCart = () => {
         let qValue = document.getElementById('qf').value;
 
@@ -49,10 +53,77 @@ class addToCart extends Component {
     }
 
     handleQuantityChange = (e) => {
+        let initialQ = this.state.quantity;
         if (!isNaN(e.target.value)) {
             this.setState({
                 quantity: e.target.value
+            }, () => {
+                let variantOption;
+                let variantIndex;
+
+                if (this.state.size === "S") {
+                    variantIndex = 0;
+                } else if (this.state.size === "M") {
+                    variantIndex = 1;
+                } else if (this.state.size === "L") {
+                    variantIndex = 2;
+                } else if (this.state.size === "XL") {
+                    variantIndex = 3;
+                }
+            
+                this.props.products.map(product => {
+                    if(product.productKey === this.props.pKey) {
+                        variantOption = product.vOpts[variantIndex];
+                    }
+                })
+
+                let currentQ;
+
+                commerce.products.getVariants(this.props.pKey).then((variants) => { 
+                    variants.data.map(variant => {
+                        if (variant.id === variantOption) {
+                            if (this.props.cartData.items.length !== 0) {
+                                this.props.cartData.items.map(item => {
+                                    if(item.productData.productKey === this.props.pKey) {
+                                        currentQ = item.productQuantity;
+                                        if (variant.inventory >= this.state.quantity+currentQ) {
+                                        } else {
+                                            this.setState({
+                                                quantity: initialQ
+                                            })
+                                            this.props.changeMessage("Quantity Unavailable");
+                                            document.getElementById("mc").style.opacity = 1;
+
+                                            setTimeout(() => {
+                                                document.getElementById("mc").style.opacity = 0;
+                                            }, 2000);
+                                        }
+                                    }
+                                })
+                            } else {
+                                if(variant.inventory >= this.state.quantity) {
+                                }
+                                else {
+                                    this.setState({
+                                        quantity: initialQ
+                                    })
+                                    this.props.changeMessage("Quantity Unavailable");
+                                    document.getElementById("mc").style.opacity = 1;
+
+                                    setTimeout(() => {
+                                        document.getElementById("mc").style.opacity = 0;
+                                    }, 2000);
+                                }
+                            }
+                            
+                        }
+                    });
+                }).catch((error) => {
+                    console.log("There was an error getting the product variants...", error);
+                    this.props.handleComError();
+                });
             })
+
         }
         else {
             alert("please enter a number");
@@ -64,6 +135,71 @@ class addToCart extends Component {
         this.setState({
             quantity: +this.state.quantity + 1
         })
+
+        let variantOption;
+        let variantIndex;
+
+        if (this.state.size === "S") {
+            variantIndex = 0;
+        } else if (this.state.size === "M") {
+            variantIndex = 1;
+        } else if (this.state.size === "L") {
+            variantIndex = 2;
+        } else if (this.state.size === "XL") {
+            variantIndex = 3;
+        }
+    
+        this.props.products.map(product => {
+            if(product.productKey === this.props.pKey) {
+                variantOption = product.vOpts[variantIndex];
+            }
+        })
+
+        let currentQ;
+
+        commerce.products.getVariants(this.props.pKey).then((variants) => { 
+            variants.data.map(variant => {
+                if (variant.id === variantOption) {
+                    if (this.props.cartData.items.length !== 0) {
+                        this.props.cartData.items.map(item => {
+                            if(item.productData.productKey === this.props.pKey) {
+                                currentQ = item.productQuantity;
+                                if (variant.inventory >= this.state.quantity+currentQ) {
+                                } else {
+                                    this.setState({
+                                        quantity: this.state.quantity-1
+                                    })
+                                    this.props.changeMessage("Quantity Unavailable");
+                                    document.getElementById("mc").style.opacity = 1;
+
+                                    setTimeout(() => {
+                                        document.getElementById("mc").style.opacity = 0;
+                                    }, 2000);
+                                }
+                            }
+                        })
+                    } else {
+                        if(variant.inventory >= this.state.quantity) {
+                        }
+                        else {
+                            this.setState({
+                                quantity: this.state.quantity-1
+                            })
+                            this.props.changeMessage("Quantity Unavailable");
+                            document.getElementById("mc").style.opacity = 1;
+
+                            setTimeout(() => {
+                                document.getElementById("mc").style.opacity = 0;
+                            }, 2000);
+                        }
+                    }
+                    
+                }
+            });
+         }).catch((error) => {
+             console.log("There was an error getting the product variants...", error);
+             this.props.handleComError();
+         });
     }
 
     decreaseQuantity = () => {
@@ -88,6 +224,27 @@ class addToCart extends Component {
                 <div className="split-left">
                     <img src={require(`../images/products/${this.props.image}.png`)} className="small-product" alt="product" />
                     <i className="fas fa-times exit-product-button" onClick={this.props.exitAddComp}></i>
+                    {/* <div className="inventory-container">
+                        <div className="i-text">Store Inventory</div>
+                        <div className="i-grid">
+                            <div className="i-g-item">
+                                <div>SMALL</div>
+                                <div>(4)</div>
+                            </div>
+                            <div className="i-g-item">
+                                <div>MEDIUM</div>
+                                <div>(2)</div>
+                            </div>
+                            <div className="i-g-item">
+                                <div>LARGE</div>
+                                <div>(1)</div>
+                            </div>
+                            <div className="i-g-item">
+                                <div>X-LARGE</div>
+                                <div>(17)</div>
+                            </div>
+                        </div>
+                    </div> */}
                 </div>
 
                 <div className="split-right">

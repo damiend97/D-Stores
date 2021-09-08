@@ -40,7 +40,6 @@ class Receipt extends Component {
                 if(imgID === this.props.products[i].productKey) {
                     imgClass = "order-item-img " + this.props.products[i].productImage;
                 }
-                console.log(imgClass);
             }
 
             orderItems.push(
@@ -49,7 +48,7 @@ class Receipt extends Component {
                     <div key="key-order-item-data" className="order-item-data">
                         <div key={(i+1)*2} className="order-item-name">{this.props.order.order.line_items[i].product_name}</div>
                         <div key={(i+1)*3} className="order-item-quantity">Quantity: {this.props.order.order.line_items[i].quantity}</div>
-                        <div key={(i+1)*4} className="order-item-variant">Variant: {this.props.order.order.line_items[i].variant.id}</div>
+                        <div key={(i+1)*4} className="order-item-variant">Size: {this.props.order.order.line_items[i].selected_options[0].option_name}</div>
                         <div key={(i+1)*5} className="order-item-total">Total: {this.props.order.order.line_items[i].line_total.formatted}</div>
                     </div>
                 </div>
