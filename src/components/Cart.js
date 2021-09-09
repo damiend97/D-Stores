@@ -3,6 +3,7 @@ import { commerce } from '../lib/commerce';
 // import { Link } from 'react-router-dom';
 import Checkout from './Checkout';
 import $ from 'jquery';
+import Loading from './Loading';
 
 class Cart extends Component {
     showCart = () => {
@@ -57,17 +58,20 @@ class Cart extends Component {
     }
     
     render() {
+        let {loadingValue} = this.props;
+
+        const renderLoading = () => {
+            if (loadingValue === true) {
+                return ( 
+                    <Loading />
+                )
+            }
+        }
         if (this.props.cartData.items.length > 0) {
             return (
                 <div className="cart-container">
+                {renderLoading()}
                     <div className="cart-list">
-                    {/* <button onClick={this.showCart}>display cart</button>
-                    <button onClick={this.refreshCart}>refresh cart</button>
-                    <button onClick={this.fetchProducts}>fetch products</button>
-                    <button onClick={this.getCart}>get cart contents</button>
-                    <button onClick={this.getTotal}>get total</button>
-                    <button onClick={this.getVariants}>get variants</button> */
-                    }
                         {this.props.cartData.items.map((item, num) => {
                             return (
                                 <div className="cart-item" key={item.productData.productId*num}>
@@ -114,12 +118,6 @@ class Cart extends Component {
             return (
                 <div className="cart-container">
                     <div className="cart-list">
-                    {/* <button onClick={this.showCart}>display cart</button>
-                    <button onClick={this.refreshCart}>refresh cart</button>
-                    <button onClick={this.fetchProducts}>fetch products</button>
-                    <button onClick={this.getCart}>get cart contents</button>
-                    <button onClick={this.getTotal}>get total</button>
-                    <button onClick={this.getVariants}>get variants</button> */}
                         {this.props.cartData.items.map(item => {
                             return (
                                 <div className="cart-item" key={item.productData.productId}>

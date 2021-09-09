@@ -81,9 +81,7 @@ class Home extends Component {
                     <div className="news-items">
                         <div className="news-item full-view-container news-first">
                             <div className="news-text">
-                                {/* <div className="custom-line"></div> */}
                                 <h1>news from our feed</h1>
-                                {/* <div className="custom-line"></div> */}
                             </div>
                             <div className="news-body body-shrink">
                                 <div className="news-header">

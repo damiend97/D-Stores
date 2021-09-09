@@ -10,27 +10,8 @@ class News extends Component {
         let fvHeight = viewHeight - navHeight;
         $('.full-height-container').css('min-height', fvHeight);
         $('.split').css('min-height', fvHeight);
-
-        // let leftHeight = $('#ls2').css('height');
-        // $('#rs2').css('height',leftHeight);
-        
-        // window.addEventListener('scroll', this.handleScroll);
     }
 
-    // handleScroll() {
-    //     // top of element
-    //     var elementTop = $($(".left-container")).offset().top;
-    //     // bottom of element
-    //     var elementBottom = elementTop + $($(".left-container")).outerHeight();
-    //     // top of view
-    //     var viewportTop = $(window).scrollTop();
-    //     // bottom of view
-    //     var viewportBottom = viewportTop + $(window).height();
-    //     // return bool
-    //     if (elementBottom > viewportTop && elementTop < viewportBottom ) {
-    //         $(".left-container").css("background","rgba(0,0,0," + (((elementTop - viewportBottom)/1000 * -2) - .1) + ")");
-    //     }
-    // }
     render() {
         return (
             <div className="news-container">

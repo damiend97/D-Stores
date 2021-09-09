@@ -11,9 +11,11 @@ class addToCart extends Component {
         }
     }
 
+
     componentDidMount = () => {
         // set state to variant inventory data here to display to the user
     }
+    
     addToCart = () => {
         let qValue = document.getElementById('qf').value;
 
@@ -77,45 +79,34 @@ class addToCart extends Component {
                     }
                 })
 
-                let currentQ;
+                let currentQ = this.props.cartData.items.map(product => {
+                    if (product.productData.productKey === this.props.pKey) {
+                        if(product.productQuantity === null) {
+                            return 0;
+                        } else {
+                            return product.productQuantity;
+                        }
+                    }
+                });
+
+                let combinedQ = +currentQ + +this.state.quantity;
 
                 commerce.products.getVariants(this.props.pKey).then((variants) => { 
                     variants.data.map(variant => {
                         if (variant.id === variantOption) {
-                            if (this.props.cartData.items.length !== 0) {
-                                this.props.cartData.items.map(item => {
-                                    if(item.productData.productKey === this.props.pKey) {
-                                        currentQ = item.productQuantity;
-                                        if (variant.inventory >= this.state.quantity+currentQ) {
-                                        } else {
-                                            this.setState({
-                                                quantity: initialQ
-                                            })
-                                            this.props.changeMessage("Quantity Unavailable");
-                                            document.getElementById("mc").style.opacity = 1;
-
-                                            setTimeout(() => {
-                                                document.getElementById("mc").style.opacity = 0;
-                                            }, 2000);
-                                        }
-                                    }
+                            console.log("Inventory: ", variant.inventory);
+                            console.log("Requested Quantity", combinedQ);
+                            if(variant.inventory < combinedQ) {
+                                this.setState({
+                                    quantity: initialQ
                                 })
-                            } else {
-                                if(variant.inventory >= this.state.quantity) {
-                                }
-                                else {
-                                    this.setState({
-                                        quantity: initialQ
-                                    })
-                                    this.props.changeMessage("Quantity Unavailable");
-                                    document.getElementById("mc").style.opacity = 1;
+                                this.props.changeMessage("Quantity Unavailable");
+                                document.getElementById("mc").style.opacity = 1;
 
-                                    setTimeout(() => {
-                                        document.getElementById("mc").style.opacity = 0;
-                                    }, 2000);
-                                }
+                                setTimeout(() => {
+                                    document.getElementById("mc").style.opacity = 0;
+                                }, 2000);
                             }
-                            
                         }
                     });
                 }).catch((error) => {
@@ -123,65 +114,52 @@ class addToCart extends Component {
                     this.props.handleComError();
                 });
             })
-
         }
         else {
             alert("please enter a number");
             document.getElementById('qf').value = "";
         }
+
     }
 
     increaseQuantity = () => {
         this.setState({
             quantity: +this.state.quantity + 1
-        })
+        }, () => {
 
-        let variantOption;
-        let variantIndex;
+            let variantOption;
+            let variantIndex;
 
-        if (this.state.size === "S") {
-            variantIndex = 0;
-        } else if (this.state.size === "M") {
-            variantIndex = 1;
-        } else if (this.state.size === "L") {
-            variantIndex = 2;
-        } else if (this.state.size === "XL") {
-            variantIndex = 3;
-        }
-    
-        this.props.products.map(product => {
-            if(product.productKey === this.props.pKey) {
-                variantOption = product.vOpts[variantIndex];
+            if (this.state.size === "S") {
+                variantIndex = 0;
+            } else if (this.state.size === "M") {
+                variantIndex = 1;
+            } else if (this.state.size === "L") {
+                variantIndex = 2;
+            } else if (this.state.size === "XL") {
+                variantIndex = 3;
             }
-        })
+        
+            this.props.products.map(product => {
+                if(product.productKey === this.props.pKey) {
+                    variantOption = product.vOpts[variantIndex];
+                }
+            })
 
-        let currentQ;
+            let currentQ = this.props.cartData.items.map(product => {
+                if (product.productData.productKey === this.props.pKey) {
+                    return product.productQuantity;
+                }
+            });
 
-        commerce.products.getVariants(this.props.pKey).then((variants) => { 
-            variants.data.map(variant => {
-                if (variant.id === variantOption) {
-                    if (this.props.cartData.items.length !== 0) {
-                        this.props.cartData.items.map(item => {
-                            if(item.productData.productKey === this.props.pKey) {
-                                currentQ = item.productQuantity;
-                                if (variant.inventory >= this.state.quantity+currentQ) {
-                                } else {
-                                    this.setState({
-                                        quantity: this.state.quantity-1
-                                    })
-                                    this.props.changeMessage("Quantity Unavailable");
-                                    document.getElementById("mc").style.opacity = 1;
+            let combinedQ = +currentQ + +this.state.quantity;
 
-                                    setTimeout(() => {
-                                        document.getElementById("mc").style.opacity = 0;
-                                    }, 2000);
-                                }
-                            }
-                        })
-                    } else {
-                        if(variant.inventory >= this.state.quantity) {
-                        }
-                        else {
+            commerce.products.getVariants(this.props.pKey).then((variants) => { 
+                variants.data.map(variant => {
+                    if (variant.id === variantOption) {
+                        console.log("Inventory: ", variant.inventory);
+                        console.log("Requested Quantity", combinedQ);
+                        if(variant.inventory < combinedQ) {
                             this.setState({
                                 quantity: this.state.quantity-1
                             })
@@ -193,13 +171,12 @@ class addToCart extends Component {
                             }, 2000);
                         }
                     }
-                    
-                }
+                });
+            }).catch((error) => {
+                console.log("There was an error getting the product variants...", error);
+                this.props.handleComError();
             });
-         }).catch((error) => {
-             console.log("There was an error getting the product variants...", error);
-             this.props.handleComError();
-         });
+        })
     }
 
     decreaseQuantity = () => {

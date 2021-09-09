@@ -133,16 +133,11 @@ class Shop extends Component {
                 )
             }
         }
+        
         return (
             <div>
                 <div className="filter-container">
                     <div className="filter-buttons-container">
-                        {/* <div className="filters-label">
-                            <div className="line-through-short"></div>
-                            Shop Options
-                            <div className="line-through-long"></div>
-                        </div> */}
-
                         <div className="filter-buttons">
                             <div className="filter-button type-filter-selected" id="all-types-button" onClick={this.filterType}>ALL TYPES</div>
                             <div className="filter-button" onClick={this.filterType}>SHIRTS</div>

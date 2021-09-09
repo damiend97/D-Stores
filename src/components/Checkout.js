@@ -196,16 +196,6 @@ class Checkout extends Component {
                         )}
                     </ElementsConsumer>
                 </Elements>
-                        {/* <input className="required-field" required type="text" placeholder="Card Number" name="cardNumber" />
-                    </div>
-                    
-                    <div className="grid-item">
-                        <input className="required-field" required type="text" placeholder="Expiration (xx/xx)" name="cardExpiration" />
-                    </div>
-
-                    <div className="grid-item">
-                        <input className="required-field" required type="text" placeholder="CVV" name="cardCVV" />
-                    </div> */}
             </div>
         );
     }
