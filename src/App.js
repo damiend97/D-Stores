@@ -1,8 +1,11 @@
-// work on profile section
+// move face mask designs to left shrink text 2 cols
+// put helping hand partners in with mission box
+// please fill out form alert
+// form on outside with better styling
+// new news landing page
+// link profile to commerce
 // compress images/delete unnessecary images
 // taxes
-// quantities (from AddToCart comp to + button in Cart) not adding as ints
-// 0xxx as quantity also creating issues
 
 // STYLING
 // make site mobile
@@ -58,6 +61,8 @@ import Receipt from './components/Receipt';
 import CartError from './components/CartError';
 import { withRouter } from 'react-router'
 import $ from 'jquery';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 
 class App extends Component {
@@ -300,6 +305,7 @@ class App extends Component {
                     postBody : 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus incidunt saepe repudiandae asperiores corporis!'
                 }
             ],
+            loggedIn: false,
             pathFilter: [],
             currentMessage: "",
             cToken: "",
@@ -399,6 +405,7 @@ class App extends Component {
         let variantOption;
         let variantIndex;
         let ID;
+        quantity = +quantity;
     
         if (size === "S") {
             variantIndex = 0;
@@ -465,7 +472,6 @@ class App extends Component {
                         this.setLoading(false);
                         this.changeMessage("Quantity Unavailable.")
                         document.getElementById("mc").style.opacity = 1;
-                
                         setTimeout(() => {
                             document.getElementById("mc").style.opacity = 0;
                         }, 1000);
@@ -627,15 +633,15 @@ class App extends Component {
         // }
 
         // payment: {
-            //     gateway: 'test_gateway',
-            //     card: {
-            //         number: '4242 4242 4242 4242',
-            //         expiry_month: '01',
-            //         expiry_year: '2023',
-            //         cvc: '123',
-            //         postal_zip_code: '94103',
-            //     }
-            // }
+        //         gateway: 'test_gateway',
+        //         card: {
+        //             number: '4242 4242 4242 4242',
+        //             expiry_month: '01',
+        //             expiry_year: '2023',
+        //             cvc: '123',
+        //             postal_zip_code: '94103',
+        //         }
+        //     }
 
 
         let cartItems = [];
@@ -687,53 +693,102 @@ class App extends Component {
 
     
     captureOrder = (cartItems, pmr) => {
-        commerce.checkout.capture(this.state.cToken,
-            {
-                line_items: cartItems,
-                customer: {
-                    firstname: this.state.customerData.firstName,
-                    lastname: this.state.customerData.lastName,
-                    email: this.state.customerData.email
-                },
-                shipping: {
-                    name: this.state.customerData.shipping.name,
-                    street: this.state.customerData.shipping.street,
-                    town_city: this.state.customerData.shipping.city,
-                    county_state: this.state.customerData.shipping.state,
-                    postal_zip_code: this.state.customerData.shipping.zip,
-                    country: 'US'
-                },
-                billing: {
-                    name: this.state.customerData.billing.name,
-                    street: this.state.customerData.billing.street,
-                    town_city: this.state.customerData.billing.city,
-                    county_state: this.state.customerData.billing.state,
-                    postal_zip_code: this.state.customerData.billing.zip,
-                    country: 'US'
-                },
-                payment: {
-                    gateway: 'stripe',
-                    stripe: {
-                        payment_method_id: pmr.paymentMethod.id
+        if (pmr === undefined) {
+            commerce.checkout.capture(this.state.cToken,
+                {
+                    line_items: cartItems,
+                    customer: {
+                        firstname: this.state.customerData.firstName,
+                        lastname: this.state.customerData.lastName,
+                        email: this.state.customerData.email
+                    },
+                    shipping: {
+                        name: this.state.customerData.shipping.name,
+                        street: this.state.customerData.shipping.street,
+                        town_city: this.state.customerData.shipping.city,
+                        county_state: this.state.customerData.shipping.state,
+                        postal_zip_code: this.state.customerData.shipping.zip,
+                        country: 'US'
+                    },
+                    billing: {
+                        name: this.state.customerData.billing.name,
+                        street: this.state.customerData.billing.street,
+                        town_city: this.state.customerData.billing.city,
+                        county_state: this.state.customerData.billing.state,
+                        postal_zip_code: this.state.customerData.billing.zip,
+                        country: 'US'
+                    },
+                    payment: {
+                        gateway: 'test_gateway',
+                        card: {
+                            number: '4242 4242 4242 4242',
+                            expiry_month: '01',
+                            expiry_year: '2023',
+                            cvc: '123',
+                            postal_zip_code: this.state.customerData.billing.zip
+                        }
                     }
-                }
-        }).then((response) => {
-            this.setState({
-                order: response
-            })
-            console.log(response);
-            this.handleSubmit();
-        }).catch((error) => {
-            console.log("There was an error capturing the order...", error);
-            this.handleComError();
-            this.setLoading(false);
-        });
+            }).then((response) => {
+                this.setState({
+                    order: response
+                })
+                console.log(response);
+                this.handleSubmit();
+                this.setLoading(false);
+            }).catch((error) => {
+                console.log("There was an error capturing the order...", error);
+                this.handleComError();
+                this.setLoading(false);
+            });
+        } else {
+            commerce.checkout.capture(this.state.cToken,
+                {
+                    line_items: cartItems,
+                    customer: {
+                        firstname: this.state.customerData.firstName,
+                        lastname: this.state.customerData.lastName,
+                        email: this.state.customerData.email
+                    },
+                    shipping: {
+                        name: this.state.customerData.shipping.name,
+                        street: this.state.customerData.shipping.street,
+                        town_city: this.state.customerData.shipping.city,
+                        county_state: this.state.customerData.shipping.state,
+                        postal_zip_code: this.state.customerData.shipping.zip,
+                        country: 'US'
+                    },
+                    billing: {
+                        name: this.state.customerData.billing.name,
+                        street: this.state.customerData.billing.street,
+                        town_city: this.state.customerData.billing.city,
+                        county_state: this.state.customerData.billing.state,
+                        postal_zip_code: this.state.customerData.billing.zip,
+                        country: 'US'
+                    },
+                    payment: {
+                        gateway: 'stripe',
+                        stripe: {
+                            payment_method_id: pmr.paymentMethod.id
+                        }
+                    }
+            }).then((response) => {
+                this.setState({
+                    order: response
+                })
+                console.log(response);
+                this.handleSubmit();
+                this.setLoading(false);
+            }).catch((error) => {
+                console.log("There was an error capturing the order...", error);
+                this.handleComError();
+                this.setLoading(false);
+            });
+        }
     }
 
     checkLoading = () => {
         console.log(this.state.loading);
     }
-
 
     handleComError = () => {
         const { history: { push } } = this.props;
@@ -760,6 +815,24 @@ class App extends Component {
         })
     }
 
+    setLoginState = (val) => {
+        this.setState({
+            loggedIn: val
+        })
+    }
+
+    customerLogin = () => {
+        this.setLoginState(true);
+    }
+
+    customerSignup = () => {
+        this.setLoginState(true);
+    }
+
+    customerLogout = () => {
+        this.setLoginState(false);
+    }
+
     render() {
         return (
             <div className="App">
@@ -772,9 +845,11 @@ class App extends Component {
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
-                    <Route path="/profile" component={Profile} />
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
+                    <Route path="/profile" render={() => <Profile loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/login" render={() => {<Login customerLogin={this.customerLogin}/>}} />
+                    <Route path="/signup" render={() => {<SignUp customerSignup={this.customerSignup}/>}} />
                     <Route component={Error} />
                 </Switch>
             </div>

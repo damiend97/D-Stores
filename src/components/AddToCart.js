@@ -38,6 +38,7 @@ class addToCart extends Component {
             quantity: 0
         })
 
+        console.log("clicked");
     }
 
     handleSizeChange = (e) => {
@@ -98,7 +99,7 @@ class addToCart extends Component {
                             console.log("Requested Quantity", combinedQ);
                             if(variant.inventory < combinedQ) {
                                 this.setState({
-                                    quantity: initialQ
+                                    quantity: 0
                                 })
                                 this.props.changeMessage("Quantity Unavailable");
                                 document.getElementById("mc").style.opacity = 1;
@@ -108,6 +109,7 @@ class addToCart extends Component {
                                 }, 2000);
                             }
                         }
+
                     });
                 }).catch((error) => {
                     console.log("There was an error getting the product variants...", error);
@@ -247,7 +249,7 @@ class addToCart extends Component {
                         </div>
 
                         <div className="func-buttons">
-                            <button className="add-product-button" onClick={this.addToCart}><i>Add To Cart</i></button>
+                            <button className="add-product-button" id="apb" onClick={this.addToCart}><i>Add To Cart</i></button>
                         </div>
                     </div>
                 </div>

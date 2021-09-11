@@ -95,6 +95,38 @@ class Checkout extends Component {
         }
     }
 
+    testSubmit = async (e) => {
+        e.preventDefault();
+        this.props.setLoading(true);
+
+        // check form
+        if($(".checkout-form")[0].checkValidity()) {
+            let fName = document.getElementById("cform").elements["firstName"].value;
+            let lName = document.getElementById("cform").elements["lastName"].value;
+            let email = document.getElementById("cform").elements["email"].value;
+            let shipping = {
+                name: document.getElementById("cform").elements["shippingName"].value,
+                street: document.getElementById("cform").elements["shippingStreet"].value,
+                city: document.getElementById("cform").elements["shippingCity"].value,
+                state: "US-" + document.getElementById("cform").elements["shippingState"].value,
+                zip: document.getElementById("cform").elements["shippingZip"].value
+            }
+            let billing = {
+                name: document.getElementById("cform").elements["shippingName"].value,
+                street: document.getElementById("cform").elements["billingStreet"].value,
+                city: document.getElementById("cform").elements["billingCity"].value,
+                state: "US-" + document.getElementById("cform").elements["billingState"].value,
+                zip: document.getElementById("cform").elements["billingZip"].value
+            }
+            let card = "1234";
+
+            this.props.setCustomerData(fName, lName, email, shipping, billing, card);
+            this.props.checkoutFinal();
+        } else {
+            this.props.setLoading(false);
+        }
+    }
+
     render() {
         let {loadingValue} = this.props;
          
@@ -189,8 +221,9 @@ class Checkout extends Component {
                                 
                                 <div className="grid-item" id="g5">
                                     <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
+                                    <input onClick={(e) => this.testSubmit(e)} type="submit" value="Pay with test gateway" id="test-submit"/>
+
                                 </div>
-                                
                                 {renderLoading()}
                             </form>
                         )}
