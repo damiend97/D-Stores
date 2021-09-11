@@ -63,7 +63,7 @@ import { withRouter } from 'react-router'
 import $ from 'jquery';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
-
+import { Auth } from 'aws-amplify';
 
 class App extends Component {
     constructor(props) {
@@ -325,7 +325,8 @@ class App extends Component {
                 card: {
 
                 }
-            }
+            },
+            authMessage: ""
         }
     }
 
@@ -825,13 +826,122 @@ class App extends Component {
         this.setLoginState(true);
     }
 
-    customerSignup = () => {
-        this.setLoginState(true);
+
+    customerConfirm = async (username, code) => {
+        try {
+            await Auth.confirmSignUp(username, code)
+            this.setState({
+                loggedIn: true
+            })
+        } catch (error) {
+            this.changeMessage("Invallid code.");
+            document.getElementById("mc").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
+        }
+    }
+
+    resendConfirmationCode = async (username) => {
+        try {
+            await Auth.resendSignUp(username);
+            console.log('code resent successfully');
+        } catch (err) {
+            this.changeMessage(error.message);
+            document.getElementById("mc").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
+        }
+    }
+
+
+    customerSignup = async (username, password, email, phone_number) => {
+        try {
+            await Auth.signUp({
+                username,
+                password,
+                attributes: {
+                    email,
+                    phone_number
+                }
+            }).then((res) => {
+                console.log(res);
+            })
+        } catch (error) {
+            switch (error.message) {
+                case "Password did not conform with policy: Password not long enough":
+                    this.changeMessage("Password not long enough.");
+                    break;
+                case "Invalid email address format.":
+                    this.changeMessage("Invalid email address.");
+                    break;
+                case "Username cannot be of email format, since user pool is configured for email alias.":
+                    this.changeMessage("Invalid username.");
+                    break;
+                case "User already exists":
+                    this.changeMessage("User already exists.");
+                    break;
+                case "Username cannot be empty":
+                    this.changeMessage("Invalid username.");
+                default:
+                    this.changeMessage(error.message);
+                    break;
+            }
+            
+            document.getElementById("mc").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
+        }
+
+        // await Auth.signUp({
+        //     username,
+        //     password,
+        //     attributes: {
+        //         email,
+        //         phone_number
+        //     }
+        // }).then(res => {
+        //     console.log(res);
+        //     this.setLoginState(true);
+        // }).catch(error => {            
+        //     switch (error.message) {
+        //         case "Password did not conform with policy: Password not long enough":
+        //             this.changeMessage("Password not long enough.");
+        //             break;
+        //         case "Invalid email address format.":
+        //             this.changeMessage("Invalid email address.");
+        //             break;
+        //         case "Username cannot be of email format, since user pool is configured for email alias.":
+        //             this.changeMessage("Invalid username.");
+        //             break;
+        //         case "User already exists":
+        //             this.changeMessage("User already exists.");
+        //             break;
+        //         case "Username cannot be empty":
+        //             this.changeMessage("Invalid username.");
+        //         default:
+        //             this.changeMessage(error.message);
+        //             break;
+        //     }
+            
+        //     document.getElementById("mc").style.opacity = 1;
+        //     setTimeout(() => {
+        //         document.getElementById("mc").style.opacity = 0;
+        //     }, 1000);
+        // })
+    }
+
+    handleConfirm = (username, code) => {
+        console.log(username, code);
     }
 
     customerLogout = () => {
         this.setLoginState(false);
+        // add code to push to login page not sign up (or maybe even home?)
     }
+
 
     render() {
         return (
@@ -847,9 +957,9 @@ class App extends Component {
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
-                    <Route path="/profile" render={() => <Profile loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
-                    <Route path="/login" render={() => {<Login customerLogin={this.customerLogin}/>}} />
-                    <Route path="/signup" render={() => {<SignUp customerSignup={this.customerSignup}/>}} />
+                    <Route path="/profile" render={() => <Profile resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/login" render={() => {<Login changeMessage={this.changeMessage} ustomerLogin={this.customerLogin}/>}} />
+                    <Route path="/signup" render={() => {<SignUp customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} customerSignup={this.customerSignup}/>}} />
                     <Route component={Error} />
                 </Switch>
             </div>

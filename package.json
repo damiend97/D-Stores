@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^1.2.15",
     "@chec/commerce.js": "^2.7.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.16.0",
+    "aws-amplify": "^4.2.9",
     "jquery": "^3.4.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "0.9.5",
+    "react-scripts": "^4.0.3",
     "save": "^2.4.0",
     "stripe": "^8.170.0"
   },
@@ -20,5 +22,17 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

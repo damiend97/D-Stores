@@ -201,7 +201,8 @@ class addToCart extends Component {
         return (
             <div className="add-to-cart-container" onMouseLeave={this.props.exitAddComp}>
                 <div className="split-left">
-                    <img src={require(`../images/products/${this.props.image}.png`)} className="small-product" alt="product" />
+                    <div className={`img-box-${this.props.image}`}></div>
+                    {/* <img src={require(`../../public/images/products/${this.props.image}.png`)} className="small-product" alt="product" /> */}
                     <i className="fas fa-times exit-product-button" onClick={this.props.exitAddComp}></i>
                     {/* <div className="inventory-container">
                         <div className="i-text">Store Inventory</div>

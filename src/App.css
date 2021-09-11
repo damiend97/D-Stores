@@ -651,6 +651,96 @@ body {
     margin-top: 15px;
     color: #686868;
 }
+.img-box-tee1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/tee1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-tee2 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/tee2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img-box-hat1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/hat1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-hat2 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/hat2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-shorts1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/shorts1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-shorts2 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/shorts2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-shoes1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/shoes1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-shoes2 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/shoes2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-hoodie1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/hoodie1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-hoodie2 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/hoodie2.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.img-box-pants1 {
+    height: 100%;
+    width: 100%;
+    background: url('./images/products/pants1.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .tee1 {
     border: 1px solid #a0a0a0;
     background: url('./images/products/tee1.png') #f5f5f5;
@@ -1873,19 +1963,24 @@ textarea:focus {
     font-weight: bold;
     font-style: italic;
 }
-.profile-form-container {
+.log-subhead {
+    text-align: center;
+    width: 100%;
+    font-style: italic;
+}
+.profile-form-container, .confirm-form-container {
     margin-top: 50px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.profile-form-container form {
+.profile-form-container form, .confirm-form-container form {
     display: grid;
     width: 60%;    
 }
 
-.profile-form-container form input {
+.profile-form-container form input, .confirm-form-container form input {
     margin: 10px;
     height: 35px;
     width: 70%;
@@ -1901,10 +1996,10 @@ textarea:focus {
     justify-content: center;
 }
 
-.profile-form-container form input:focus {
+.profile-form-container form input:focus, .confirm-form-container form input:focus {
     box-shadow: -1px -1px rgb(136, 136, 136) !important;
 } 
-.profile-form-container form input[type="submit"] {
+.profile-form-container form input[type="submit"], .confirm-form-container form input[type="submit"] {
     height: 40px !important;
     padding: 0px !important;
     width: 30%;
@@ -1913,13 +2008,13 @@ textarea:focus {
     background: rgb(236, 236, 236);
     font-style: italic;
 }
-.profile-form-container form input[type="submit"]:hover {
+.profile-form-container form input[type="submit"]:hover, .confirm-form-container form input[type="submit"]:hover {
     cursor: pointer;
 }
-.profile-form-container form input[type="submit"]:focus {
+.profile-form-container form input[type="submit"]:focus, .confirm-form-container form input[type="submit"]:focus {
     box-shadow: none !important;
 }
-.signup-link {
+.signup-link, .resend-link {
     margin-left: auto;
     margin-right: auto;
     /* margin-top: 15px; */

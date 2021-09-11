@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import SignUp from './SignUp';
 import Login from './Login';
+import Amplify from 'aws-amplify';
+import awsconfig from '../aws-exports';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+
+Amplify.configure(awsconfig);
 
 class Profile extends Component {
     constructor(props) {
@@ -11,10 +16,6 @@ class Profile extends Component {
         }
     }
 
-    componentDidMount = () => {
-        // cache existing log in here
-    }
-    
     loadSignup = () => {
         this.setState({
             signUp: true
@@ -90,17 +91,16 @@ class Profile extends Component {
         else {
             if(this.state.signUp) {
                 return (
-                    <SignUp customerSignup={this.props.customerSignup} loadLogin={this.loadLogin} />
+                    <SignUp resendConfirmationCode={this.props.resendConfirmationCode} customerConfirm={this.props.customerConfirm} changeMessage={this.props.changeMessage} customerSignup={this.props.customerSignup} loadLogin={this.loadLogin} />
                 )
             }
             else {
                 return (
-                    <Login customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
+                    <Login changeMessage={this.props.changeMessage} customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
                 )
             }
         }
-        
     }
 }
 
-export default Profile;
+export default withAuthenticator(Profile);
