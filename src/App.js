@@ -867,8 +867,13 @@ class App extends Component {
                 }
             }).then((res) => {
                 console.log(res);
+                return true;
             })
         } catch (error) {
+            // let userPoolError = "";
+            // if (error.message.startsWith("User pool client")) {
+            
+            // }
             switch (error.message) {
                 case "Password did not conform with policy: Password not long enough":
                     this.changeMessage("Password not long enough.");
@@ -884,8 +889,11 @@ class App extends Component {
                     break;
                 case "Username cannot be empty":
                     this.changeMessage("Invalid username.");
+                case error.message.startsWith("User pool client"):
+                    this.changeMessage("User doesn't exist.");
                 default:
                     this.changeMessage(error.message);
+                    console.log(error.message);
                     break;
             }
             
@@ -893,6 +901,8 @@ class App extends Component {
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
             }, 1000);
+
+            return false
         }
 
         // await Auth.signUp({

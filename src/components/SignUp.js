@@ -33,10 +33,12 @@ class SignUp extends Component {
         } else {
             if (password === repass) {
                 if(this.validatePhoneForE164(phone_number)) {
-                    this.props.customerSignup(username, password, email, phone_number).then(() => {
-                        this.setState({
-                            confirm: true
-                        })
+                    this.props.customerSignup(username, password, email, phone_number).then((res) => {
+                        if(res) {
+                            this.setState({
+                                confirm: true
+                            })
+                        }
                     });
                 }
                 else {
