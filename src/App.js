@@ -305,7 +305,6 @@ class App extends Component {
                     postBody : 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus incidunt saepe repudiandae asperiores corporis!'
                 }
             ],
-            loggedIn: false,
             pathFilter: [],
             currentMessage: "",
             cToken: "",
@@ -326,7 +325,11 @@ class App extends Component {
 
                 }
             },
-            authMessage: ""
+            authMessage: "",
+            loggedIn: false,
+            showConfirm: false,
+            signUp: false
+
         }
     }
 
@@ -822,14 +825,28 @@ class App extends Component {
         })
     }
 
-    customerLogin = () => {
-        this.setLoginState(true);
+    customerLogin = async (username, password) => {
+        this.setLoading(true);
+        try {
+            await Auth.signIn(username, password);
+            this.setLoginState(true);
+        } catch (error) {
+            this.changeMessage("Invallid credentials.");
+            document.getElementById("mc").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
+            console.log('error signing in', error);
+        } finally {
+            this.setLoading(false);
+        }
     }
 
 
     customerConfirm = async (username, code) => {
+        this.setLoading(true);
         try {
-            await Auth.confirmSignUp(username, code)
+            await Auth.confirmSignUp(username, code);
             this.setState({
                 loggedIn: true
             })
@@ -839,10 +856,13 @@ class App extends Component {
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
             }, 1000);
+        } finally {
+            this.setLoading(false);
         }
     }
 
     resendConfirmationCode = async (username) => {
+        this.setLoading(true);
         try {
             await Auth.resendSignUp(username);
             console.log('code resent successfully');
@@ -852,11 +872,14 @@ class App extends Component {
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
             }, 1000);
+        } finally {
+            this.setLoading(false);
         }
     }
 
 
     customerSignup = async (username, password, email, phone_number) => {
+        this.setLoading(true);
         try {
             await Auth.signUp({
                 username,
@@ -867,13 +890,11 @@ class App extends Component {
                 }
             }).then((res) => {
                 console.log(res);
-                return true;
+                this.setState({
+                    showConfirm: true
+                })
             })
         } catch (error) {
-            // let userPoolError = "";
-            // if (error.message.startsWith("User pool client")) {
-            
-            // }
             switch (error.message) {
                 case "Password did not conform with policy: Password not long enough":
                     this.changeMessage("Password not long enough.");
@@ -901,55 +922,23 @@ class App extends Component {
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
             }, 1000);
-
-            return false
+        } finally {
+            this.setLoading(false);
         }
-
-        // await Auth.signUp({
-        //     username,
-        //     password,
-        //     attributes: {
-        //         email,
-        //         phone_number
-        //     }
-        // }).then(res => {
-        //     console.log(res);
-        //     this.setLoginState(true);
-        // }).catch(error => {            
-        //     switch (error.message) {
-        //         case "Password did not conform with policy: Password not long enough":
-        //             this.changeMessage("Password not long enough.");
-        //             break;
-        //         case "Invalid email address format.":
-        //             this.changeMessage("Invalid email address.");
-        //             break;
-        //         case "Username cannot be of email format, since user pool is configured for email alias.":
-        //             this.changeMessage("Invalid username.");
-        //             break;
-        //         case "User already exists":
-        //             this.changeMessage("User already exists.");
-        //             break;
-        //         case "Username cannot be empty":
-        //             this.changeMessage("Invalid username.");
-        //         default:
-        //             this.changeMessage(error.message);
-        //             break;
-        //     }
-            
-        //     document.getElementById("mc").style.opacity = 1;
-        //     setTimeout(() => {
-        //         document.getElementById("mc").style.opacity = 0;
-        //     }, 1000);
-        // })
-    }
-
-    handleConfirm = (username, code) => {
-        console.log(username, code);
     }
 
     customerLogout = () => {
         this.setLoginState(false);
-        // add code to push to login page not sign up (or maybe even home?)
+        this.setState({
+            showConfirm: false,
+            signUp: false
+        })
+    }
+
+    setSignup = (val) => {
+        this.setState({
+            signUp: val
+        })
     }
 
 
@@ -967,8 +956,8 @@ class App extends Component {
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
-                    <Route path="/profile" render={() => <Profile resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
-                    <Route path="/login" render={() => {<Login changeMessage={this.changeMessage} ustomerLogin={this.customerLogin}/>}} />
+                    <Route path="/profile" render={() => <Profile setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/login" render={() => {<Login changeMessage={this.changeMessage} customerLogin={this.customerLogin}/>}} />
                     <Route path="/signup" render={() => {<SignUp customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} customerSignup={this.customerSignup}/>}} />
                     <Route component={Error} />
                 </Switch>

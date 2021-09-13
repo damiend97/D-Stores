@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 class SignUp extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            confirm: false
-        }
     }
     
     validatePhoneForE164 = (phoneNumber) => {
@@ -33,12 +29,7 @@ class SignUp extends Component {
         } else {
             if (password === repass) {
                 if(this.validatePhoneForE164(phone_number)) {
-                    this.props.customerSignup(username, password, email, phone_number).then((res) => {
-                        if(res) {
-                            this.setState({
-                                confirm: true
-                            })
-                        }
+                    this.props.customerSignup(username, password, email, phone_number).then(() => {
                     });
                 }
                 else {
@@ -95,8 +86,12 @@ class SignUp extends Component {
         }
     }
 
+    handleSet = () => {
+        this.props.setSignup(false);
+    }
+
     render() {
-        if (!this.state.confirm) {
+        if (!this.props.showConfirm) {
             return (
                 <div>
                     <div className="log-header">Signup</div>
@@ -108,7 +103,7 @@ class SignUp extends Component {
                             <input id="re-pass" type="text" placeholder="Repeat Password" min="10" />
                             <input id="phone-number" type="text" placeholder="Phone Number" min="10" />
                             <input type="submit" onClick={this.handleSignup} value="Sign Up" />
-                            <div className="signup-link" onClick={this.props.loadLogin}>Login here</div>
+                            <div className="signup-link" onClick={this.handleSet}>Login here</div>
                             <p className="centerp">Already have an account?</p>
     
                         </form>

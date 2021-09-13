@@ -4,6 +4,7 @@ import Login from './Login';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 // import { withAuthenticator } from '@aws-amplify/ui-react';
+import Loading from './Loading';
 
 Amplify.configure(awsconfig);
 
@@ -17,15 +18,11 @@ class Profile extends Component {
     }
 
     loadSignup = () => {
-        this.setState({
-            signUp: true
-        })
+        this.props.loadSignup();
     }
 
     loadLogin = () => {
-        this.setState({
-            signUp: false
-        })
+        this.props.loadLogin();
     }
 
     handleSignOut = () => {
@@ -33,9 +30,19 @@ class Profile extends Component {
     }
 
     render() {
+        let {loadingValue} = this.props;
+
+        const renderLoading = () => {
+            if (loadingValue === true) {
+                return ( 
+                    <Loading />
+                )
+            }
+        }
         if(this.props.loggedIn) {
             return (
                 <div>
+                    {renderLoading()}
                     <div className="customer-info">
                         <div className="f-right">Hello Damien!</div>
 
@@ -89,14 +96,20 @@ class Profile extends Component {
             )
         }
         else {
-            if(this.state.signUp) {
+            if(this.props.signUp) {
                 return (
-                    <SignUp resendConfirmationCode={this.props.resendConfirmationCode} customerConfirm={this.props.customerConfirm} changeMessage={this.props.changeMessage} customerSignup={this.props.customerSignup} loadLogin={this.loadLogin} />
+                    <div>
+                        {renderLoading()}
+                        <SignUp setSignup={this.props.setSignup} showConfirm={this.props.showConfirm} resendConfirmationCode={this.props.resendConfirmationCode} customerConfirm={this.props.customerConfirm} changeMessage={this.props.changeMessage} customerSignup={this.props.customerSignup} loadLogin={this.loadLogin} />
+                    </div>
                 )
             }
             else {
                 return (
-                    <Login changeMessage={this.props.changeMessage} customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
+                    <div>
+                        {renderLoading()}
+                        <Login setSignup={this.props.setSignup} changeMessage={this.props.changeMessage} customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
+                    </div>
                 )
             }
         }
