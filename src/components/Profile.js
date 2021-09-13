@@ -3,7 +3,7 @@ import SignUp from './SignUp';
 import Login from './Login';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
-import { withAuthenticator } from '@aws-amplify/ui-react';
+// import { withAuthenticator } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsconfig);
 
@@ -103,4 +103,4 @@ class Profile extends Component {
     }
 }
 
-export default withAuthenticator(Profile);
+export default Profile;
