@@ -7,6 +7,13 @@
 // compress images/delete unnessecary images
 // taxes
 
+
+// Ultimately, I'll have to link commerce customerData to AWS customerData
+
+// commerce data is linked to aws data
+// authentication is finished
+// now add customer functions
+
 // STYLING
 // make site mobile
 
@@ -64,6 +71,9 @@ import $ from 'jquery';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { Auth } from 'aws-amplify';
+import VerifyLogin from './components/VerifyLogin';
+import { DataStore } from '@aws-amplify/datastore';
+import { Users } from './models';
 
 class App extends Component {
     constructor(props) {
@@ -328,8 +338,8 @@ class App extends Component {
             authMessage: "",
             loggedIn: false,
             showConfirm: false,
-            signUp: false
-
+            signUp: false,
+            showValidate: false
         }
     }
 
@@ -829,7 +839,25 @@ class App extends Component {
         this.setLoading(true);
         try {
             await Auth.signIn(username, password);
-            this.setLoginState(true);
+
+            /* fetch users email here based on their username */
+            try {
+                const users = await DataStore.query(Users);
+                let userEmail = "";
+                users.map(user => {
+                    if(user.username === username) {
+                        userEmail = user.email
+                    }
+                })
+
+                commerce.customer.login(userEmail, 'http://localhost:3000/verify-login').then(res => console.log(res))
+                
+                this.setState({
+                    showValidate: true
+                })
+            } catch (error) {
+                console.log(error);
+            }
         } catch (error) {
             this.changeMessage("Invallid credentials.");
             document.getElementById("mc").style.opacity = 1;
@@ -840,6 +868,18 @@ class App extends Component {
         } finally {
             this.setLoading(false);
         }
+        
+    }
+
+    getCustomerToken = (res) => {
+        commerce.customer.getToken(res).then((jwt) => console.log(jwt));
+        this.setLoginState(true);
+        const { history: { push } } = this.props;
+        push('/profile');
+    }
+
+    getOrder = () => {
+        commerce.customer.getOrder('ord_ypbroExx76w8n4', "cstmr_ypbroE64BP58n4").then((order) => console.log(order));
     }
 
 
@@ -878,7 +918,7 @@ class App extends Component {
     }
 
 
-    customerSignup = async (username, password, email, phone_number) => {
+    customerSignup = async (firstname, lastname, username, password, email, phone_number) => {
         this.setLoading(true);
         try {
             await Auth.signUp({
@@ -888,12 +928,25 @@ class App extends Component {
                     email,
                     phone_number
                 }
-            }).then((res) => {
-                console.log(res);
+            })
+            try {
+                await DataStore.save(
+                    new Users({
+                        "username": username,
+                        "email": email,
+                        "first_name": firstname,
+                        "last_name": lastname,
+                        "phone": phone_number,
+                        "customerID": "null"
+                    })
+                );
+                console.log("Post saved successfully!");
                 this.setState({
                     showConfirm: true
                 })
-            })
+            } catch (error) {
+               console.log("Error saving post", error);
+            }
         } catch (error) {
             switch (error.message) {
                 case "Password did not conform with policy: Password not long enough":
@@ -931,7 +984,8 @@ class App extends Component {
         this.setLoginState(false);
         this.setState({
             showConfirm: false,
-            signUp: false
+            signUp: false,
+            showValidate: false
         })
     }
 
@@ -940,7 +994,6 @@ class App extends Component {
             signUp: val
         })
     }
-
 
     render() {
         return (
@@ -956,9 +1009,10 @@ class App extends Component {
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
-                    <Route path="/profile" render={() => <Profile setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
-                    <Route path="/login" render={() => {<Login changeMessage={this.changeMessage} customerLogin={this.customerLogin}/>}} />
+                    <Route path="/profile" render={() => <Profile showValidate={this.state.showValidate} setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/login" render={() => {<Login showValidate={this.showValidate} changeMessage={this.changeMessage} customerLogin={this.customerLogin}/>}} />
                     <Route path="/signup" render={() => {<SignUp customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} customerSignup={this.customerSignup}/>}} />
+                    <Route path="/verify-login" render={() => <VerifyLogin getCustomerToken={this.getCustomerToken} />} />
                     <Route component={Error} />
                 </Switch>
             </div>

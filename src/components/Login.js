@@ -22,19 +22,31 @@ class Login extends Component {
     }
     
     render() {
-        return (
-            <div>
-                <div className="log-header">Login</div>
-                <div className="profile-form-container">
-                    <form action="#" className="login-form">
-                        <input id="login-username" type="email" placeholder="Username" />
-                        <input id="login-password" type="text" placeholder="Password" />
-                        <input type="submit" onClick={this.handleLogin} value="Login"/>
-                    </form>
+        if(this.props.showValidate) {
+            return (
+                <div className="validate-message">
+                    <div>
+                        VERIFY YOUR IDENTITY <br /><br />
+                        Please check your email 
+                    </div>
                 </div>
-                <div className="signup-link" onClick={this.handleSet}>Create Account</div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>
+                    <div className="log-header">Login</div>
+                    <div className="profile-form-container">
+                        <form action="#" className="login-form">
+                            <input id="login-username" type="email" placeholder="Username" />
+                            <input id="login-password" type="text" placeholder="Password" />
+                            <input type="submit" onClick={this.handleLogin} value="Login"/>
+                        </form>
+                    </div>
+                    <div className="signup-link" onClick={this.handleSet}>Create Account</div>
+                </div>
+            );
+        }
+        
     }
 }
 

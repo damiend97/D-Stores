@@ -108,7 +108,7 @@ class Profile extends Component {
                 return (
                     <div>
                         {renderLoading()}
-                        <Login setSignup={this.props.setSignup} changeMessage={this.props.changeMessage} customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
+                        <Login showValidate={this.props.showValidate} setSignup={this.props.setSignup} changeMessage={this.props.changeMessage} customerLogin={this.props.customerLogin} loadSignup={this.loadSignup} />
                     </div>
                 )
             }

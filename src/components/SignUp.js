@@ -14,13 +14,15 @@ class SignUp extends Component {
     handleSignup = (e) => {
         e.preventDefault();
 
+        let firstname = document.getElementById("first-name").value;
+        let lastname = document.getElementById("last-name").value;
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let repass = document.getElementById("re-pass").value;
         let email = document.getElementById("email").value;
         let phone_number = document.getElementById("phone-number").value;
 
-        if(username === "" || password === "" || repass === "" || email === "" || phone_number === "") {
+        if(firstname === "" || lastname === "" || username === "" || password === "" || repass === "" || email === "" || phone_number === "") {
             this.props.changeMessage("Fill all fields.");
             document.getElementById("mc").style.opacity = 1;
             setTimeout(() => {
@@ -29,7 +31,7 @@ class SignUp extends Component {
         } else {
             if (password === repass) {
                 if(this.validatePhoneForE164(phone_number)) {
-                    this.props.customerSignup(username, password, email, phone_number).then(() => {
+                    this.props.customerSignup(firstname, lastname, username, password, email, phone_number).then(() => {
                     });
                 }
                 else {
@@ -97,6 +99,8 @@ class SignUp extends Component {
                     <div className="log-header">Signup</div>
                     <div className="profile-form-container">
                         <form action="#" className="signup-form">
+                            <input id="first-name" type="text" placeholder="First Name" />
+                            <input id="last-name" type="text" placeholder="Last Name" />
                             <input id="username" type="text" placeholder="Username" />
                             <input id="email" type="email" placeholder="Email Address" />
                             <input id="password" type="text" placeholder="Password" />

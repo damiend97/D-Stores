@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "EClothing",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "autheclothingeef24d9c",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: String
+  email: AWSEmail!
+  first_name: String!
+  last_name: String!
+  phone: String!
+  customerID: String!
+}
+ 
