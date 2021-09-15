@@ -3,8 +3,11 @@ import SignUp from './SignUp';
 import Login from './Login';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
-// import { withAuthenticator } from '@aws-amplify/ui-react';
 import Loading from './Loading';
+import { commerce } from '../lib/commerce';
+import { DataStore } from '@aws-amplify/datastore';
+import { Users } from '../models';
+import CustomerInfo from './CustomerInfo';
 
 Amplify.configure(awsconfig);
 
@@ -13,7 +16,15 @@ class Profile extends Component {
         super(props);
 
         this.state = {
-            signUp: false
+            signUp: false,
+            orderDetails: {},
+            customerData: {
+                username: "",
+                firstname: "",
+                lastname: "",
+                email: "",
+                phone: ""
+            }
         }
     }
 
@@ -29,9 +40,36 @@ class Profile extends Component {
         this.props.customerLogout();
     }
 
+    getOrders = () => {
+        // commerce.customer.getOrder('ord_ypbroExx76w8n4', "cstmr_ypbroE64BP58n4").then((order) => console.log(order));
+        let orderDetails;
+        let customerID = commerce.customer.id();
+        let customerDetails;
+        let customerOrders = commerce.customer.getOrders(customerID);
+
+        commerce.customer.about().then((customer) => {
+            customerDetails = customer
+
+            commerce.customer.getOrders(customerID).then((orders) => {
+                customerOrders = orders
+
+                orderDetails = {
+                    customerID: customerID,
+                    customerDetails: customerDetails,
+                    orders: orders
+                }
+
+                console.log(orderDetails);
+            });
+        });
+        
+        // cstmr_RqEv5xXQy15Zz4
+        // ddduran1597@gmail.com
+        // ddduran15
+    }
+
     render() {
         let {loadingValue} = this.props;
-
         const renderLoading = () => {
             if (loadingValue === true) {
                 return ( 
@@ -43,55 +81,7 @@ class Profile extends Component {
             return (
                 <div>
                     {renderLoading()}
-                    <div className="customer-info">
-                        <div className="f-right">Hello Damien!</div>
-
-
-                        <div className="ptitle">Account Info</div>
-                        <div className="em2">
-                            <div className="prow"><div>First Name</div><div>Damien</div></div>
-                            <div className="prow"><div>Last Name</div><div>Duran</div></div>
-                            <div className="prow"><div>Email</div><div>durandamien1997@gmail.com</div></div>
-                            <div className="prow"><div>Phone Number</div><div>(xxx)xxx-3413</div></div>
-                        </div>
-
-
-                        <div className="ptitle">Your Orders</div>
-                        <div className="em2">
-                            <div className="order-box">
-                                <div className="order-header">
-                                    Order #2523
-                                </div>
-                                <div className="order-info">
-                                    <div className="prow"><div>Date of Purchase</div><div>09/10/21</div></div>
-                                    <div className="prow"><div>Shipping</div><div>42 Arc St Loveland CO, 80538</div></div>
-                                    <div className="prow"><div>Total</div><div>$129.37</div></div>
-                                </div>
-                            </div>
-                            <div className="order-box">
-                                <div className="order-header">
-                                    Order #2523
-                                </div>
-                                <div className="order-info">
-                                    <div className="prow"><div>Date of Purchase</div><div>09/10/21</div></div>
-                                    <div className="prow"><div>Shipping</div><div>42 Arc St Loveland CO, 80538</div></div>
-                                    <div className="prow"><div>Total</div><div>$129.37</div></div>
-                                </div>
-                            </div>
-                            <div className="order-box">
-                                <div className="order-header">
-                                    Order #2523
-                                </div>
-                                <div className="order-info">
-                                    <div className="prow"><div>Date of Purchase</div><div>09/10/21</div></div>
-                                    <div className="prow"><div>Shipping</div><div>42 Arc St Loveland CO, 80538</div></div>
-                                    <div className="prow"><div>Total</div><div>$129.37</div></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="sign-out-link" onClick={this.handleSignOut}>Sign Out</div>
-                    </div>
-                    
+                    <CustomerInfo handleSignOut={this.handleSignOut} />
                 </div>
             )
         }

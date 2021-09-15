@@ -1,21 +1,23 @@
+// compress images/delete unnessecary images
+// taxes
+
+// will have to set callback function from localhost/verify-login to https://main.d3v4vsd52vznw2.amplifyapp.com/verify-login
+
+// add - set checkout form to autofill with user information
+// fix - double login (user already being proccessed)
+// fix - only one user per email/username
+// add - loading screen while customer info is loading inside of customerinfo.js
+// note - I shouldn't have to call on commerce API to load AWS data if I set customer ID inside of AWS customer data
+// try - delete all data commerce users, aws auth users, aws data users - do a full signup signin with multiple customers no err's
+// fix - customerInfo.js not clearing state - will have to user commerce.customer.logout at logout function and possibly even at login componentDidMount
+
+// STYLING
+// make site mobile
 // move face mask designs to left shrink text 2 cols
 // put helping hand partners in with mission box
 // please fill out form alert
 // form on outside with better styling
 // new news landing page
-// link profile to commerce
-// compress images/delete unnessecary images
-// taxes
-
-
-// Ultimately, I'll have to link commerce customerData to AWS customerData
-
-// commerce data is linked to aws data
-// authentication is finished
-// now add customer functions
-
-// STYLING
-// make site mobile
 
 // PROFILES
 // Link commerce.js profiles
@@ -32,7 +34,6 @@
 // multiple users - how will that work? will they affect eachothers cart data, cache, login, etc?
 
 // COMMERCE BACKEND
-// product inventory (i.e. out of stock, 4 items left, etc) - link to frontend
 // create subgroups for things like hats that don't have Small medium large etc. or pants that should use xx/yy size
 
 // MOBILE
@@ -850,7 +851,7 @@ class App extends Component {
                     }
                 })
 
-                commerce.customer.login(userEmail, 'http://localhost:3000/verify-login').then(res => console.log(res))
+                commerce.customer.login(userEmail, 'http://localhost:3000/verify-login').then(res => console.log(res)).catch(err => console.log(err))
                 
                 this.setState({
                     showValidate: true
@@ -878,18 +879,18 @@ class App extends Component {
         push('/profile');
     }
 
-    getOrder = () => {
-        commerce.customer.getOrder('ord_ypbroExx76w8n4', "cstmr_ypbroE64BP58n4").then((order) => console.log(order));
-    }
-
-
     customerConfirm = async (username, code) => {
         this.setLoading(true);
         try {
             await Auth.confirmSignUp(username, code);
             this.setState({
-                loggedIn: true
+                signUp: false
             })
+            this.changeMessage("Account Created. Please Login.");
+            document.getElementById("mc").style.opacity = 1;
+            setTimeout(() => {
+                document.getElementById("mc").style.opacity = 0;
+            }, 1000);
         } catch (error) {
             this.changeMessage("Invallid code.");
             document.getElementById("mc").style.opacity = 1;
@@ -940,6 +941,34 @@ class App extends Component {
                         "customerID": "null"
                     })
                 );
+
+                commerce.checkout.generateTokenFrom('permalink', 'testprod').then((response) => {
+                    let token = response.id;
+                    commerce.checkout.capture(token,
+                        {
+                            line_items: [],
+                            customer: {
+                                firstname: firstname,
+                                lastname: lastname,
+                                username: username,
+                                email: email,
+                                phone_number: phone_number
+                            },
+                            payment: {
+                                gateway: 'test_gateway',
+                                card: {
+                                    number: '4242 4242 4242 4242',
+                                    expiry_month: '01',
+                                    expiry_year: '2023',
+                                    cvc: '123',
+                                    postal_zip_code: '94103',
+                                }
+                            }
+                    }).then((res) => {
+                        console.log(res)
+                    })
+                })
+
                 console.log("Post saved successfully!");
                 this.setState({
                     showConfirm: true
