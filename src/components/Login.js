@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { commerce } from '../lib/commerce';
 
 class Login extends Component {
     handleLogin = (e) => {

@@ -2074,13 +2074,43 @@ textarea:focus {
 .prow {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 15px;
+}
+.boldrow {
+    font-weight: bold;
+}
+.bolderrow {
+    font-size: 1.25em;
+    font-style: italic;
+    font-weight: bolder;
+}
+.centerhr {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.centerhr hr {
+    width: 90%;
+    color: white;
 }
 .ptitle {
     font-size: 2.5em;
 }
 .order-box {
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
+}
+.order-item {
+    /* background: white; */
+    /* color: #2c2c2c; */
+    width: 100%;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+.order-q {
+    text-align: right;
+    width: 100%;
 }
 .sign-out-link {
     color: white;

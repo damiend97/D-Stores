@@ -1,15 +1,17 @@
+// MAIN TO-DO
+// add - set checkout form to autofill with user information so orders match up with profiles via email
+// adjust initial order (from signup) to something fancy for customer. maybe a free item
+// verify login screen - didn't send? -> try logging in again (or if they have a resend login function)
 // compress images/delete unnessecary images
 // taxes
+// phone number auto format
 
-// will have to set callback function from localhost/verify-login to https://main.d3v4vsd52vznw2.amplifyapp.com/verify-login
-
-// add - set checkout form to autofill with user information
-// fix - double login (user already being proccessed)
+// MAIN COMPLETED
+// get orders -> disp orders
+// fix - wait for JWT to get user data
 // fix - only one user per email/username
-// add - loading screen while customer info is loading inside of customerinfo.js
-// note - I shouldn't have to call on commerce API to load AWS data if I set customer ID inside of AWS customer data
-// try - delete all data commerce users, aws auth users, aws data users - do a full signup signin with multiple customers no err's
-// fix - customerInfo.js not clearing state - will have to user commerce.customer.logout at logout function and possibly even at login componentDidMount
+// add - loading for customer info
+// add - set AWS customerID after dummy order with order response.cstmrid
 
 // STYLING
 // make site mobile
@@ -41,6 +43,8 @@
 
 // REMINDERS
 // App.js > componentDidMount refreshes cart for new cart on reload
+// App.js > componentWillUnmount does commerce.customer.logout()
+// will have to set callback function from localhost/verify-login to https://main.d3v4vsd52vznw2.amplifyapp.com/verify-login
 
 // WARNINGS
 // investigate memory leak warning
@@ -340,7 +344,8 @@ class App extends Component {
             loggedIn: false,
             showConfirm: false,
             signUp: false,
-            showValidate: false
+            showValidate: false,
+            customerToken: ""
         }
     }
 
@@ -364,6 +369,10 @@ class App extends Component {
             console.log('There was an error emptying the cart...', error);
             this.handleComError();
         });
+    }
+
+    componentWillUnmount = () => {
+        commerce.customer.logout();
     }
 
     handlePath = (pathFilter, pathFilter2) => {
@@ -860,7 +869,19 @@ class App extends Component {
                 console.log(error);
             }
         } catch (error) {
-            this.changeMessage("Invallid credentials.");
+            switch (error.message) {
+                case "User does not exist.":
+                    this.changeMessage("User not found.");
+                    break;
+                case "Incorrect username or password.":
+                    this.changeMessage("Invallid credentials.");
+                    break;
+                case "Pending sign-in attempt already in progress":
+                    this.changeMessage("Attempting signin.");
+                default:
+                    this.changeMessage("Attempting signin.");
+                    break;
+            }
             document.getElementById("mc").style.opacity = 1;
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
@@ -873,10 +894,18 @@ class App extends Component {
     }
 
     getCustomerToken = (res) => {
-        commerce.customer.getToken(res).then((jwt) => console.log(jwt));
-        this.setLoginState(true);
-        const { history: { push } } = this.props;
-        push('/profile');
+        commerce.customer.getToken(res).then((jwt) => {
+            console.log("COMMERCE.CUSTOMER.GETTOKEN => JWT =>", jwt)
+            this.setLoginState(true);
+            const { history: { push } } = this.props;
+            push('/profile');
+        });
+    }
+
+    setCustomerToken = (res) => {
+        this.setState({
+            customerToken: res
+        })
     }
 
     customerConfirm = async (username, code) => {
@@ -921,26 +950,27 @@ class App extends Component {
 
     customerSignup = async (firstname, lastname, username, password, email, phone_number) => {
         this.setLoading(true);
-        try {
-            await Auth.signUp({
-                username,
-                password,
-                attributes: {
-                    email,
-                    phone_number
-                }
-            })
+        const users = await DataStore.query(Users);
+
+        let userExists = false;
+
+        users.map((user) => {
+            if(user.email === email) {
+                console.log("matching email");
+                userExists = true;
+            }
+        });
+
+        if(!userExists) {
             try {
-                await DataStore.save(
-                    new Users({
-                        "username": username,
-                        "email": email,
-                        "first_name": firstname,
-                        "last_name": lastname,
-                        "phone": phone_number,
-                        "customerID": "null"
-                    })
-                );
+                await Auth.signUp({
+                    username,
+                    password,
+                    attributes: {
+                        email,
+                        phone_number
+                    }
+                })
 
                 commerce.checkout.generateTokenFrom('permalink', 'testprod').then((response) => {
                     let token = response.id;
@@ -964,49 +994,70 @@ class App extends Component {
                                     postal_zip_code: '94103',
                                 }
                             }
-                    }).then((res) => {
+                    }).then(async (res) => {
                         console.log(res)
-                    })
+                        try {
+                            await DataStore.save(
+                                new Users({
+                                    "username": username,
+                                    "email": email,
+                                    "first_name": firstname,
+                                    "last_name": lastname,
+                                    "phone": phone_number,
+                                    "customerID": res.customer.id
+                                })
+                            );
+            
+                            console.log("Post saved successfully!");
+                            this.setState({
+                                showConfirm: true
+                            })
+                        } catch (error) {
+                           console.log("Error saving post", error);
+                        }
+                    }).catch(error => console.log(error));
                 })
 
-                console.log("Post saved successfully!");
-                this.setState({
-                    showConfirm: true
-                })
             } catch (error) {
-               console.log("Error saving post", error);
+                switch (error.message) {
+                    case "Password did not conform with policy: Password not long enough":
+                        this.changeMessage("Password not long enough.");
+                        break;
+                    case "Invalid email address format.":
+                        this.changeMessage("Invalid email address.");
+                        break;
+                    case "Username cannot be of email format, since user pool is configured for email alias.":
+                        this.changeMessage("Invalid username.");
+                        break;
+                    case "User already exists":
+                        this.changeMessage("User already exists.");
+                        break;
+                    case "Username cannot be empty":
+                        this.changeMessage("Invalid username.");
+                    case error.message.startsWith("User pool client"):
+                        this.changeMessage("User doesn't exist.");
+                    default:
+                        this.changeMessage(error.message);
+                        console.log(error.message);
+                        break;
+                }
+                
+                document.getElementById("mc").style.opacity = 1;
+                setTimeout(() => {
+                    document.getElementById("mc").style.opacity = 0;
+                }, 1000);
+            } finally {
+                this.setLoading(false);
             }
-        } catch (error) {
-            switch (error.message) {
-                case "Password did not conform with policy: Password not long enough":
-                    this.changeMessage("Password not long enough.");
-                    break;
-                case "Invalid email address format.":
-                    this.changeMessage("Invalid email address.");
-                    break;
-                case "Username cannot be of email format, since user pool is configured for email alias.":
-                    this.changeMessage("Invalid username.");
-                    break;
-                case "User already exists":
-                    this.changeMessage("User already exists.");
-                    break;
-                case "Username cannot be empty":
-                    this.changeMessage("Invalid username.");
-                case error.message.startsWith("User pool client"):
-                    this.changeMessage("User doesn't exist.");
-                default:
-                    this.changeMessage(error.message);
-                    console.log(error.message);
-                    break;
-            }
-            
+        } else {
+            this.setLoading(false);
+            this.changeMessage("User already exists.");
             document.getElementById("mc").style.opacity = 1;
             setTimeout(() => {
                 document.getElementById("mc").style.opacity = 0;
             }, 1000);
-        } finally {
-            this.setLoading(false);
         }
+        
     }
 
     customerLogout = () => {
@@ -1016,6 +1067,8 @@ class App extends Component {
             signUp: false,
             showValidate: false
         })
+
+        commerce.customer.logout();
     }
 
     setSignup = (val) => {
@@ -1038,10 +1091,10 @@ class App extends Component {
                     <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
-                    <Route path="/profile" render={() => <Profile showValidate={this.state.showValidate} setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/profile" render={() => <Profile setLoading={this.setLoading} customerToken={this.state.customerToken} showValidate={this.state.showValidate} setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
                     <Route path="/login" render={() => {<Login showValidate={this.showValidate} changeMessage={this.changeMessage} customerLogin={this.customerLogin}/>}} />
                     <Route path="/signup" render={() => {<SignUp customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} customerSignup={this.customerSignup}/>}} />
-                    <Route path="/verify-login" render={() => <VerifyLogin getCustomerToken={this.getCustomerToken} />} />
+                    <Route path="/verify-login" render={() => <VerifyLogin setCustomerToken={this.setCustomerToken} getCustomerToken={this.getCustomerToken} />} />
                     <Route component={Error} />
                 </Switch>
             </div>

@@ -12,6 +12,8 @@ class VerifyLogin extends Component {
         let loc = window.location.href.split('/');
         let res = loc.pop() || loc.pop();
 
+        this.props.setCustomerToken(res);
+        
         this.setState({
             res: res
         })

@@ -40,34 +40,6 @@ class Profile extends Component {
         this.props.customerLogout();
     }
 
-    getOrders = () => {
-        // commerce.customer.getOrder('ord_ypbroExx76w8n4', "cstmr_ypbroE64BP58n4").then((order) => console.log(order));
-        let orderDetails;
-        let customerID = commerce.customer.id();
-        let customerDetails;
-        let customerOrders = commerce.customer.getOrders(customerID);
-
-        commerce.customer.about().then((customer) => {
-            customerDetails = customer
-
-            commerce.customer.getOrders(customerID).then((orders) => {
-                customerOrders = orders
-
-                orderDetails = {
-                    customerID: customerID,
-                    customerDetails: customerDetails,
-                    orders: orders
-                }
-
-                console.log(orderDetails);
-            });
-        });
-        
-        // cstmr_RqEv5xXQy15Zz4
-        // ddduran1597@gmail.com
-        // ddduran15
-    }
-
     render() {
         let {loadingValue} = this.props;
         const renderLoading = () => {
@@ -77,11 +49,12 @@ class Profile extends Component {
                 )
             }
         }
+
         if(this.props.loggedIn) {
             return (
                 <div>
                     {renderLoading()}
-                    <CustomerInfo handleSignOut={this.handleSignOut} />
+                    <CustomerInfo setLoading={this.props.setLoading} loadingValue={this.props.loadingValue} customerToken={this.props.customerToken} handleSignOut={this.handleSignOut} />
                 </div>
             )
         }
