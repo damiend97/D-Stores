@@ -2,10 +2,24 @@ import React, { Component } from 'react';
 import { commerce } from '../lib/commerce';
 
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            username: "",
+            login: ""
+        }
+    }
+
     handleLogin = (e) => {
         e.preventDefault();
         let username = document.getElementById("login-username").value;
         let password = document.getElementById("login-password").value;
+
+        this.setState({
+            username: username,
+            password: password
+        })
 
         if(username === "" || password === "") {
             this.props.changeMessage("Fill all fields.");
@@ -22,13 +36,18 @@ class Login extends Component {
         this.props.setSignup(true);
     }
     
+    resend = () => {
+        this.props.customerLogin(this.state.username, this.state.pa)
+    }
+
     render() {
         if(this.props.showValidate) {
             return (
                 <div className="validate-message">
                     <div>
-                        VERIFY YOUR IDENTITY <br /><br />
-                        Please check your email 
+                        <h2>Verify identity</h2> <br /><br />
+                        Please check your email <br /><br />
+                        <div className="fine-print">This may take a few minutes. <br /><br /> OR <br /> <div onClick={this.resend} className="resend">Resend Code</div></div>
                     </div>
                 </div>
             );

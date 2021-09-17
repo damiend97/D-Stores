@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 class SignUp extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            phone: "",
+            phoneFormatted: ""
+        }
     }
     
     validatePhoneForE164 = (phoneNumber) => {
@@ -20,7 +25,8 @@ class SignUp extends Component {
         let password = document.getElementById("password").value;
         let repass = document.getElementById("re-pass").value;
         let email = document.getElementById("email").value;
-        let phone_number = document.getElementById("phone-number").value;
+        let phone_number = this.state.phoneFormatted;
+        let phone164 = "+1" + phone_number;
 
         if(firstname === "" || lastname === "" || username === "" || password === "" || repass === "" || email === "" || phone_number === "") {
             this.props.changeMessage("Fill all fields.");
@@ -30,12 +36,13 @@ class SignUp extends Component {
             }, 1000);
         } else {
             if (password === repass) {
-                if(this.validatePhoneForE164(phone_number)) {
-                    this.props.customerSignup(firstname, lastname, username, password, email, phone_number).then(() => {
+                if(this.validatePhoneForE164(phone164)) {
+                    console.log(phone164)
+                    this.props.customerSignup(firstname, lastname, username, password, email, phone164).then(() => {
                     });
                 }
                 else {
-                    this.props.changeMessage("Reformat phone number.");
+                    this.props.changeMessage("Invallid phone number.");
                     document.getElementById("mc").style.opacity = 1;
                     setTimeout(() => {
                         document.getElementById("mc").style.opacity = 0;
@@ -92,6 +99,37 @@ class SignUp extends Component {
         this.props.setSignup(false);
     }
 
+    sanitizeInput = (value) => {
+        if (!value) return value;
+        const sanitized = value.replace(/[^\d]/g, '');
+        return sanitized;
+    }
+
+    normalizeInput = (value, previousValue) => {
+        if (!value) return value; 
+
+        const currentValue = value.replace(/[^\d]/g, '');
+        const cvLength = currentValue.length; 
+
+        if (!previousValue || value.length > previousValue.length) {
+
+        if (cvLength < 4) return currentValue; 
+
+        if (cvLength < 7) return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3)}`; 
+
+        return `(${currentValue.slice(0, 3)}) ${currentValue.slice(3, 6)}-${currentValue.slice(6, 10)}`; 
+        }
+    };
+
+    handleChange = ({target : { value }}) => {
+        if(value.length < 15) {
+            this.setState(prevState=> ({ phone: this.normalizeInput(value, prevState.phone), phoneFormatted: this.sanitizeInput(value) }));
+        }
+
+        console.log(value.length);
+        console.log(this.state);
+    }
+
     render() {
         if (!this.props.showConfirm) {
             return (
@@ -105,7 +143,7 @@ class SignUp extends Component {
                             <input id="email" type="email" placeholder="Email Address" />
                             <input id="password" type="text" placeholder="Password" />
                             <input id="re-pass" type="text" placeholder="Repeat Password" min="10" />
-                            <input id="phone-number" type="text" placeholder="Phone Number" min="10" />
+                            <input id="phone-number" type="text" placeholder="Phone Number" value={this.state.phone} onChange={this.handleChange} min="10" className="noselect" />
                             <input type="submit" onClick={this.handleSignup} value="Sign Up" />
                             <div className="signup-link" onClick={this.handleSet}>Login here</div>
                             <p className="centerp">Already have an account?</p>

@@ -13,7 +13,8 @@ class Checkout extends Component {
         super(props);
         
         this.state = {
-            total: ""
+            total: "",
+            customerData: {}
         }
     }
     componentDidMount = () => {
@@ -41,6 +42,10 @@ class Checkout extends Component {
             e.preventDefault();
             return false;
         });
+
+        if(this.props.loggedIn) {
+            this.getCustomer();
+        }
     }
 
     verifySubmit = async (e, elements, stripe) => {
@@ -127,6 +132,21 @@ class Checkout extends Component {
         }
     }
 
+    getCustomer = () => {
+        let commerceCustomer;
+        commerce.customer.about().then((customer) => {
+            commerceCustomer = customer
+            this.setState({
+                customerData: commerceCustomer
+            }, () => {
+                console.log(commerceCustomer, this.state.customerData);
+            })
+
+        }).catch((error) =>  {
+            console.log(error);
+        });
+    }
+
     render() {
         let {loadingValue} = this.props;
          
@@ -137,6 +157,105 @@ class Checkout extends Component {
                 )
             }
         }
+
+        if(this.props.loggedIn) {
+
+            return (
+                <div>
+                    <Elements stripe={stripePromise}>
+                        <ElementsConsumer>
+                            {({ elements, stripe }) => (
+                                <form className="checkout-form" id="cform">
+                                    <div className="grid-item grid-full shrink-height">
+                                        <label htmlFor="firstName">Name</label>
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" name="firstName" value={this.state.customerData.firstname} disabled/>
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" name="lastName" value={this.state.customerData.lastname} disabled/>
+                                    </div>
+
+                                    <div className="grid-item grid-full">
+                                        <label htmlFor="email">Email</label>
+                                        <input className="required-field" required type="email" name="email" value={this.state.customerData.email} disabled/>
+                                    </div>
+
+                                    <div className="grid-item grid-full">
+                                        <hr />
+                                    </div>
+                                    {/* Shipping ------------- */}
+
+                                    <div className="grid-item grid-full">
+                                        <label htmlFor="shipping-address">Shipping Address</label>
+                                        <input className="required-field" required type="text" placeholder="Full Name" name="shippingName" />
+                                    </div>
+    
+                                    <div className="grid-item grid-full">
+                                        <input className="required-field" required type="text" placeholder="Street Address" name="shippingStreet" />
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" placeholder="City" name="shippingCity"/>
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" placeholder="State" name="shippingState" />
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" pattern="[0-9]*" placeholder="Zip Code e.g. xxxxx" name="shippingZip" />
+                                    </div>
+
+                                    {/* Billing ------------- */}
+
+                                    <div className="grid-item grid-full">
+                                        <label htmlFor="billing-address">Billing Address</label>
+                                        <input className="required-field" required type="text" placeholder="Full Name" name="billingName" />
+                                    </div>
+    
+                                    <div className="grid-item grid-full">
+                                        <input className="required-field" required type="text" placeholder="Street Address" name="billingStreet" />
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" placeholder="City" name="billingCity"/>
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" placeholder="State" name="billingState" />
+                                    </div>
+
+                                    <div className="grid-item">
+                                        <input className="required-field" required type="text" pattern="[0-9]*" placeholder="Zip Code e.g. xxxxx" name="billingZip" />
+                                    </div>
+
+                                    { /* Card --------- */}
+                                    <div className="grid-item grid-full">
+                                        <hr />
+                                    </div>
+                                    <div className="grid-item grid-full">
+                                        <label htmlFor="billing-address">Card Information</label>
+                                    </div>
+
+                                    <CardElement className="card-element" />
+                                    
+                                    <div className="grid-item" id="g5">
+                                        <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
+                                        <input onClick={(e) => this.testSubmit(e)} type="submit" value="Pay with test gateway" id="test-submit"/>
+
+                                    </div>
+                                    {renderLoading()}
+                                </form>
+                            )}
+                        </ElementsConsumer>
+                    </Elements>
+                </div>
+            )
+        }
+
         return (
             <div>
                 <Elements stripe={stripePromise}>

@@ -110,7 +110,7 @@ class Cart extends Component {
                         </div>
                         <div className="checkout-but" onClick={this.showForm}>Checkout</div>
                         <div className="clear-but" onClick={this.refreshCart}>Clear Cart</div>
-                        <Checkout setCustomerData={this.props.setCustomerData} loadingValue={this.props.loadingValue} setLoading={this.props.setLoading} checkoutFinal={this.props.checkoutFinal} cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />
+                        <Checkout loggedIn={this.props.loggedIn} setCustomerData={this.props.setCustomerData} loadingValue={this.props.loadingValue} setLoading={this.props.setLoading} checkoutFinal={this.props.checkoutFinal} cartData={this.props.cartData} handleSubmit={this.props.handleSubmit} />
                     </div>
                 </div>
             )

@@ -1,17 +1,16 @@
+// GOAL - Sep 22 (frontend, backend, cache, css, mobile)
+
 // MAIN TO-DO
+// compress images/delete unnessecary images
+// taxes
+// re-up product inventory
+
+// MAIN COMPLETED
 // add - set checkout form to autofill with user information so orders match up with profiles via email
 // adjust initial order (from signup) to something fancy for customer. maybe a free item
 // verify login screen - didn't send? -> try logging in again (or if they have a resend login function)
-// compress images/delete unnessecary images
-// taxes
 // phone number auto format
 
-// MAIN COMPLETED
-// get orders -> disp orders
-// fix - wait for JWT to get user data
-// fix - only one user per email/username
-// add - loading for customer info
-// add - set AWS customerID after dummy order with order response.cstmrid
 
 // STYLING
 // make site mobile
@@ -21,22 +20,11 @@
 // form on outside with better styling
 // new news landing page
 
-// PROFILES
-// Link commerce.js profiles
-// sync cart data to cache and profile
-
 // CACHE
 // cache cart data and sync to commerce.js cart
 // empty cart when nessecary (clear cache) to avoid unwanted pile up of cart items
 // are you sure you want to leave this page -> clear cart?
 // are the carts linked to the users session already?
-
-// DEPOLOYMENT
-// netlify
-// multiple users - how will that work? will they affect eachothers cart data, cache, login, etc?
-
-// COMMERCE BACKEND
-// create subgroups for things like hats that don't have Small medium large etc. or pants that should use xx/yy size
 
 // MOBILE
 // how will mobile react to exitAddComp via mouseLeave event?
@@ -54,6 +42,7 @@
 // spice up error page
 // product detail page
 // add face masks to store
+// create subgroups for things like hats/jeans
 
 import React, { Component } from 'react';
 import './App.css';
@@ -845,6 +834,12 @@ class App extends Component {
         })
     }
 
+    hideValidate = () => {
+        this.setState({
+            showValidate: false
+        })
+    }
+
     customerLogin = async (username, password) => {
         this.setLoading(true);
         try {
@@ -1065,7 +1060,8 @@ class App extends Component {
         this.setState({
             showConfirm: false,
             signUp: false,
-            showValidate: false
+            showValidate: false,
+            loggedIn: false
         })
 
         commerce.customer.logout();
@@ -1088,10 +1084,10 @@ class App extends Component {
                     <Route path="/shop" render={() => <Shop handleComError={this.handleComError} cartData={this.state.cartData} loadingValue={this.state.loading} changeMessage={this.changeMessage} addToCart={this.addToCart} products={this.state.products} pathFilter={this.state.pathFilter} pathExit={this.handlePathExit} /> } />
                     <Route path="/news" component={News} />
                     <Route path="/contact" component={Contact} />
-                    <Route path="/cart" render={() => <Cart setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
+                    <Route path="/cart" render={() => <Cart loggedIn={this.state.loggedIn} setCustomerData={this.setCustomerData} checkoutFinal={this.checkoutFinal} loadingValue={this.state.loading} setLoading={this.setLoading} checkoutFinal={this.checkoutFinal} cartData={this.state.cartData} changeItemQuantity={this.changeItemQuantity} removeFromCart={this.removeFromCart} clearCart={this.clearCart} handleSubmit={this.handleSubmit} />}/>
                     <Route path="/receipt" render={() => <Receipt products={this.state.products} order={this.state.order} checkLoading={this.checkLoading}/>} />
                     <Route path="/cart-error" component={CartError} />
-                    <Route path="/profile" render={() => <Profile setLoading={this.setLoading} customerToken={this.state.customerToken} showValidate={this.state.showValidate} setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
+                    <Route path="/profile" render={() => <Profile hideValidate={this.hideValidate} setLoading={this.setLoading} customerToken={this.state.customerToken} showValidate={this.state.showValidate} setSignup={this.setSignup} signUp={this.state.signUp} loadingValue={this.state.loading} showConfirm={this.state.showConfirm} resendConfirmationCode={this.resendConfirmationCode} customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} loggedIn={this.state.loggedIn} customerLogin={this.customerLogin} customerLogout={this.customerLogout} customerSignup={this.customerSignup} />} />
                     <Route path="/login" render={() => {<Login showValidate={this.showValidate} changeMessage={this.changeMessage} customerLogin={this.customerLogin}/>}} />
                     <Route path="/signup" render={() => {<SignUp customerConfirm={this.customerConfirm} changeMessage={this.changeMessage} customerSignup={this.customerSignup}/>}} />
                     <Route path="/verify-login" render={() => <VerifyLogin setCustomerToken={this.setCustomerToken} getCustomerToken={this.getCustomerToken} />} />

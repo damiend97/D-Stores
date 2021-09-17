@@ -1730,6 +1730,12 @@ button::-moz-focus-inner {
 .checkout-form input[type="submit"]:active {
     box-shadow: inset 2px 2px 2px black, inset -2px -2px 2px gray;
 }
+.checkout-form input:disabled {
+    background: rgb(10, 10, 10, 0);
+    color: white;
+    border: none;
+    font-size: 1.25em;
+}
 .grid-full {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -1742,9 +1748,11 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active
 {
-    background: rgb(0, 0, 0);
+    background: rgb(10, 10, 10);
     border: none;
     color: white;
+    box-shadow: none;
+    filter: none;
 }
 input:focus {
     outline: none;
@@ -2155,3 +2163,26 @@ textarea:focus {
 .validate-button:hover {
     cursor: pointer;
 }
+.fine-print {
+    font-size: .75em;
+}
+.resend {
+    border: 1px solid white;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    margin-top: 15px;
+    font-size: .8em;
+}
+.resend:hover {
+    cursor: pointer !important;
+}
+/* .noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+} */
