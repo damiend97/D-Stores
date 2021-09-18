@@ -6,6 +6,13 @@ import $ from 'jquery';
 import Loading from './Loading';
 
 class Cart extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            total: 0
+        }
+    }
     showCart = () => {
         commerce.cart.retrieve().then((cart) => {
             console.log(cart);
@@ -56,6 +63,14 @@ class Cart extends Component {
         $(".cart-total").css("text-align","center");
         $(".cart-container").css("overflow-y","hidden");
     }
+
+    callBack = () => {
+        commerce.cart.retrieve().then((cart) => {
+            this.setState({
+                total: cart.subtotal.raw
+            })
+        });
+    }
     
     render() {
         let {loadingValue} = this.props;
@@ -67,6 +82,7 @@ class Cart extends Component {
                 )
             }
         }
+
         if (this.props.cartData.items.length > 0) {
             return (
                 <div className="cart-container">
@@ -79,7 +95,7 @@ class Cart extends Component {
     
                                     <div className="cart-item-data">
                                         <div className="cart-item-name">{item.productData.productName}</div>
-                                        <div className="cart-item-s-q">( {item.productSize} ) x {item.productQuantity} <div className="min-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 0, item.itemId, item.productSize, item.productData.productKey)}>-</div> <div className="plus-but" onClick={() => this.props.changeItemQuantity(item.productData.productId, 1, item.itemId, item.productSize, item.productData.productKey)}>+</div> </div>
+                                        <div className="cart-item-s-q">( {item.productSize} ) x {item.productQuantity} <div className="min-but" onClick={() => {this.props.changeItemQuantity(item.productData.productId, 0, item.itemId, item.productSize, item.productData.productKey)}}>-</div> <div className="plus-but" onClick={() => {this.props.changeItemQuantity(item.productData.productId, 1, item.itemId, item.productSize, item.productData.productKey)}}>+</div> </div>
                                         <div className="cart-item-total">Total : ${(parseInt(item.productData.productPrice) * parseInt(item.productQuantity)).toFixed(2)}</div>
                                     </div>
                                     <div className="remove-but" onClick={() => this.props.removeFromCart(item.productData.productId, item.itemId, item.productSize)}>x</div>
@@ -91,21 +107,29 @@ class Cart extends Component {
                         <div className="cart-data-center">Your Cart</div>
                         <div className="cart-total">
                             Subtotal: ${(this.props.cartData.items.reduce(function(tot, arr) {
-                                return (tot + (arr.productData.productPrice * arr.productQuantity))
-                            }, 0)).toFixed(2)}
+                        return (tot + (arr.productData.productPrice * arr.productQuantity))
+                    }, 0)).toFixed(2)}
                             <br/>
+                            
                             Taxes: ${(this.props.cartData.items.reduce(function(tot, arr) {
-                                return (tot + (arr.productQuantity * .37))
-                            }, 0)).toFixed(2)}
+                        return (tot + ((arr.productData.productPrice * .15) * arr.productQuantity))
+                    }, 0)).toFixed(2)}
+
                             <br/>
-                            Shipping: ${(this.props.cartData.items.length * .50).toFixed(2)}
+                            Shipping: $0.00
                             <br/>
                             <div className="main-total">
-                                Total: ${((this.props.cartData.items.reduce(function(tot, arr) {
-                                return (tot + (arr.productData.productPrice * arr.productQuantity))
-                            }, 0)) + (this.props.cartData.items.reduce(function(tot, arr) {
-                                return (tot + (arr.productQuantity * .37))
-                            }, 0)) +  (this.props.cartData.items.length * .50)).toFixed(2)}
+                                Total: $
+                                {
+                                    (
+                                        (this.props.cartData.items.reduce(function(tot, arr) {
+                                            return (tot + (arr.productData.productPrice * arr.productQuantity))
+                                        }, 0)) +
+                                        this.props.cartData.items.reduce(function(tot, arr) {
+                                            return (tot + ((arr.productData.productPrice * .15) * arr.productQuantity))
+                                        }, 0)
+                                    ).toFixed(2)
+                                }
                             </div>
                         </div>
                         <div className="checkout-but" onClick={this.showForm}>Checkout</div>

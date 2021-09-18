@@ -1,17 +1,5 @@
 // GOAL - Sep 22 (frontend, backend, cache, css, mobile)
 
-// MAIN TO-DO
-// compress images/delete unnessecary images
-// taxes
-// re-up product inventory
-
-// MAIN COMPLETED
-// add - set checkout form to autofill with user information so orders match up with profiles via email
-// adjust initial order (from signup) to something fancy for customer. maybe a free item
-// verify login screen - didn't send? -> try logging in again (or if they have a resend login function)
-// phone number auto format
-
-
 // STYLING
 // make site mobile
 // move face mask designs to left shrink text 2 cols

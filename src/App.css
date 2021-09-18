@@ -105,6 +105,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     height: 100%;
     animation: fade;
     animation-duration: 12s;
@@ -120,6 +121,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     height: 100%;
     animation: fade;
     animation-duration: 12s;
@@ -135,6 +137,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     height: 100%;
     animation: fade;
     animation-duration: 12s;
@@ -269,7 +272,7 @@ body {
 
 /* About Content */
 .parallax {
-    background: url('images/outfit3.jpg');
+    background: url('images/newprod.jpg');
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -393,18 +396,21 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 #ni2 {
     background: url('images/covid.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 #ni3 {
     background: url('images/donate.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 /* Map Content */
@@ -862,7 +868,6 @@ body {
     width: 200px;
 }
 .split-right {
-    /* background: #686868; */
     background: rgb(245, 245, 245);
     border: 1px solid #2c2c2c;
     text-align: center;
@@ -929,7 +934,6 @@ body {
 .total-container {
     font-size: 1.5em;
     margin-top: 15px;
-    /* color: #fff; */
     color: #2c2c2c;
 }
 .func-buttons {
@@ -968,7 +972,6 @@ body {
 .active-size {
     background: white;
     color: #2c2c2c;
-    /* border: none; */
     border: 1px solid #2c2c2c;
 }
 .active-size:hover {
@@ -982,9 +985,8 @@ button::-moz-focus-inner {
 .news-container {
 }
 .news-cover {
-    background: url('./images/letters.jpg');
-    /* background: linear-gradient(to bottom, #fff, #2c2c2c); */
-    /* background: purple; */
+    background: url('./images/smoke.jpg');
+    /* letters.jpg */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -997,14 +999,6 @@ button::-moz-focus-inner {
     text-shadow: 3px 3px 5px black;
     font-style: italic;
 }
-.cover-image {
-    height: 50vh;
-    width: 75%;
-    background: url('./images/newsfeed.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
 .full-height-container {
     display: flex;
     justify-content: space-evenly;
@@ -1012,7 +1006,6 @@ button::-moz-focus-inner {
     flex-wrap: wrap;
 }
 #nitem1 {
-    /* background: url('./images/sandiego2.jpg'); */
     background: #2c2c2c;
     background-size: cover;
     background-position: center;
@@ -1022,7 +1015,6 @@ button::-moz-focus-inner {
     border-bottom: 5px solid white;
 }
 #nitem2 {
-    /* background: url('./images/covid.jpg'); */
     background: #2c2c2c;
     background-size: cover;
     background-position: center;
@@ -1032,13 +1024,11 @@ button::-moz-focus-inner {
     padding: 50px;
 }
 #nitem3 {
-    /* background: url('./images/donate.jpg'); */
     background: #2c2c2c;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /* padding: 50px; */
 }
 .n-header {
     color: rgb(255, 255, 255);
@@ -1087,7 +1077,6 @@ button::-moz-focus-inner {
 }
 #ls1-container {
     transform: rotateZ(45deg);
-    /* shape-outside: ellipse(50% 45% at 50% 50%); */
     shape-outside: circle();
     margin: 50px;
     float: left;
@@ -1133,7 +1122,6 @@ button::-moz-focus-inner {
     text-shadow: 1px 1px 2px black;
 }
 #ls1 div {
-    /* margin: 20px; */
     width: 100%;
 }
 #ls1 div:last-child {
@@ -1193,7 +1181,6 @@ button::-moz-focus-inner {
     background-repeat: no-repeat;
 }
 .image-card:nth-child(2) {
-    /* transform: rotateZ(45deg); */
     background: rgba(0,0,0,.9);
     background: url('./images/palm.jpg');
     background-size: cover;
@@ -1208,9 +1195,6 @@ button::-moz-focus-inner {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-.image-card p {
-    /* transform: rotateZ(-45deg); */
 }
 .image-card:hover {
     z-index: 151;
@@ -1228,11 +1212,6 @@ button::-moz-focus-inner {
 }
 #ls2 {
     padding-right: 20px;
-    /* text-align: center; */
-    /* background: linear-gradient(to right, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c, red, #2c2c2c, #2c2c2c); */
-    /* background: radial-gradient(red, #2c2c2c, #2c2c2c, #2c2c2c, #2c2c2c); */
-    /* font-style: italic; */
-    /* text-shadow: 3px 3px 20px black; */
     font-size: 1.5em;
 }
 #rs2 {
@@ -1249,7 +1228,6 @@ button::-moz-focus-inner {
     font-size: 2.5em;
     margin-bottom: 50px;
     text-align: center;
-    /* background: linear-gradient(to bottom, rgb(28, 28, 28), #2c2c2c); */
     padding: 20px;
     width: 100%;
     height: 100px;
@@ -1436,7 +1414,6 @@ button::-moz-focus-inner {
     background: #2c2c2c;
     color: rgb(255, 255, 255);
     border: none;
-    /* border-radius: 3px; */
     box-shadow: inset 1px 1px 3px rgb(0, 0, 0), inset -1px -1px 3px gray;
     font-size: .75em;
 }
@@ -1679,7 +1656,6 @@ button::-moz-focus-inner {
 }
 
 /* Checkout Component */
-
 .checkout-form {
     display: none;
     grid-template-columns: 50% 50%;
@@ -1810,7 +1786,6 @@ textarea:focus {
 }
 
 .receipt-header {
-    /* background: linear-gradient(to right, white, #cccccc, white); */
     background: #2c2c2c;
     color: white;
     width: 100%;
@@ -1936,7 +1911,6 @@ textarea:focus {
 .support-msg {
     margin-top: 20px;
     font-size: 20px;
-    /* line-height: 30px; */
     width: 80%;
     text-align: center;
     margin-left: auto;
@@ -2025,7 +1999,6 @@ textarea:focus {
 .signup-link, .resend-link {
     margin-left: auto;
     margin-right: auto;
-    /* margin-top: 15px; */
     width: 250px;
     text-align: center;
     background: #2c2c2c;
@@ -2105,12 +2078,8 @@ textarea:focus {
 .ptitle {
     font-size: 2.5em;
 }
-.order-box {
-    /* margin-bottom: 50px; */
-}
 .order-item {
-    /* background: white; */
-    /* color: #2c2c2c; */
+
     width: 100%;
     text-align: right;
     display: flex;
@@ -2178,11 +2147,3 @@ textarea:focus {
 .resend:hover {
     cursor: pointer !important;
 }
-/* .noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-} */

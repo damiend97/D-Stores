@@ -17,21 +17,22 @@ class Checkout extends Component {
             customerData: {}
         }
     }
+
     componentDidMount = () => {
         commerce.cart.retrieve().then((cart) => {
-            let subtotal = cart.subtotal.raw.toFixed(2);
-            let taxes = (this.props.cartData.items.reduce(function(tot, arr) {
-                return (tot + (arr.productQuantity * .37))
-            }, 0)).toFixed(2)
+            let total = cart.subtotal.raw.toFixed(2);
+            // let taxes = (this.props.cartData.items.reduce(function(tot, arr) {
+            //     return (tot + (arr.productQuantity * .37))
+            // }, 0)).toFixed(2)
     
-            let shipping = (this.props.cartData.items.length * .50).toFixed(2);
+            // let shipping = 0;
     
-            let total =  parseFloat(subtotal) + parseFloat(taxes) + parseFloat(shipping);
+            // let total =  parseFloat(subtotal) + parseFloat(taxes) + parseFloat(shipping);
     
             console.log(total);
 
             this.setState({
-                total: "Pay " + total.toString()
+                total: "Pay $" + total.toString()
             })
         }).catch((error) => {
             console.log("There was an error getting the cart total...", error);
@@ -243,7 +244,7 @@ class Checkout extends Component {
                                     <CardElement className="card-element" />
                                     
                                     <div className="grid-item" id="g5">
-                                        <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
+                                        <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.props.total} id="checkout-submit"/>
                                         <input onClick={(e) => this.testSubmit(e)} type="submit" value="Pay with test gateway" id="test-submit"/>
 
                                     </div>
@@ -339,7 +340,11 @@ class Checkout extends Component {
                                 <CardElement className="card-element" />
                                 
                                 <div className="grid-item" id="g5">
-                                    <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={this.state.total} id="checkout-submit"/>
+                                    <input onClick={(e) => this.verifySubmit(e, elements, stripe)} disabled={!stripe} type="submit" value={"Pay $" +((this.props.cartData.items.reduce(function(tot, arr) {
+                        return (tot + (arr.productData.productPrice * arr.productQuantity))
+                    }, 0)) + (this.props.cartData.items.reduce(function(tot, arr) {
+                        return (tot + ((arr.productData.productPrice * .15) * arr.productQuantity))
+                    }, 0))).toFixed(2)} id="checkout-submit"/>
                                     <input onClick={(e) => this.testSubmit(e)} type="submit" value="Pay with test gateway" id="test-submit"/>
 
                                 </div>
