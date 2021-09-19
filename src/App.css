@@ -1313,7 +1313,7 @@ button::-moz-focus-inner {
 .donation-form button:hover {
     box-shadow: inset 1px 1px 3px gray, inset -1px -1px 3px rgb(0, 0, 0);
     cursor: pointer;
-} */
+}
 
 
 /* Cart Content */
@@ -1321,7 +1321,6 @@ button::-moz-focus-inner {
     display: flex;
     width: 100%;
 }
-
 .cart-list {
     width: 60%;
     min-height: 1000px;
@@ -1422,14 +1421,12 @@ button::-moz-focus-inner {
     background: #2c2c2c;
     color: white;
     width: 40%;
-    height: 100vh;
     position: fixed;
     overflow-y: scroll;
     right: 0;
+    height: 100%;
     padding: 50px;
     transition: all 1s ease;
-    z-index: 10000000000;
-    border: 1px solid green;
 }
 .cart-data-center {
     font-size: 3em;
