@@ -73,6 +73,7 @@ class Cart extends Component {
     }
     
     render() {
+        console.log(this.props.cartData);
         let {loadingValue} = this.props;
 
         const renderLoading = () => {

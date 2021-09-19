@@ -2,17 +2,11 @@
 
 // STYLING
 // make site mobile
-// move face mask designs to left shrink text 2 cols
-// put helping hand partners in with mission box
-// please fill out form alert
-// form on outside with better styling
-// new news landing page
 
 // CACHE
 // cache cart data and sync to commerce.js cart
 // empty cart when nessecary (clear cache) to avoid unwanted pile up of cart items
 // are you sure you want to leave this page -> clear cart?
-// are the carts linked to the users session already?
 
 // MOBILE
 // how will mobile react to exitAddComp via mouseLeave event?
