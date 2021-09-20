@@ -39,7 +39,7 @@ class Home extends Component {
                         </div>
                 </div>
 
-                <div className="full-view-container">
+                <div className="full-view-container fv1">
                     <div className="content-box">
                         <h1>Elite Footwear</h1>
                         <h3>Pump up your kicks</h3>
@@ -49,16 +49,16 @@ class Home extends Component {
                     <div className="image-box" id="ib1"></div>
                 </div>
 
-                <div className="full-view-container bg-gray">
+                <div className="full-view-container fv2 bg-gray">
                     <div className="image-box" id="ib2"></div>
-                    <div className="content-box cl-white">
+                    <div className="content-box cl-white cb-dark">
                         <h1>Assorted Tops</h1>
                         <h3>A look just for you</h3>
                         <button onClick={() => this.goShop("SHIRTS","")} className="buy-button">Buy Now</button>
                     </div>
                 </div>
 
-                <div className="full-view-container">
+                <div className="full-view-container fv3">
                     <div className="content-box">
                         <h1>Hoodies/Pullovers</h1>
                         <h3>Style with chill</h3>
@@ -79,7 +79,7 @@ class Home extends Component {
 
                 <div className="news-preview">
                     <div className="news-items">
-                        <div className="news-item full-view-container news-first">
+                        <div className="news-item news-first">
                             <div className="news-text">
                                 <h1>news from our feed</h1>
                             </div>
@@ -94,7 +94,7 @@ class Home extends Component {
                             </div>
                             <div className="news-image" id="ni1"></div>
                         </div>
-                        <div className="news-item full-view-container">
+                        <div className="news-item">
                         <div className="news-image" id="ni2"></div>
                         <div className="news-body">
                                 <div className="news-header">
@@ -106,7 +106,7 @@ class Home extends Component {
                                 <Link to="/news" className="news-link">Read more...</Link>
                             </div>
                         </div>
-                        <div className="news-item full-view-container">
+                        <div className="news-item">
                             <div className="news-body">
                                 <div className="news-header">
                                     Helping Hands 2021

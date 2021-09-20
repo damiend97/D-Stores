@@ -81,6 +81,10 @@ body {
 .s-shift:hover {
     color: rgb(150, 150, 150);
 }
+.nav-x:hover {
+    color: rgb(150, 150, 150);
+    cursor: pointer;
+}
 #cart-logo-container {
     transition: all 600ms ease;
 }
@@ -277,7 +281,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -307,6 +311,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 300;
+    margin-bottom: 20px;
 }
 .news-text h1 {
     width: 50%;
@@ -343,31 +348,36 @@ body {
     flex-wrap: wrap;
     align-items: center;
     position: relative;
-}
-.news-first {
-    height: 100vh !important;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 }
 .news-body {
     width: 50%;
-    height: 80%;
     font-size: 1.15em;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 75px;
+    padding: 45px;
     z-index: 150;
     color: black;
     background: rgba(255,255,255,.9);
+    line-height: 30px;
 }
 .news-body a {
     color: black;
     font-style: italic;
     font-size: 1.15em;
 }
+.news-link {
+    width: 100%;
+}
 .body-shrink {
-    height: 60% !important;
-    margin-top: -75px;
+    /* height: 60% !important; */
+    /* margin-top: -75px; */
 }
 .news-header {
     font-size: 1.5em;
@@ -376,17 +386,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 .news-desc {
     height: 50%;
-    width: 100%;
+    width: 80%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 .news-image {
-    height: inherit;
+    height: 100%;
     width: 100%;
     position: absolute;
     z-index: 100;
@@ -2022,4 +2034,118 @@ textarea:focus {
 }
 .resend:hover {
     cursor: pointer !important;
+}
+.nav-but {
+    display: none;
+}
+.nav-x {
+    display: none;
+    font-size: 1.5em;
+}
+@media only screen and (max-width: 1200px) {
+    .news-text h1 {
+        width: 80%;
+    }
+    .news-body {
+        width: 80%;
+    }
+}
+@media only screen and (min-width:901px) {
+    .nav-container {
+        height: 100px !important;
+    }
+    .nav-links {
+        display: flex !important;
+    }
+    .nav-but {
+        display: none !important;
+    }
+    .nav-x {
+        display: none !important;
+    }
+    .logo {
+        display: block !important;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .nav-links {
+        display: none;
+    }
+    .nav-but {
+        display: block;
+        margin: 20px;
+        font-size: 1.5em;
+    }
+    .nlmain {
+        height: 85%;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-items: center;
+        text-align: center;
+    }
+    .nlsub {
+        height: 15%;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+    .ml {
+        text-align: left;
+        margin-left: 25px;
+    }
+    .mr {
+        text-align: right;
+        margin-right: 25px;
+    }
+    .dark-bar {
+        font-size: .75em;
+    }
+    .center-text {
+        font-size: .5em;
+    }
+    .full-view-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+        font-size: .75em;
+    }
+    .image-box {
+        display: none;
+    }
+    .fv1 {
+        background: url('./images/shoes1.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .fv2 {
+        background: url('./images/shirts3final.png') #2c2c2c;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .fv3 {
+        background: url('./images/hoodie2.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .content-box {
+        background: rgba(255,255,255,.8);
+        box-shadow: 2px 2px 5px #2c2c2c;
+        width: 70%;
+    }
+    .cb-dark {
+        background:rgb(26, 26, 26, .8) !important;
+        box-shadow: 2px 2px 5px #fff;
+    }
+    .buy-button {
+        font-size: .9em;
+    }
+    .parallax {
+        font-size: .75em;
+    }
 }

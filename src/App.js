@@ -43,7 +43,6 @@ import Message from './components/Message';
 import Receipt from './components/Receipt';
 import CartError from './components/CartError';
 import { withRouter } from 'react-router'
-import $ from 'jquery';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { Auth } from 'aws-amplify';

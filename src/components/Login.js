@@ -47,7 +47,7 @@ class Login extends Component {
                     <div>
                         <h2>Verify identity</h2> <br /><br />
                         Please check your email <br /><br />
-                        <div className="fine-print">This may take a few minutes. <br /><br /> OR <br /> <div onClick={this.resend} className="resend">Resend Code</div></div>
+                        <div className="fine-print">This may take a few minutes. <br /><br /> OR <br /> <div onClick={this.resend} className="resend">Resend Link</div></div>
                     </div>
                 </div>
             );
