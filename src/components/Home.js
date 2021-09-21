@@ -41,28 +41,35 @@ class Home extends Component {
 
                 <div className="full-view-container fv1">
                     <div className="content-box">
-                        <h1>Elite Footwear</h1>
-                        <h3>Pump up your kicks</h3>
-                        
-                        <button onClick={() => this.goShop("SHOES","")} className="buy-button">Buy Now</button>
+                        <div>
+                            <h1>Elite Footwear</h1>
+                            <h3>Pump up your kicks</h3>
+                            
+                            <button onClick={() => this.goShop("SHOES","")} className="buy-button">Buy Now</button>
+                        </div>
                     </div>
+                        
                     <div className="image-box" id="ib1"></div>
                 </div>
 
                 <div className="full-view-container fv2 bg-gray">
                     <div className="image-box" id="ib2"></div>
                     <div className="content-box cl-white cb-dark">
-                        <h1>Assorted Tops</h1>
-                        <h3>A look just for you</h3>
-                        <button onClick={() => this.goShop("SHIRTS","")} className="buy-button">Buy Now</button>
+                        <div>
+                            <h1>Assorted Tops</h1>
+                            <h3>A look just for you</h3>
+                            <button onClick={() => this.goShop("SHIRTS","")} className="buy-button">Buy Now</button>
+                        </div>
                     </div>
                 </div>
 
                 <div className="full-view-container fv3">
                     <div className="content-box">
-                        <h1>Hoodies/Pullovers</h1>
-                        <h3>Style with chill</h3>
-                        <button onClick={() => this.goShop("HOODIES","")} className="buy-button">Buy Now</button>
+                        <div>
+                            <h1>Hoodies/Pullovers</h1>
+                            <h3>Style with chill</h3>
+                            <button onClick={() => this.goShop("HOODIES","")} className="buy-button">Buy Now</button>
+                        </div>
                     </div>
                     <div className="image-box" id="ib3"></div>
                 </div>
