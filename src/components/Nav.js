@@ -4,35 +4,52 @@ import $ from 'jquery';
 
 class Nav extends Component {
     openNav = () => {
-        $('.nav-container').css({
-            'height':'100vh',
-            'flex-wrap':'wrap'
-        });
-        $('.page-links').css({
-            'display': 'flex'
-        })
-        $('.function-links').css({
-            'display':'none'
-        });
         $('.page-link').toggleClass('hvr');
         $('.page-link').css('width','100%');
-        $('.logo').css('display','none');
-        $('.close-nav').css({
-            'display':'block'
-        });
+
+        $('.function-links').fadeToggle(200);
+        $('.logo').fadeToggle(200);
+        setTimeout(() => {
+            $('.nav-container').css({
+                'height':'300px',
+                'flex-wrap':'wrap'
+            });
+
+            $('.page-links').fadeToggle(200);
+            $('.close-nav').fadeToggle(200);
+            setTimeout(() => {
+                $('.page-links').css({
+                    'display': 'flex'
+                })
+            }, 200)
+            
+        }, 200)
+        
+        // $('.function-links').css({
+        //     'display':'none'
+        // });
+        // $('.logo').css('display','none');
+        // $('.close-nav').css({
+        //     'display':'block'
+        // });
     }
     closeNav = () => {
-        $('.nav-container').css({
-            'height':'100px',
-            'justify-content':'space-between',
-            'flex-wrap':'nowrap'
-        });
-        $('.page-links').css('display','none');
-        $('.page-link').toggleClass('hvr');
-        $('.nav-but').css('display','block');
-        $('.logo').css('display','block');
-        $('.close-nav').css('display','none');
-        $('.function-links').css('display','flex');
+        $('.page-links').fadeToggle(200);
+        setTimeout(() => {
+            $('.nav-container').css({
+                'height':'100px',
+                'justify-content':'space-between',
+                'flex-wrap':'nowrap'
+            });
+            setTimeout(() => {
+                $('.page-link').toggleClass('hvr');
+                $('.nav-but').fadeToggle(200);
+                $('.logo').fadeToggle(200);
+                $('.close-nav').fadeToggle(200);
+                $('.function-links').fadeToggle(200);
+            }, 200);
+        }, 200)
+        
     }
     render() {
         return (

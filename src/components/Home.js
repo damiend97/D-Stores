@@ -92,10 +92,10 @@ class Home extends Component {
                             </div>
                             <div className="news-body body-shrink">
                                 <div className="news-header">
-                                    New Location - San Diego, CA
+                                    New Location
                                 </div>
                                 <div className="news-desc">
-                                    We are excited to announce that we are officially open for business in San Diego. This is the largest of all of our locations and we are very proud of the way it turned out. Please swing by and enjoy a discount shopping price for your first time shopping there!
+                                    We are excited to announce that we are officially open for business in <b><i>San Diego</i></b>. This is the largest of all of our locations and we are very proud of the way it turned out. Please swing by and enjoy a discount shopping price for your first time shopping there!
                                 </div>
                                 <Link to="/news" className="news-link">Read more...</Link>
                             </div>
