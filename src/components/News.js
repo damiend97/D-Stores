@@ -8,20 +8,29 @@ class News extends Component {
         let navHeight = document.getElementById('navigation').clientHeight;
 
         let fvHeight = viewHeight - navHeight;
-        $('.full-height-container').css('min-height', fvHeight);
+
+        var x = window.matchMedia("(max-width: 900px)");
+
+        if (!x.matches) {
+            $('.full-height-container').css('min-height', fvHeight);
+        }
     }
 
     render() {
         return (
             <div className="news-container">
                  <div className="news-cover full-height-container">
-                    Elite Clothing News Feed
+                    News Feed
                 </div>
                 <div className="news-items">
                     <div id="nitem1">
                         <div className="n-box nbg">
                             <div className="n-center mtop">
-                                <div className="n-header n-header-1">New Location</div>
+                                <div className="n-header n-header-1">
+                                    <div className="banner-top">New Location</div>
+                                    New Location
+                                    <div className="banner-bottom">2512 Grant Street, San Diego, CA</div>
+                                </div>
                                 <div className="banner">2512 Grant Street, San Diego, CA</div>
 
                                 <div className="n-content">
@@ -34,6 +43,7 @@ class News extends Component {
                                     </div>
                                     
                                     <div className="store-info">
+                                        <i><h1>Store Hours</h1></i><br />
                                         <div className="t-row">
                                             <div className="darken">Monday - Friday</div><div className="clear nbl">7:00am - 8:30pm</div>
                                         </div>
@@ -48,7 +58,7 @@ class News extends Component {
                     <div id="nitem2">
                         <div className="n-box nbg">
                             <div className="n-center">
-                                <div className="n-header n-header-2 mbot">Closed for Corona</div>
+                                <div className="n-header n-header-2 mbot"><p>Closed for Corona</p></div>
                                 <div className="n-content">
                                     <h2>How Covid is affecting us...</h2>
                                     <div className="row-container">
@@ -59,7 +69,7 @@ class News extends Component {
                                         We as a company believe that the darkest times bring out in the best of us. That's why we have taken this opportunity to add to our product selection. Please browse our new face mask selection in the <i className="text-adjust">accessories</i> tab of our shop.
                                     </div>
                                     
-                                    <h2>Elite Mask Designs - <i><Link style={{color: 'black'}}to="/shop">Shop Now</Link></i></h2>
+                                    <h2>Elite Mask Designs - <i><Link className="masklink" style={{color: 'black'}}to="/shop">Shop Now</Link></i></h2>
                                     <div className="faces-container">
                                         <div className="face1 face"></div>
                                         <div className="face2 face"></div>
