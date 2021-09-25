@@ -438,68 +438,68 @@ body {
 
 /* Map Content */
 .map-container {
-    height: 95vh;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     background: url('../src/images/compass2.jpg');
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
 }
 .info {
-    height: 55%;
-    width: 35%;
-    background: rgba(0,0,0,.7);
+    width: 100%;
     z-index: 2;
-    padding: 25px;
     font-family: 'Source Serif Pro', serif;
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: white;
-    border-radius: 50px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 85vh;
 }
-.info hr {
-    width: 25%;
+.info2 {
+    background: rgba(0, 0, 0, .7);
+    padding: 50px;
+    text-align: center;
+}
+.info2 hr {
+    width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .split-bottom {
     font-size: .8em;
     margin-top: 10px;
 }
-.map {
+/* .map {
     background: url('images/map.png');
     mask-image: radial-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, .7));
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 80%;
-    width: 60%;
-    margin-left: -100px;
-    border-radius: 50px;
-}
+    height: 100px;
+    width: 100px;
+} */
 
 .message-pointer {
     position: absolute;
-    bottom: 25px;
-    left: 25px;
-    color: white;
+    color: #fff;
     font-size: 2em;
     display: flex;
+    justify-content: center;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
     font-style: italic;
+    text-align: center;
+    z-index: 10000;
+    bottom: 5px;
 }
 .down-arrow {
-    height: 40px;
-    width: 40px;
-    background: url('../src/images/down-arrow.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: white;
-    margin-left: 25px;
+    color: #fff;
 }
 .down-arrow:hover {
     cursor: pointer;
@@ -1017,22 +1017,43 @@ button::-moz-focus-inner {
 .news-container {
 }
 .news-cover {
-    /* background: url('./images/letters.jpg'); */
+    background: url('./images/beach.jpg');
     /* background: linear-gradient(to bottom, #2c2c2c, #a3a3a3); */
     /* letters.jpg */
     background-size: cover;
-    background: rgba(255, 255, 255, 1);
     background-repeat: no-repeat;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 5em;
+    font-size: 3.5em;
     font-weight: bolder;
-    color: #2c2c2c;
-    /* text-shadow: 3px 3px 5px rgb(186, 186, 186); */
+    color: #fff;
     font-style: italic;
     text-align: center;
+    height: 150px;
+    position: relative;
+}
+#news-down {
+    color: white;
+    position: absolute;
+    bottom: 25px;
+}
+.down-dark {
+    background: url('./images/down-arrow.png') !important;
+    height: 100px !important;
+    width: 100px !important;
+    background-size: cover !important;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    margin-left: -50px;
+}
+.news-cover div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .full-height-container {
     display: flex;
@@ -1041,8 +1062,8 @@ button::-moz-focus-inner {
     flex-wrap: wrap;
 }
 #nitem1 {
-    background: url('./images/sandiego2.jpg');
-    background-size: cover;
+    background: url('./images/palm.jpg');
+    background-size: 100% 120%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -1056,7 +1077,7 @@ button::-moz-focus-inner {
 }
 #nitem2 {
     background: url('./images/covid.jpg');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -1070,7 +1091,7 @@ button::-moz-focus-inner {
 }
 #nitem3 {
     background: url('./images/donate.jpg');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -1128,25 +1149,26 @@ button::-moz-focus-inner {
 .image-card {
     height: 200px;
     width: 200px;
-    color: white;
+    color: #2c2c2c;
     text-transform: uppercase;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    flex-wrap: wrap;
     font-size: .9em;
     font-style: italic;
-    background: rgba(0,0,0,.5);
+    /* background: rgba(0,0,0,.5); */
     z-index: 100;
-    text-shadow: 5px 5px 5px #2c2c2c;
+    text-shadow: 5px 5px 5px #fff;
     transition: height 1s ease, width 1s ease;
-    border-radius: 50%;
+    /* border-radius: 50%; */
     /* box-shadow: 5px 5px 3px #2c2c2c; */
     /* border: 1px solid #2c2c2c; */
+    position: relative;
 }
 .image-card p {
     width: 100%;
-    height: 100%;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -1154,57 +1176,71 @@ button::-moz-focus-inner {
     font-size: 2em;
     text-align: center;
 }
+.image-card .fas {
+    font-size: 6em;
+    color: #2c2c2c;
+}
 .image-card:nth-child(1) {
-    transform: rotateZ(-15deg) translateX(30px);
-    background: url('./images/outfit5.jpg');
+    /* transform: rotateZ(-15deg) translateX(30px); */
+    /* background: url('./images/outfit5.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .image-card:nth-child(2) {
-    background: rgba(0,0,0,.9);
-    background: url('./images/palm.jpg');
+    /* background: rgba(0,0,0,.9); */
+    /* background: url('./images/palm.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     z-index: 150;
-    margin-top: -25px;
+    /* margin-top: -25px; */
 }
 .image-card:nth-child(3) {
-    transform: rotateZ(15deg) translateX(-30px);
-    background: url('./images/coins.jpg');
+    /* transform: rotateZ(15deg) translateX(-30px); */
+    /* background: url('./images/coins.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 .store-info {
     margin-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 15px;
+    font-size: 1.2em;
 }
 .t-row {
-    display: flex;
-    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .darken {
-    background: #2c2c2c;
-    color: white;
+    background: none;
     width: 40%;
     font-style: italic;
     padding: 15px;
-    border: 1px solid black;
+    border: 3px solid #2c2c2c !important;
+    font-weight: bolder;
 }
-.d-nbo {
-    border-top: none !important;
-}
-.nbl {
-    border-left: none !important;
-}
+
 .clear {
-    border: 1px solid black;
     padding: 15px;
     width: 40%;
     font-style: italic;
-    background: white;
+    background: none;
 }
+
+.store-info h1 {
+    font-weight: normal !important;
+}
+.darken, .clear {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+
 .banner {
     position: absolute;
     top: 0;
@@ -1218,6 +1254,9 @@ button::-moz-focus-inner {
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 2px 2px 5px black;
+}
+.banner-bottom {
+    display: none;
 }
 .row-container {
     width: 75%;
@@ -1278,29 +1317,26 @@ button::-moz-focus-inner {
     height: 150px;
     width: 30%;
     background: url('./images/feedingamerica.png');
-    /* background-size: 200px 100px; */
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center !important;
     margin-top: -50px;
 }
 .box2 {
     height: 150px;
     width: 30%;
     background: url('./images/goodwill.png');
-    /* background-size: 100px 125px; */
-    background-size: contain;
+    background-size: 65% !important;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center !important;
 }
 .box3 {
     height: 150px;
     width: 30%;
     background: url('./images/habitat.png');
-    /* background-size: 200px 100px; */
-    background-size: contain;
+    background-size: cover !important;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center !important;
 }
 .donation-form-container {
     margin-top: 20px;
@@ -1453,6 +1489,16 @@ button::-moz-focus-inner {
 }
 .remove-but:hover {
     cursor: pointer;
+}
+.item-text {
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+    background: #2c2c2c;
+    color: #fff;
+    padding: 50px;
+    text-shadow: 4px 4px 4px #000;
+
 }
 .cart-data {
     background: #2c2c2c;
@@ -2174,30 +2220,72 @@ textarea:focus {
     }
 }
 @media only screen and (max-width: 900px) {
-    .map-container {
+    .item-text {
+        height: 100px;
+        padding: 0;
+        display: flex;
         justify-content: center;
-        width: 100%;
-        flex-wrap: wrap;
+        align-items: center;
+    }
+    .checkout-form {
+        padding: 0px !important;
+        width: 100% !important;
+    }
+    .grid-item {
+        grid-column-start: 1 !important;
+        grid-column-end: 3 !important;
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+    #g5 {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
         height: auto;
     }
-    .info {
+    #g5 input {
+        margin-left: 0 !important;
+        margin-top: 15px !important;
+        margin-bottom: 0px !important;
         width: 100%;
-        margin: 0px;
-        border-radius: 0px;
+
     }
-    .map {
-        width: 120px;
-        height: 120px;
-        margin: 0px;
-        border-radius: 0px;
+    .card-element {
+        width: 100%;
+    }
+    .cart-container {
+        display: block;
+    }
+    .cart-list {
+        width: 100%;
+        margin: 0;
+        min-height: auto;
+        font-size: .75em;
+    }
+    .cart-data {
+        height: auto;
+        width: 100%;
+        position: relative;
+        padding-bottom: 150px !important;
+        /* position: absolute; */
+    }
+    .checkout-but {
         position: absolute;
         bottom: 15px;
         right: 15px;
-        z-index: 200;
+        box-shadow: none;
+        width: 40%;
     }
-    .message-pointer {
-        display: none;
+    .clear-but {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        box-shadow: none;
+        width: 40%;
     }
+
+
+
     .function-links {
         display: flex;
         margin: 10px;
@@ -2251,6 +2339,7 @@ textarea:focus {
         justify-content: center;
         align-items: center;
     }
+
     .logo {
         font-size: 1.5em;
         margin: 15px;
@@ -2330,23 +2419,31 @@ textarea:focus {
 
     .news-container {
     }
+    .down-dark {
+        display: none;
+    }
     .news-cover {
         font-size: 3em;
         padding: 50px;
         height: 100px;
-        border-right: 6px solid #2c2c2c;
+        /* border-right: 6px solid #2c2c2c;
         border-left: 6px solid gray;
         border-bottom: 6px solid #2c2c2c;
-        border-top: 6px solid gray;
+        border-top: 6px solid gray; */
         padding: 0px;
         width: 90%;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         background: white;
-        box-shadow: 3px 3px 4px #313131;
-        /* text-shadow: 3px 3px 4px #313131; */
-        color: #414141;
+        text-shadow: 3px 3px 5px rgb(214, 214, 214);
+        color: #2c2c2c;
+    }
+    .news-cover div p {
+        display: none;
+    }
+    #news-down {
+        display: none;
     }
     .nbg {
         width: 100%;
@@ -2412,9 +2509,22 @@ textarea:focus {
         width: 100%;
     }
     .image-cards {
-        margin-top: 40px;
-        margin-bottom: 0px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 0px;
         font-size: 1.5em;
+    }
+    .image-card:nth-child(1),.image-card:nth-child(2),.image-card:nth-child(3) {
+        transform: rotate(0);
+        height: 125px;
+        width: 125px;
+        font-size: .45em;
+        overflow: hidden;
+        border-radius: 0;
+        margin: 0px;
+    }
+    .image-card {
+        height: 200px !important;
     }
     .store-info {
         margin-bottom: 0px !important;
@@ -2425,6 +2535,9 @@ textarea:focus {
         padding: 50px;
         font-size: 1.2em;
         padding-top: 35px;
+    }
+    .store-info h1 {
+        font-weight: normal !important;
     }
     .t-row {
         display: block;
@@ -2439,14 +2552,15 @@ textarea:focus {
     }
     .darken {
         background: rgb(28, 28, 28);
+        background: none;
+        border: 3px solid #2c2c2c !important;
+        z-index: 300;
+        color: #2c2c2c;
+        font-weight: bolder;
     }
     .clear {
         color: #2c2c2c;
-        border-left: 1px inset #2c2c2c !important;
-        border-right: 1px inset #2c2c2c !important
-    }
-    .clear:nth-child(2) {
-        border-bottom: 1px inset #2c2c2c !important;
+
     }
     #nitem2 {
         background: none;
@@ -2455,20 +2569,14 @@ textarea:focus {
     .n-header-2 {
         background: url('./images/covid.jpg');
         background-size: cover;
+        background-repeat: no-repeat;
         background-position: center;
-        height: 300px !important;
+        height: 300px;
         margin: 0px !important;
         text-shadow: 2px 2px 5px black;
         margin-bottom: 20px !important;
         position: relative;
-    }
-    .n-header-2 p {
-        background: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,0));
-        width: 100%;
-        top: 0px;
         color: white;
-        padding: 15px;
-        position: absolute;
     }
     .n-content {
         margin: 0px;
@@ -2502,20 +2610,56 @@ textarea:focus {
     .face {
         margin: 0 !important;
         border-radius: 0px;
-        height: 250px !important;
+        height: 125px !important;
+        width: 100%;
     }
-
     .masklink {
         color: white !important;
+    }
+
+
+    #nitem3 {
+        background: none;
     }
     .nb3 {
         background: none;
         width: 100%;
+        padding: 0px;
     }
     .nh3 {
-        background: #2c2c2c;
+        background: url('./images/donate.jpg');
+        background-size: cover;
+        background-position: center;
         color: white;
+        width: 100%;
+        height: 300px;
+    }
+    .nh3 p {
+        background: rgba(0,0,0,.6);
+        width: 100%;
         padding: 20px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+    }
+    .boxes {
+        width: 100%;
+        padding: 0px !important;
+    }
+    .box1 {
+        background-position: 0 40px;
+        width: 30%;
+    }
+    .box2 {
+        background-size: 50px 60px;
+        background-position: center;
+        width: 30%;
+        margin: 0px;
+    }
+    .box3 {
+        background-position: center;
+        width: 30%;
+
     }
     .donation-form-container {
         background: rgba(255, 255, 255, .8);
@@ -2524,6 +2668,22 @@ textarea:focus {
         width: 80%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .contact-form {
+        grid-template-columns: 100%;
+        width: 100%;
+    }
+    #g1 {
+        grid-row: 1 / 2;
+    }
+    #g2 {
+        grid-row: 2 / 3;
+    }
+    #g3 {
+        grid-row: 3 / 4;
+    }
+    #g4 {
+        grid-row: 4 / 7;
     }
 }
 @media only screen and (max-width: 800px) {
@@ -2553,6 +2713,17 @@ textarea:focus {
     }
 }
 @media only screen and (max-width: 600px) {
+    .cart-item-image {
+        height: 150px;
+        width: 200px;
+        margin-left: 15px;
+    }
+    .box1 {
+        background-size: contain !important;
+    }
+    .box3 {
+        background-size: contain !important;
+    }
     .news-body {
         background: rgba(255,255,255,1);
     }
@@ -2603,19 +2774,9 @@ textarea:focus {
     .donation-form {
         width: 100%;
     }
+    
 }
 @media only screen and (max-width: 550px) {
-    .image-cards {
-        flex-wrap: wrap;
-    }
-    .image-card:nth-child(1),.image-card:nth-child(2),.image-card:nth-child(3) {
-        transform: rotate(0);
-        margin: 0px;
-        height: 300px;
-        width: 100%;
-        border-radius: 0;
-    }
-    
     .darken {
         height: 75px;
         display: flex;

@@ -89,6 +89,7 @@ class Cart extends Component {
                 <div className="cart-container">
                 {renderLoading()}
                     <div className="cart-list">
+                        <div className="item-text">Your Cart</div>
                         {this.props.cartData.items.map((item, num) => {
                             return (
                                 <div className="cart-item" key={item.productData.productId*num}>
@@ -105,7 +106,7 @@ class Cart extends Component {
                         })}
                     </div>
                     <div className="cart-data">
-                        <div className="cart-data-center">Your Cart</div>
+                        <div className="cart-data-center">Cart Totals</div>
                         <div className="cart-total">
                             Subtotal: ${(this.props.cartData.items.reduce(function(tot, arr) {
                         return (tot + (arr.productData.productPrice * arr.productQuantity))
@@ -143,6 +144,7 @@ class Cart extends Component {
             return (
                 <div className="cart-container">
                     <div className="cart-list">
+                        <div className="item-text">Your Cart</div>
                         {this.props.cartData.items.map(item => {
                             return (
                                 <div className="cart-item" key={item.productData.productId}>
@@ -159,7 +161,7 @@ class Cart extends Component {
                         })}
                     </div>
                     <div className="cart-data">
-                        <div className="cart-data-center">Your Cart</div>
+                        <div className="cart-data-center">Cart Totals</div>
                         <div className="cart-data-empty">Your cart is empty.</div>
                     </div>
                 </div>

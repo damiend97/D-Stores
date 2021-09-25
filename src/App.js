@@ -1,5 +1,8 @@
 // GOAL - Sep 22 (frontend, backend, cache, css, mobile)
 
+
+// give credit to unsplash
+
 // STYLING
 // make site mobile
 

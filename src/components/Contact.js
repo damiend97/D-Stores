@@ -6,7 +6,7 @@ class Contact extends Component {
         let viewHeight = document.documentElement.clientHeight;
         let navHeight = document.getElementById('navigation').clientHeight;
 
-        $('.full-view-split').css('height', viewHeight - navHeight);
+        // $('.full-view-split').css('height', viewHeight - navHeight);
 
         $('a[href^="#"]').on('click', function(event) {
             var target = $(this.getAttribute('href'));
@@ -22,27 +22,28 @@ class Contact extends Component {
     render() {
         return (
             <div>
-                <div className="map-container full-view-container">
+                <div className="map-container">
                     <div className="info">
-                        <h2>Elite Clothing Headquarters</h2>
-                        <hr></hr>
-                        <div className="split">
-                            <div className="split-top">
-                                1234 Homestead Rd<br></br>
-                                Santa Clara, CA 95050<br></br>
-                                (123) 456-7890<br></br>
-                                eliteclothing@gmail.com
+                        <div className="info2">
+                            <h2>Elite Clothing Headquarters</h2>
+                            <hr></hr>
+                            <div className="split">
+                                <div className="split-top">
+                                    1234 Homestead Rd<br></br>
+                                    Santa Clara, CA 95050<br></br>
+                                    (123) 456-7890<br></br>
+                                    eliteclothing@gmail.com
+                                </div>
+                                <div className="split-bottom">
+                                    Monday - Thursday, 11:00 to 19:00<br></br>
+                                    Friday and Saturday, 10:00 to 19:00<br></br>
+                                    Sunday, Closed
+                                </div>
                             </div>
-                            <div className="split-bottom">
-                                Monday - Thursday, 11:00 to 19:00<br></br>
-                                Friday and Saturday, 10:00 to 19:00<br></br>
-                                Sunday, Closed
+                            <div className="message-pointer">
+                                <a href="#contact-t" className="down-arrow"><i class="fas fa-chevron-down"></i></a>
                             </div>
-                        </div>
-                    </div>
-                    <div className="map"></div>
-                    <div className="message-pointer">
-                        <p>Message Us</p><a href="#contact-t" className="down-arrow"></a>
+                        </div> 
                     </div>
                 </div>
 

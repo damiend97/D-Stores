@@ -14,17 +14,27 @@ class News extends Component {
         if (!x.matches) {
             $('.full-height-container').css('min-height', fvHeight);
         }
+
+        $('a[href^="#"]').on('click', function(event) {
+            var target = $(this.getAttribute('href'));
+            if( target.length ) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: (target.offset().top - (navHeight + 50))
+                }, 1000);
+            }
+        });
     }
 
     render() {
         return (
             <div className="news-container">
                  <div className="news-cover full-height-container">
-                    News Feed
+                    <div><p>Elite Clothing</p>&nbsp;News Feed</div><a id="news-down" href="#nb1"><i class="fas fa-chevron-down"></i></a>
                 </div>
                 <div className="news-items">
                     <div id="nitem1">
-                        <div className="n-box nbg">
+                        <div className="n-box nbg" id="nb1">
                             <div className="n-center mtop">
                                 <div className="n-header n-header-1">
                                     <div className="banner-top">New Location</div>
@@ -37,9 +47,9 @@ class News extends Component {
                                     <p className="bgwhite">We are excited to announce that we are officially open for business in San Diego. This is the largest of all of our locations and we are very proud of the way it turned out. Please swing by and enjoy a discount shopping price for your first time shopping there!</p>
 
                                     <div className="image-cards">
-                                        <div className="image-card"><p>New Products</p></div>
-                                        <div className="image-card"><p>New Location</p></div>
-                                        <div className="image-card"><p>New <br /> Deals</p></div>
+                                        <div className="image-card"><p>New Products</p><i class="fas fa-tshirt"></i></div>
+                                        <div className="image-card"><p>New Location</p><i class="fas fa-home"></i></div>
+                                        <div className="image-card"><p>New <br />Deals</p><i class="fas fa-dollar-sign"></i></div>
                                     </div>
                                     
                                     <div className="store-info">
@@ -58,7 +68,7 @@ class News extends Component {
                     <div id="nitem2">
                         <div className="n-box nbg">
                             <div className="n-center">
-                                <div className="n-header n-header-2 mbot"><p>Closed for Corona</p></div>
+                                <div className="n-header n-header-2 mbot"><div className="banner-top"></div>Closed for Corona<div className="banner-bottom"></div></div>
                                 <div className="n-content">
                                     <h2>How Covid is affecting us...</h2>
                                     <div className="row-container">
@@ -82,7 +92,7 @@ class News extends Component {
                    <div id="nitem3">
                         <div className="n-box nb3">
                             <div className="n-center">
-                                <div className="n-header nh3">Helping Hands 2021</div>
+                                <div className="n-header nh3"><div className="banner-top"></div>Helping Hands 2021<div className="banner-bottom"></div></div>
                                 <div className="n-content">
                                     <h2>Our Mission</h2>
                                     <div className="row-container">
