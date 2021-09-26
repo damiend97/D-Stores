@@ -1,18 +1,9 @@
-// GOAL - Sep 22 (frontend, backend, cache, css, mobile)
-
-
 // give credit to unsplash
-
-// STYLING
-// make site mobile
-
-// CACHE
-// cache cart data and sync to commerce.js cart
-// empty cart when nessecary (clear cache) to avoid unwanted pile up of cart items
-// are you sure you want to leave this page -> clear cart?
-
-// MOBILE
-// how will mobile react to exitAddComp via mouseLeave event?
+// mobile mouseleave exit addcomp
+// cache
+// product detail page
+// add face masks to store
+// create subgroups for things like hats/jeans
 
 // REMINDERS
 // App.js > componentDidMount refreshes cart for new cart on reload
@@ -21,13 +12,6 @@
 
 // WARNINGS
 // investigate memory leak warning
-
-// LONG TERM GOALS
-// link posts to state - create blog functionality
-// spice up error page
-// product detail page
-// add face masks to store
-// create subgroups for things like hats/jeans
 
 import React, { Component } from 'react';
 import './App.css';
@@ -829,7 +813,6 @@ class App extends Component {
         try {
             await Auth.signIn(username, password);
 
-            /* fetch users email here based on their username */
             try {
                 const users = await DataStore.query(Users);
                 let userEmail = "";

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { commerce } from '../lib/commerce';
-// import { Link } from 'react-router-dom';
-import Checkout from './Checkout';
+\import Checkout from './Checkout';
 import $ from 'jquery';
 import Loading from './Loading';
 

@@ -59,7 +59,6 @@ class Shop extends Component {
             document.getElementById('all-types-button').classList.remove('type-filter-selected');
 
             if(this.state.typeFilters.includes(e.target.innerHTML)) {
-                // remove type from array
                 let filters = [...this.state.typeFilters];
                 for (var i=filters.length-1; i>=0; i--){
                     if(filters[i] === e.target.innerHTML) {

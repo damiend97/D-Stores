@@ -6,8 +6,6 @@ class Contact extends Component {
         let viewHeight = document.documentElement.clientHeight;
         let navHeight = document.getElementById('navigation').clientHeight;
 
-        // $('.full-view-split').css('height', viewHeight - navHeight);
-
         $('a[href^="#"]').on('click', function(event) {
             var target = $(this.getAttribute('href'));
             if( target.length ) {

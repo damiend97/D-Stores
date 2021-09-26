@@ -11,7 +11,6 @@ class addToCart extends Component {
         }
     }
 
-
     componentDidMount = () => {
         // set state to variant inventory data here to display to the user
     }
@@ -202,29 +201,7 @@ class addToCart extends Component {
             <div className="add-to-cart-container" onMouseLeave={this.props.exitAddComp}>
                 <div className="split-left">
                     <div className={`img-box-${this.props.image}`}></div>
-                    {/* <img src={require(`../../public/images/products/${this.props.image}.png`)} className="small-product" alt="product" /> */}
                     <i className="fas fa-times exit-product-button" onClick={this.props.exitAddComp}></i>
-                    {/* <div className="inventory-container">
-                        <div className="i-text">Store Inventory</div>
-                        <div className="i-grid">
-                            <div className="i-g-item">
-                                <div>SMALL</div>
-                                <div>(4)</div>
-                            </div>
-                            <div className="i-g-item">
-                                <div>MEDIUM</div>
-                                <div>(2)</div>
-                            </div>
-                            <div className="i-g-item">
-                                <div>LARGE</div>
-                                <div>(1)</div>
-                            </div>
-                            <div className="i-g-item">
-                                <div>X-LARGE</div>
-                                <div>(17)</div>
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
 
                 <div className="split-right">

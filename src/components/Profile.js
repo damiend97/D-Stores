@@ -4,9 +4,6 @@ import Login from './Login';
 import Amplify from 'aws-amplify';
 import awsconfig from '../aws-exports';
 import Loading from './Loading';
-import { commerce } from '../lib/commerce';
-import { DataStore } from '@aws-amplify/datastore';
-import { Users } from '../models';
 import CustomerInfo from './CustomerInfo';
 
 Amplify.configure(awsconfig);
