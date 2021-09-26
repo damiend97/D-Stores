@@ -286,7 +286,7 @@ class Checkout extends Component {
                                 {/* Shipping ------------- */}
 
                                 <div className="grid-item grid-full">
-                                    <label htmlFor="shipping-address">Shipping Address</label>
+                                    <label htmlFor="shipping-address">Shipping Information</label>
                                     <input className="required-field" required type="text" placeholder="Full Name" name="shippingName" />
                                 </div>
  
@@ -309,7 +309,7 @@ class Checkout extends Component {
                                  {/* Billing ------------- */}
 
                                  <div className="grid-item grid-full">
-                                    <label htmlFor="billing-address">Billing Address</label>
+                                    <label htmlFor="billing-address">Billing Information</label>
                                     <input className="required-field" required type="text" placeholder="Full Name" name="billingName" />
                                 </div>
  

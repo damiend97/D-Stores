@@ -1494,11 +1494,7 @@ button::-moz-focus-inner {
     text-align: center;
     width: 100%;
     font-size: 3em;
-    background: #2c2c2c;
-    color: #fff;
     padding: 50px;
-    text-shadow: 4px 4px 4px #000;
-
 }
 .cart-data {
     background: #2c2c2c;
@@ -2220,12 +2216,103 @@ textarea:focus {
     }
 }
 @media only screen and (max-width: 900px) {
+    .confirm-form-container input {
+        width: 100% !important;
+    }
+    .order-header {
+        border: none !important;
+        margin-bottom: 30px;
+    }
+    .centerhr {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .prow div:first-child {
+        border: 1px solid white;
+        padding: 2px;
+        margin-bottom: 5px !important;
+    }
+    .boldrow div:first-child {
+        border: none !important;
+        margin-top: 30px;
+    }
+    .bolderrow {
+        margin-top: 50px !important;
+    }
+    .bolderrow div:first-child {
+        background: white;
+        color: #2c2c2c;
+    }
+    .prownb div {
+        border: none !important;
+    }
+    .pemail {
+        word-break: break-all;
+    }
+    .em2 {
+        width: 90%;
+        text-align: center;
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+    }
+    .em2 .prow:last-child {
+        margin-bottom: 0px !important;
+    }
+    .prow {
+        display: block;
+        margin-bottom: 20px !important;
+    }
+    .customer-info {
+        overflow: hidden;
+    }
+    .f-right {
+        justify-content: center;
+        padding: 0;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+    }
+    .profile-form-container input {
+        width: 100% !important;
+    }
+    .merchant-text {
+        font-size: 2em;
+    }
+    .merchant-details {
+        width: 100%;
+    }
+    .support-msg {
+        width: 100%;
+    }
+    .down-arrow-receipt {
+        height: 80px;
+        width: 80px;
+        margin-left: -40px;
+    }
+    .items-text {
+        width: 100%;
+    }
+    .customer-email {
+        word-break: break-all !important;
+    }
+    .order-details div {
+        width: 100%;
+        font-size: .75em;
+        padding: 15px !important;
+        text-align: center;
+        height: auto;
+    }
     .item-text {
         height: 100px;
         padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
+        background: #2c2c2c;
+        color: #fff;
+        text-shadow: 4px 4px 4px #000;
+    }
+    .cart-item {
+        font-size: .75em;
     }
     .checkout-form {
         padding: 0px !important;
@@ -2260,7 +2347,7 @@ textarea:focus {
         width: 100%;
         margin: 0;
         min-height: auto;
-        font-size: .75em;
+        /* font-size: .75em; */
     }
     .cart-data {
         height: auto;
@@ -2671,7 +2758,7 @@ textarea:focus {
     }
     .contact-form {
         grid-template-columns: 100%;
-        width: 100%;
+        width: 90%;
     }
     #g1 {
         grid-row: 1 / 2;

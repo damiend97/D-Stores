@@ -124,7 +124,7 @@ class CustomerInfo extends Component {
                     <div className="em2">
                         <div className="prow"><div>First Name</div><div>{this.state.customerData.firstname}</div></div>
                         <div className="prow"><div>Last Name</div><div>{this.state.customerData.lastname}</div></div>
-                        <div className="prow"><div>Email</div><div>{this.state.customerData.email}</div></div>
+                        <div className="prow pemail"><div>Email</div><div>{this.state.customerData.email}</div></div>
                         <div className="prow"><div>Phone Number</div><div>{this.state.customerData.phone}</div></div>
                     </div>
 
@@ -165,7 +165,7 @@ class CustomerInfo extends Component {
                                                 }
                                                 return (
                                                     <div>
-                                                        <div className="prow"><div>{item.product_name} {option}</div><div>{item.line_total_with_tax.formatted_with_symbol} X {item.quantity}</div></div>
+                                                        <div className="prow prownb"><div>{item.product_name} {option}</div><div>{item.line_total_with_tax.formatted_with_symbol} X {item.quantity}</div></div>
                                                     </div>
                                                 )
                                             })}
