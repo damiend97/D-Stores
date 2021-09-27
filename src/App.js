@@ -822,7 +822,7 @@ class App extends Component {
                     }
                 })
 
-                commerce.customer.login(userEmail, 'http://10.0.0.164:3000/verify-login').then(res => console.log(res)).catch(err => console.log(err))
+                commerce.customer.login(userEmail, 'https://main.d3v4vsd52vznw2.amplifyapp.com/verify-login').then(res => console.log(res)).catch(err => console.log(err))
                 
                 this.setState({
                     showValidate: true
