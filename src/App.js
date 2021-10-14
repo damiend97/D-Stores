@@ -1,4 +1,3 @@
-// give credit to unsplash
 // mobile mouseleave exit addcomp
 // cache
 // product detail page
@@ -8,7 +7,6 @@
 // REMINDERS
 // App.js > componentDidMount refreshes cart for new cart on reload
 // App.js > componentWillUnmount does commerce.customer.logout()
-// will have to set callback function from localhost/verify-login to https://main.d3v4vsd52vznw2.amplifyapp.com/verify-login
 
 // WARNINGS
 // investigate memory leak warning

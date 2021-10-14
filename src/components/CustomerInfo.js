@@ -164,7 +164,7 @@ class CustomerInfo extends Component {
                                                     option = "(N/A)";
                                                 }
                                                 return (
-                                                    <div>
+                                                    <div key={item.id}>
                                                         <div className="prow prownb"><div>{item.product_name} {option}</div><div>{item.line_total_with_tax.formatted_with_symbol} X {item.quantity}</div></div>
                                                     </div>
                                                 )
